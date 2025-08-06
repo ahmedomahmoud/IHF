@@ -1,0 +1,244 @@
+[Definition]
+gameinfo=Game;Group;TIDA;TeamNameA;TeamName2A;NatA;TeamA;TIDB;TeamNameB;TeamName2B;NatB;TeamB;Lastper;PLTIME;ActPer;CurPer;GStatus;PStatus;FinishTime;Win;RA;RB;RA1;RB1;RA2;RB2;OT1A;OT1B;OT2A;OT2B;PSA;PSB;nNormal;nExtra
+referee=Game;Name1;Nat1;REF1ID;REF1Kind;REF1Info;Name2;Nat2;REF2ID;REF2Kind;REF2Info;Name3;Nat3;REF3ID;REF3Kind;REF3Info;NoYC;No2min;NoRC;NoEX
+statind=Game;TC;TID;Team;First;Nr;ID;Name;SurName;FirstName;PosIx;PosShort;PA;AllG;AllShots;AllEff;FieldG;FieldShots;FieldEff;P7mG;P7mShots;P7mEff;P6mG;P6mShots;P6mEff;WingG;WingShots;WingEff;BTG;BTShots;BTEff;NearG;NearShots;NearEff;P9mG;P9mShots;P9mEff;FBG;FBShots;FBEff;FGG;FGShots;FGEff;FBCG;FBCShots;FBCEff;FBLG;FBLShots;FBLEff;FBRG;FBRShots;FBREff;PosG;PosAll;PosEff;Ass;ST;BL;RF7m;PF7m;YC;P2minT;P2minN;P2m;P22m;RC;EX;Time;ENG;ENShots;ENEff;XMG;XMShots;XMEff;TO;TF;TOG;Is;GkSaves;GkShots;GkEff
+keepind=Game;TC;TID;Team;First;Nr;ID;Name;SurName;FirstName;AllS;AllShots;AllEff;FBS;FBShots;FBEff;FGS;FGShots;FGEff;PosS;PosShots;PosEff;NearS;NearShots;NearEff;P7mS;P7mShots;P7mEff;WingS;WingShots;WingEff;P9mS;P9mShots;P9mEff;FieldS;FieldShots;FieldEff;P6mS;P6mShots;P6mEff;BTS;BTShots;BTEff;Time
+statteam=Game;TC;TID;Team;TeamName;AllG;AllShots;AllEff;FieldG;FieldShots;FieldEff;P7mG;P7mShots;P7mEff;P6mG;P6mShots;P6mEff;WingG;WingShots;WingEff;BTG;BTShots;BTEff;NearG;NearShots;NearEff;P9mG;P9mShots;P9mEff;FBG;FBShots;FBEff;FGG;FGShots;FGEff;FBCG;FBCShots;FBCEff;FBLG;FBLShots;FBLEff;FBRG;FBRShots;FBREff;PosG;PosAll;PosEff;Ass;ST;BL;RF7m;PF7m;YC;P2minT;P2minN;P2m;P22m;RC;EX;Time;ENG;ENShots;ENEff;XMG;XMShots;XMEff;TO;TF;TOG;TTF;TTOG;TPPTime;TPPG;Cmt
+actions=Game;TC;TID;Team;NoAct;Per;Pos;PLTime;Nr;ID;Name;Nr2;TC2;ID2;Name2;Text2;GKNr;GKID;GKName;Action;Succ;Z1;Z2;Comment;GoalA;GoalB;PSA;PSB;Diff;Short;Code2;Code3;Text;TimeStamp;xShot;yShot;yDest;zDest;Speed;Distance
+
+[gameinfo]
+09;F;ISL;Iceland;Iceland;ISL;ISL;ROU;Romania;Romania;ROU;ROU;H2;;E;E;E;E;;2;25;29;12;15;13;14;;;;;;;;
+
+[referee]
+09;MITROVIC Novica;MNE;177169;Referee;;VESOVIC Miljan;MNE;177170;Referee;;PUKSIC Zan;SLO;1316907;Reserve Referee;;0;0;0;0
+
+[statind]
+09;A;ISL;ISL;*;10;1297837;ERLINGSSON Elmar;Erlingsson;Elmar;2;CB;;4;8;50;2;5;40;2;3;67;;;;;;;1;1;100;1;1;100;1;4;25;;;;;;;;;;;;;;;;;;;7;0;0;3;0;0;0;0;0;0;;0;0;45:37;;;;;;;6;;6;N;0;0;
+09;A;ISL;ISL;*;11;1297832;STEINSSON Birkir Snaer;Steinsson;Birkir Snaer;2;RB;;5;7;71;5;7;71;;;;;;;;;;1;1;100;1;1;100;4;6;67;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;49:07;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;*;12;1297843;STEINSSON Õsak;Steinsson;Õsak;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;41:32;;;;;;;0;;0;N;8;29;28
+09;A;ISL;ISL;*;13;1297836;VALSSON Eiƒëur Rafn;Valsson;Eiƒëur Rafn;2;RW;;0;1;0;0;1;0;;;;;;;0;1;0;;;;0;1;0;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;30:44;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;*;14;1297855;HARALDSSON ÷ssur;Haraldsson;÷ssur;2;CB;;4;8;50;4;7;57;0;1;0;;;;2;5;40;;;;2;5;40;;;;2;2;100;;;;2;2;100;;;;;;;;;;0;1;0;0;0;0;0;0;0;0;;0;0;38:26;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;;16;1297833;√ÅRNASON Breki Hrafn;√Årnason;Breki Hrafn;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;14:59;;;;;;;0;;0;N;6;14;43
+09;A;ISL;ISL;*;17;1297851;EINARSSON Skarph√©ƒëinn Õvar;Einarsson;Skarph√©ƒëinn Õvar;2;LB;;3;8;38;3;8;38;;;;;;;;;;1;3;33;1;3;33;2;5;40;;;;;;;;;;;;;;;;;;;1;0;2;0;1;0;0;0;0;0;;0;0;42:35;;;;;;;2;;2;N;0;0;
+09;A;ISL;ISL;*;18;1297853;THORVALDSSON Thorvaldur ÷rn;Thorvaldsson;Thorvaldur ÷rn;2;P;;4;5;80;4;5;80;;;;4;5;80;;;;;;;4;5;80;;;;;;;;;;;;;;;;;;;;;;1;0;1;0;0;0;0;0;0;0;;0;0;37:18;;;;;;;1;;1;N;0;0;
+09;A;ISL;ISL;;19;1297841;HEIƒêARSSON Hinrik Hugi;Heiƒëarsson;Hinrik Hugi;2;P;;2;2;100;2;2;100;;;;2;2;100;;;;;;;2;2;100;;;;;;;;;;;;;;;;;;;;;;0;0;0;1;0;0;0;0;0;0;;0;0;05:55;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;;22;1297844;VIƒêARSSON Õvar Bessi;Viƒëarsson;Õvar Bessi;2;LB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;06:56;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;;3;1297850;SIGURJ√ìNSSON Sigurdur Snaer;Sigurj√≥nsson;Sigurdur Snaer;2;LW;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;17:41;;;;;;;1;;1;N;0;0;
+09;A;ISL;ISL;;5;1297838;√ìLAFSSON Hans J√∂rgen;√ìlafsson;Hans J√∂rgen;2;P;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;23:57;;;;;;;1;;1;N;0;0;
+09;A;ISL;ISL;;6;1297849;MATTHÕASSON Sigurdur P√°ll;Matth√≠asson;Sigurdur P√°ll;2;P;;2;4;50;2;4;50;;;;2;3;67;;;;0;1;0;2;4;50;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;4;2;2;0;;0;0;29:19;;;;;;;1;;1;N;0;0;
+09;A;ISL;ISL;;8;1297830;ELÕSSON Andri Fannar;El√≠sson;Andri Fannar;2;RW;;1;2;50;1;2;50;;;;;;;1;2;50;;;;1;2;50;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;25:15;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;;9;1297839;HAUKSSON Haukur Ingi;Hauksson;Haukur Ingi;2;LB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;10:39;;;;;;;0;;0;N;0;0;
+09;A;ISL;ISL;;32;1989295;J√ìHANNSSON Bjarki;J√≥hannsson;Bjarki;2;LB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;00:00;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;*;12;1989550;SIRGHIE Marian;Sirghie;Marian;1;;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;53:42;;;;;;;0;;0;N;15;40;38
+09;B;ROU;ROU;*;33;1989563;RADU Codrin;Radu;Codrin;2;RB;1;6;14;43;6;14;43;;;;2;2;100;;;;1;2;50;3;4;75;3;10;30;;;;;;;;;;;;;;;;;;;3;2;0;0;0;0;0;0;0;0;;0;0;59:49;;;;;;;1;;1;N;0;0;
+09;B;ROU;ROU;*;44;1989551;STANCIUC Daniel;Stanciuc;Daniel;2;CB;1;11;19;58;11;18;61;0;1;0;;;;;;;4;4;100;4;4;100;7;13;54;;;;;;;;;;;;;;;;;;;9;1;0;0;0;0;0;0;0;0;;0;0;48:41;0;1;0;;;;1;;1;N;0;0;
+09;B;ROU;ROU;;11;1989561;NICULAIE Florian;Niculaie;Florian;2;CB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;01:46;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;*;14;1989557;ARMANU Stefan;Armanu;Stefan;2;LW;;2;2;100;2;2;100;;;;;;;2;2;100;;;;2;2;100;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;47:57;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;19;1989554;PAVLOV David;Pavlov;David;2;RW;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;14:38;;;;;;;1;;1;N;0;0;
+09;B;ROU;ROU;*;3;1989558;OANCEA Andrei;Oancea;Andrei;2;P;;4;5;80;4;5;80;;;;4;5;80;;;;;;;4;5;80;;;;;;;;;;;;;;;;;;;;;;0;0;1;0;2;1;0;0;0;0;;0;0;44:55;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;40;1989545;SUCIU Iulian;Suciu;Iulian;2;LB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;07:17;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;6;1989534;CALINESCU Andrei;Calinescu;Andrei;2;CB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;01:38;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;*;7;1989559;VOICA Bogdan;Voica;Bogdan;2;LB;;0;3;0;0;3;0;;;;;;;;;;0;1;0;0;1;0;0;2;0;;;;;;;;;;;;;;;;;;;2;0;0;0;0;0;0;0;0;0;;0;0;22:03;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;78;1989556;FOCSANEANU Alexandru;Focsaneanu;Alexandru;2;P;;3;3;100;3;3;100;;;;3;3;100;;;;;;;3;3;100;;;;;;;;;;;;;;;;;;;;;;0;0;0;1;0;0;2;1;1;0;;0;0;26:37;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;*;9;1989547;GRIGORE Paul;Grigore;Paul;2;RW;;2;3;67;2;3;67;;;;1;1;100;1;2;50;;;;2;3;67;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;1;0;4;2;2;0;;0;0;47:13;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;99;1989562;DASCALU Cordin;Dascalu;Cordin;2;LB;;1;3;33;1;3;33;;;;;;;;;;;;;;;;0;2;0;1;1;100;;;;1;1;100;;;;;;;;;;0;1;1;0;0;0;0;0;0;0;;0;0;43:30;;;;;;;1;;1;N;0;0;
+09;B;ROU;ROU;;10;1989540;RACOLTA Alberto;Racolta;Alberto;2;CB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;00:00;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;16;1989530;PODOVEI Dragos;Podovei;Dragos;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;00:00;;;;;;;0;;0;N;0;0;
+09;B;ROU;ROU;;20;1989533;MURTAZA Kadir;Murtaza;Kadir;2;CB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;00:00;;;;;;;0;;0;N;0;0;
+
+[keepind]
+09;A;ISL;ISL;*;12;1297843;STEINSSON Õsak;Steinsson;Õsak;8;29;28;0;1;0;8;29;28;8;28;29;1;14;7;;;;
+09;A;ISL;ISL;;16;1297833;√ÅRNASON Breki Hrafn;√Årnason;Breki Hrafn;6;14;43;;;;6;14;43;6;14;43;3;8;38;;;;
+09;B;ROU;ROU;*;12;1989550;SIRGHIE Marian;Sirghie;Marian;15;40;38;0;2;0;13;36;36;13;34;38;8;22;36;2;4;50;
+09;B;ROU;ROU;;16;1989530;PODOVEI Dragos;Podovei;Dragos;;;;;;;;;;;;;;;;;;;
+
+[statteam]
+09;A;ISL;ISL;Iceland;25;45;56;23;43;53;2;4;50;8;10;80;3;8;38;3;6;50;14;24;58;7;15;47;2;2;100;;;;2;2;100;;;;;;;;;;9;1;3;4;1;0;4;2;2;0;0;0;;;;;;;;;;;0;0;0;0;
+09;B;ROU;ROU;Romania;29;52;56;29;52;56;0;1;0;10;11;91;3;4;75;5;7;71;18;22;82;10;27;37;1;1;100;;;;1;1;100;;;;;;;;;;14;4;2;1;3;1;6;3;3;0;0;0;;0;1;0;;;;;;;0;0;0;0;
+
+[actions]
+09;B;ROU;ROU;4880888;H2;1;0:38;33;1989563;Radu C;;;;;;;;;;3;;;;0;0;;;0;SHOT;;;Shot right back position (9m) blocked;;;;;;;
+09;A;ISL;ISL;4880894;H2;2;0:41;17;1297851;Einarsson S;;;;;;;;;;;;;;0;0;;;0;BLK;;;Block;;;;;;;
+09;A;ISL;ISL;4880904;H2;3;1:09;10;1297837;Erlingsson E;;;;;;;;;;;;;;0;0;;;0;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4880911;H2;4;1:11;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;0;;;;1;0;;;+1;G;;;Goal left wing ;;;;;;;
+09;B;ROU;ROU;4880921;H2;5;1:25;33;1989563;Radu C;;;;;;;;;TO;;;;;1;0;;;+1;TO;;;Turnover;;;;;;;
+09;A;ISL;ISL;4880923;H2;6;1:26;14;1297855;Haraldsson ÷;;;;;;;;;;;;;;1;0;;;+1;ST;;;Steal;;;;;;;
+09;A;ISL;ISL;4880931;H2;7;1:31;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;0;;;;2;0;;;+2;G;;;Goal fast break ;;;;;;;
+09;A;ISL;ISL;4880949;H2;8;1:52;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;2;0;;;+2;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4880950;H2;9;1:53;33;1989563;Radu C;;;;;;;;;;;;;;2;0;;;+2;ST;;;Steal;;;;;;;
+09;B;ROU;ROU;4880953;H2;10;1:56;33;1989563;Radu C;;;;;;;;;;;;;;2;0;;;+2;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4880955;H2;11;2:06;99;1989562;Dascalu C;;;;;;12;1297843;Steinsson Õ;;0;;;;2;1;;;+1;G;;;Goal fast break ;;;;;;;
+09;A;ISL;ISL;4880977;H2;14;2:44;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;4;;;;2;1;;;+1;SHOT;;;Shot right back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4880979;H2;15;2:46;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;0;;;;3;1;;;+2;G;;;Goal fast break ;;;;;;;
+09;A;ISL;ISL;4880985;H2;16;3:01;18;1297853;Thorvaldsson T;;;;;;;;;;;;;;3;1;;;+2;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881007;H2;17;3:20;33;1989563;Radu C;;;;;;12;1297843;Steinsson Õ;;4;;;;3;1;;;+2;SHOT;;;Shot right back position (9m) saved;;;;;;;
+09;B;ROU;ROU;4881012;H2;18;3:31;3;1989558;Oancea A;;;;;;;;;;;;;;3;1;;;+2;YC;;;Yellow card;;;;;;;
+09;A;ISL;ISL;4881028;H2;19;3:48;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;0;;;;4;1;;;+3;G;;;Goal right back position (9m) ;;;;;;;
+09;B;ROU;ROU;4881063;H2;20;4:30;7;1989559;Voica B;;;;;;;;;;;;;;4;1;;;+3;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881069;H2;21;4:36;3;1989558;Oancea A;;;;;;12;1297843;Steinsson Õ;;0;;;;4;2;;;+2;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4881084;H2;22;5:08;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;4;;;;4;2;;;+2;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;B;ROU;ROU;4881089;H2;23;5:14;99;1989562;Dascalu C;;;;;;;;;TO;;;;;4;2;;;+2;TO;;;Turnover;;;;;;;
+09;A;ISL;ISL;4881111;H2;24;6:02;10;1297837;Erlingsson E;;;;;;;;;;2;;;;4;2;;;+2;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+09;B;ROU;ROU;4881127;H2;25;6:34;7;1989559;Voica B;;;;;;12;1297843;Steinsson Õ;;4;;;;4;2;;;+2;SHOT;;;Shot breakthrough saved;;;;;;;
+09;B;ROU;ROU;4881148;H2;26;7:08;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;4;3;;;+1;G;;;Goal center back position (9m) ;;;;;;;
+09;A;ISL;ISL;4881168;H2;27;7:44;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;4;3;;;+1;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4881171;H2;28;7:47;99;1989562;Dascalu C;;;;;;;;;;;;;;4;3;;;+1;ST;;;Steal;;;;;;;
+09;B;ROU;ROU;4881179;H2;29;7:51;7;1989559;Voica B;;;;;;;;;;;;;;4;3;;;+1;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881180;H2;30;7:52;9;1989547;Grigore P;;;;;;12;1297843;Steinsson Õ;;0;;;;4;4;;;0;G;;;Goal right line (6m) ;;;;;;;
+09;A;ISL;ISL;4881208;H2;31;8:41;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;4;;;;4;4;;;0;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;B;ROU;ROU;4881225;H2;32;9:15;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;4;5;;;-1;G;;;Goal left back position (9m) ;;;;;;;
+09;A;ISL;ISL;4881231;H2;33;9:30;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;0;;;;5;5;;;0;G;;;Goal breakthrough ;;;;;;;
+09;B;ROU;ROU;4881242;H2;34;9:59;44;1989551;Stanciuc D;;;;;;;;;;;;;;5;5;;;0;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881245;H2;35;10:10;3;1989558;Oancea A;;;;;;12;1297843;Steinsson Õ;;0;;;;5;6;;;-1;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4881252;H2;36;10:30;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;0;;;;6;6;;;0;G;;;Goal center back position (9m) ;;;;;;;
+09;B;ROU;ROU;4881263;H2;37;11:04;7;1989559;Voica B;;;;;;12;1297843;Steinsson Õ;;4;;;;6;6;;;0;SHOT;;;Shot left back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881268;H2;38;11:09;10;1297837;Erlingsson E;;;;;;12;1989550;Sirghie M;;0;;;;7;6;;;+1;G;;;Goal center back position (9m) ;;;;;;;
+09;B;ROU;ROU;4881292;H2;39;12:07;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;4;;;;7;6;;;+1;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881301;H2;40;12:16;10;1297837;Erlingsson E;;;;;;;;;;;;;;7;6;;;+1;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4881303;H2;41;12:25;6;1297849;Matth√≠asson S;;;;;;12;1989550;Sirghie M;;4;;;;7;6;;;+1;SHOT;;;Shot right line (6m) saved;;;;;;;
+09;B;ROU;ROU;4881308;H2;42;12:51;7;1989559;Voica B;;;;;;12;1297843;Steinsson Õ;;4;;;;7;6;;;+1;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881310;H2;43;13:01;17;1297851;Einarsson S;;;;;;;;;;;;;;7;6;;;+1;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4881313;H2;44;13:07;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;4;;;;7;6;;;+1;SHOT;;;Shot left wing saved;;;;;;;
+09;B;ROU;ROU;4881331;H2;45;13:39;33;1989563;Radu C;;;;;;;;;;;;;;7;6;;;+1;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881332;H2;46;13:40;9;1989547;Grigore P;;;;;;12;1297843;Steinsson Õ;;0;;;;7;7;;;0;G;;;Goal right wing ;;;;;;;
+09;A;ISL;ISL;4881351;H2;47;14:15;17;1297851;Einarsson S;;;;;;;;;;;;;;7;7;;;0;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4881352;H2;48;14:18;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;0;;;;8;7;;;+1;G;;;Goal left wing ;;;;;;;
+09;B;ROU;ROU;4881370;H2;49;14:44;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;4;;;;8;7;;;+1;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881373;H2;50;14:55;17;1297851;Einarsson S;;;;;;;;;TO;;;;;8;7;;;+1;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4881380;H2;51;15:06;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;8;8;;;0;G;;;Goal breakthrough ;;;;;;;
+09;A;ISL;ISL;4881420;H2;54;16:19;10;1297837;Erlingsson E;;;;;;;;;;;;;;8;8;;;0;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4881424;H2;55;16:25;19;1297841;Heiƒëarsson H;;;;;;;;;;;;;;8;8;;;0;RFP;;;Earned pen.;;;;;;;
+09;A;ISL;ISL;4881430;H2;56;16:36;10;1297837;Erlingsson E;;;;;;12;1989550;Sirghie M;;0;;;;9;8;;;+1;G;;;Goal penalty (7m) ;;;;;;;
+09;B;ROU;ROU;4881453;H2;57;17:22;44;1989551;Stanciuc D;;;;;;;;;;;;;;9;8;;;+1;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881458;H2;58;17:23;14;1989557;Armanu S;;;;;;12;1297843;Steinsson Õ;;0;;;;9;9;;;0;G;;;Goal left wing ;;;;;;;
+09;A;ISL;ISL;4881481;H2;59;17:56;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;9;9;;;0;TO;;;Turnover;;;;;;;
+09;A;ISL;ISL;4881491;H2;60;18:04;6;1297849;Matth√≠asson S;;;;;;;;;;;;;;9;9;;;0;TMS;;;Suspension;;;;;;;
+09;B;ROU;ROU;4881496;H2;61;18:04;78;1989556;Focsaneanu A;;;;;;;;;;;;;;9;9;;;0;RS;;;Earned Suspension;;;;;;;
+09;B;ROU;ROU;4881508;H2;62;18:14;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;9;10;;;-1;G;;;Goal center back position (9m) ;;;;;;;
+09;A;ISL;ISL;4881529;H2;63;18:54;5;1297838;√ìlafsson H;;;;;;;;;TO;;;;;9;10;;;-1;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4881541;H2;64;19:22;44;1989551;Stanciuc D;;;;;;;;;;;;;;9;10;;;-1;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881542;H2;65;19:23;78;1989556;Focsaneanu A;;;;;;12;1297843;Steinsson Õ;;0;;;;9;11;;;-2;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4881552;H2;66;19:58;10;1297837;Erlingsson E;;;;;;;;;;;;;;9;11;;;-2;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4881560;H2;67;20:05;18;1297853;Thorvaldsson T;;;;;;12;1989550;Sirghie M;;4;;;;9;11;;;-2;SHOT;;;Shot center line (6m) saved;;;;;;;
+09;B;ROU;ROU;4881582;H2;68;20:53;44;1989551;Stanciuc D;;;;;;;;;;2;;;;9;11;;;-2;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+09;A;ISL;ISL;4881586;H2;69;21:02;;; ;;;;;;;;;;;;;;9;11;;;-2;TOUT;;;Timeout;;;;;;;
+09;B;ROU;ROU;4881618;H2;71;21:17;78;1989556;Focsaneanu A;;;;;;;;;;;;;;9;11;;;-2;TMS;;;Suspension;;;;;;;
+09;A;ISL;ISL;4881619;H2;72;21:17;17;1297851;Einarsson S;;;;;;;;;;;;;;9;11;;;-2;RS;;;Earned Suspension;;;;;;;
+09;A;ISL;ISL;4881637;H2;73;21:38;10;1297837;Erlingsson E;;;;;;;;;;;;;;9;11;;;-2;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4881640;H2;74;21:44;13;1297836;Valsson E;;;;;;12;1989550;Sirghie M;;4;;;;9;11;;;-2;SHOT;;;Shot right wing saved;;;;;;;
+09;B;ROU;ROU;4881662;H2;75;22:50;44;1989551;Stanciuc D;;;;;;;;;;2;;;;9;11;;;-2;SHOT;;;Shot right back position (9m) missed goal;;;;;;;
+09;A;ISL;ISL;4881678;H2;76;23:13;10;1297837;Erlingsson E;;;;;;;;;;;;;;9;11;;;-2;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4881683;H2;77;23:20;19;1297841;Heiƒëarsson H;;;;;;12;1989550;Sirghie M;;0;;;;10;11;;;-1;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4881705;H2;78;24:17;99;1989562;Dascalu C;;;;;;12;1297843;Steinsson Õ;;4;;;;10;11;;;-1;SHOT;;;Shot left back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881726;H2;79;25:09;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;10;11;;;-1;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4881738;H2;80;25:18;;; ;;;;;;;;;;;;;;10;11;;;-1;TOUT;;;Timeout;;;;;;;
+09;B;ROU;ROU;4881788;H2;81;25:33;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;10;12;;;-2;G;;;Goal left back position (9m) ;;;;;;;
+09;A;ISL;ISL;4881820;H2;82;26:59;10;1297837;Erlingsson E;;;;;;;;;;3;;;;10;12;;;-2;SHOT;;;Shot center back position (9m) blocked;;;;;;;
+09;B;ROU;ROU;4881821;H2;83;27:02;3;1989558;Oancea A;;;;;;;;;;;;;;10;12;;;-2;BLK;;;Block;;;;;;;
+09;B;ROU;ROU;4881831;H2;84;27:06;44;1989551;Stanciuc D;;;;;;;;;;;;;;10;12;;;-2;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4881843;H2;85;27:10;3;1989558;Oancea A;;;;;;12;1297843;Steinsson Õ;;0;;;;10;13;;;-3;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4881861;H2;86;27:34;10;1297837;Erlingsson E;;;;;;;;;;;;;;10;13;;;-3;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4881862;H2;87;27:37;19;1297841;Heiƒëarsson H;;;;;;12;1989550;Sirghie M;;0;;;;11;13;;;-2;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4881882;H2;88;28:18;33;1989563;Radu C;;;;;;12;1297843;Steinsson Õ;;0;;;;11;14;;;-3;G;;;Goal breakthrough ;;;;;;;
+09;A;ISL;ISL;4881899;H2;89;28:50;17;1297851;Einarsson S;;;;;;;;;TO;;;;;11;14;;;-3;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4881924;H2;90;29:27;44;1989551;Stanciuc D;;;;;;;;;TO;;;;;11;14;;;-3;TO;;;Turnover;;;;;;;
+09;A;ISL;ISL;4881931;H2;91;29:34;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;4;;;;11;14;;;-3;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4881935;H2;92;29:43;18;1297853;Thorvaldsson T;;;;;;12;1989550;Sirghie M;;0;;;;12;14;;;-2;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4881944;H2;93;30:00;33;1989563;Radu C;;;;;;12;1297843;Steinsson Õ;;0;;;;12;15;;;-3;G;;;Goal right line (6m) ;;;;;;;
+09;B;ROU;ROU;4881950;H2;94;30:00;44;1989551;Stanciuc D;;;;;;;;;;;;;;12;15;;;-3;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4882137;H2;95;30:54;10;1297837;Erlingsson E;;;;;;;;;;3;;;;12;15;;;-3;SHOT;;;Shot left back position (9m) blocked;;;;;;;
+09;B;ROU;ROU;4882140;H2;96;30:58;99;1989562;Dascalu C;;;;;;;;;;;;;;12;15;;;-3;BLK;;;Block;;;;;;;
+09;B;ROU;ROU;4882145;H2;97;31:22;33;1989563;Radu C;;;;;;;;;;2;;;;12;15;;;-3;SHOT;;;Shot right back position (9m) missed goal;;;;;;;
+09;A;ISL;ISL;4882149;H2;98;31:28;17;1297851;Einarsson S;;;;;;;;;;;;;;12;15;;;-3;RS;;;Earned Suspension;;;;;;;
+09;B;ROU;ROU;4882152;H2;99;31:28;9;1989547;Grigore P;;;;;;;;;;;;;;12;15;;;-3;TMS;;;Suspension;;;;;;;
+09;A;ISL;ISL;4882172;H2;100;31:57;17;1297851;Einarsson S;;;;;;;;;;1;;;;12;15;;;-3;SHOT;;;Shot breakthrough post;;;;;;;
+09;A;ISL;ISL;4882176;H2;101;32:15;10;1297837;Erlingsson E;;;;;;;;;;;;;;12;15;;;-3;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4882190;H2;102;32:38;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;12;16;;;-4;G;;;Goal right back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882200;H2;103;32:44;6;1297849;Matth√≠asson S;;;;;;12;1989550;Sirghie M;;0;;;;13;16;;;-3;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4882220;H2;104;33:22;33;1989563;Radu C;;;;;;12;1297843;Steinsson Õ;;0;;;;13;17;;;-4;G;;;Goal right back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882242;H2;105;33:56;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;0;;;;14;17;;;-3;G;;;Goal right back position (9m) ;;;;;;;
+09;B;ROU;ROU;4882265;H2;106;34:39;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;4;;;;14;17;;;-3;SHOT;;;Shot left back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4882272;H2;107;34:45;10;1297837;Erlingsson E;;;;;;;;;;;;;;14;17;;;-3;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4882273;H2;108;34:45;6;1297849;Matth√≠asson S;;;;;;12;1989550;Sirghie M;;0;;;;15;17;;;-2;G;;;Goal right line (6m) ;;;;;;;
+09;B;ROU;ROU;4882287;H2;109;35:18;19;1989554;Pavlov D;;;;;;;;;TO;;;;;15;17;;;-2;TO;;;Turnover;;;;;;;
+09;A;ISL;ISL;4882310;H2;110;36:07;10;1297837;Erlingsson E;;;;;;;;;;;;;;15;17;;;-2;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4882323;H2;111;36:16;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;4;;;;15;17;;;-2;SHOT;;;Shot left wing saved;;;;;;;
+09;B;ROU;ROU;4882325;H2;112;36:16;3;1989558;Oancea A;;;;;;;;;;;;;;15;17;;;-2;RS;;;Earned Suspension;;;;;;;
+09;A;ISL;ISL;4882326;H2;113;36:16;6;1297849;Matth√≠asson S;;;;;;;;;;;;;;15;17;;;-2;TMS;;;Suspension;;;;;;;
+09;B;ROU;ROU;4882353;H2;114;36:56;44;1989551;Stanciuc D;;;;;;;;;;;;;;15;17;;;-2;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4882357;H2;115;37:03;33;1989563;Radu C;;;;;;12;1297843;Steinsson Õ;;0;;;;15;18;;;-3;G;;;Goal right line (6m) ;;;;;;;
+09;A;ISL;ISL;4882371;H2;116;37:37;10;1297837;Erlingsson E;;;;;;;;;;;;;;15;18;;;-3;RFP;;;Earned pen.;;;;;;;
+09;B;ROU;ROU;4882375;H2;117;37:49;3;1989558;Oancea A;;;;;;;;;;;;;;15;18;;;-3;PFP;;;Commited faul pen.;;;;;;;
+09;A;ISL;ISL;4882380;H2;118;37:55;10;1297837;Erlingsson E;;;;;;12;1989550;Sirghie M;;4;;;;15;18;;;-3;SHOT;;;Shot penalty (7m) saved;;;;;;;
+09;B;ROU;ROU;4882400;H2;119;38:18;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;15;19;;;-4;G;;;Goal center back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882423;H2;120;39:09;10;1297837;Erlingsson E;;;;;;;;;;;;;;15;19;;;-4;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4882434;H2;121;39:16;8;1297830;El√≠sson A;;;;;;12;1989550;Sirghie M;;4;;;;15;19;;;-4;SHOT;;;Shot right wing saved;;;;;;;
+09;B;ROU;ROU;4882439;H2;122;39:51;33;1989563;Radu C;;;;;;;;;;2;;;;15;19;;;-4;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+09;A;ISL;ISL;4882449;H2;123;40:06;18;1297853;Thorvaldsson T;;;;;;;;;TO;;;;;15;19;;;-4;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4882456;H2;125;40:38;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;15;20;;;-5;G;;;Goal breakthrough ;;;;;;;
+09;A;ISL;ISL;4882481;H2;127;41:15;18;1297853;Thorvaldsson T;;;;;;12;1989550;Sirghie M;;0;;;;16;20;;;-4;G;;;Goal left line (6m) ;;;;;;;
+09;B;ROU;ROU;4882512;H2;128;42:05;44;1989551;Stanciuc D;;;;;;12;1297843;Steinsson Õ;;0;;;;16;21;;;-5;G;;;Goal breakthrough ;;;;;;;
+09;A;ISL;ISL;4882526;H2;129;42:25;;; ;;;;;;;;;;;;;;16;21;;;-5;TOUT;;;Timeout;;;;;;;
+09;A;ISL;ISL;4882564;H2;130;42:47;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;4;;;;16;21;;;-5;SHOT;;;Shot left back position (9m) saved;;;;;;;
+09;B;ROU;ROU;4882574;H2;131;43:30;44;1989551;Stanciuc D;;;;;;16;1297833;√Årnason B;;4;;;;16;21;;;-5;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4882584;H2;132;43:45;10;1297837;Erlingsson E;;;;;;;;;;;;;;16;21;;;-5;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4882588;H2;133;43:47;18;1297853;Thorvaldsson T;;;;;;12;1989550;Sirghie M;;0;;;;17;21;;;-4;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4882601;H2;134;44:32;33;1989563;Radu C;;;;;;16;1297833;√Årnason B;;0;;;;17;22;;;-5;G;;;Goal right back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882612;H2;135;45:05;17;1297851;Einarsson S;;;;;;;;;;2;;;;17;22;;;-5;SHOT;;;Shot breakthrough missed goal;;;;;;;
+09;A;ISL;ISL;4882613;H2;136;45:13;10;1297837;Erlingsson E;;;;;;;;;;;;;;17;22;;;-5;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4882625;H2;137;45:49;33;1989563;Radu C;;;;;;;;;;;;;;17;22;;;-5;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4882626;H2;138;45:54;3;1989558;Oancea A;;;;;;16;1297833;√Årnason B;;4;;;;17;22;;;-5;SHOT;;;Shot center line (6m) saved;;;;;;;
+09;A;ISL;ISL;4882633;H2;139;46:08;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;4;;;;17;22;;;-5;SHOT;;;Shot left wing saved;;;;;;;
+09;A;ISL;ISL;4882634;H2;140;46:10;17;1297851;Einarsson S;;;;;;;;;;;;;;17;22;;;-5;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4882648;H2;141;46:44;33;1989563;Radu C;;;;;;;;;;3;;;;17;22;;;-5;SHOT;;;Shot center back position (9m) blocked;;;;;;;
+09;A;ISL;ISL;4882653;H2;142;46:46;18;1297853;Thorvaldsson T;;;;;;;;;;;;;;17;22;;;-5;BLK;;;Block;;;;;;;
+09;B;ROU;ROU;4882672;H2;143;47:23;33;1989563;Radu C;;;;;;16;1297833;√Årnason B;;0;;;;17;23;;;-6;G;;;Goal right back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882692;H2;144;47:59;10;1297837;Erlingsson E;;;;;;;;;;;;;;17;23;;;-6;PCC;;;Pass clear chance;;;;;;;
+09;A;ISL;ISL;4882696;H2;145;48:02;6;1297849;Matth√≠asson S;;;;;;;;;TO;;;;;17;23;;;-6;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4882770;H2;156;48:04;44;1989551;Stanciuc D;;;;;;;;;;3;;;;17;23;;;-6;SHOT;;;Shot long distance blocked;;;;;;;
+09;A;ISL;ISL;4882773;H2;157;48:05;17;1297851;Einarsson S;;;;;;;;;;;;;;17;23;;;-6;BLK;;;Block;;;;;;;
+09;B;ROU;ROU;4882710;H2;146;48:40;33;1989563;Radu C;;;;;;;;;;;;;;17;23;;;-6;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4882712;H2;147;48:45;9;1989547;Grigore P;;;;;;16;1297833;√Årnason B;;4;;;;17;23;;;-6;SHOT;;;Shot right wing saved;;;;;;;
+09;A;ISL;ISL;4882732;H2;148;49:15;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;0;;;;18;23;;;-5;G;;;Goal right back position (9m) ;;;;;;;
+09;B;ROU;ROU;4882735;H2;149;49:31;99;1989562;Dascalu C;;;;;;;;;;2;;;;18;23;;;-5;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+09;A;ISL;ISL;4882744;H2;150;49:43;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;0;;;;19;23;;;-4;G;;;Goal breakthrough ;;;;;;;
+09;B;ROU;ROU;4882755;H2;151;50:11;44;1989551;Stanciuc D;;;;;;16;1297833;√Årnason B;;0;;;;19;24;;;-5;G;;;Goal breakthrough ;;;;;;;
+09;A;ISL;ISL;4882762;H2;152;50:24;10;1297837;Erlingsson E;;;;;;;;;;;;;;19;24;;;-5;RS;;;Earned Suspension;;;;;;;
+09;B;ROU;ROU;4882763;H2;153;50:24;9;1989547;Grigore P;;;;;;;;;;;;;;19;24;;;-5;TMS;;;Suspension;;;;;;;
+09;A;ISL;ISL;4882767;H2;154;50:24;10;1297837;Erlingsson E;;;;;;;;;;;;;;19;24;;;-5;RFP;;;Earned pen.;;;;;;;
+09;B;ROU;ROU;4882769;H2;155;50:24;9;1989547;Grigore P;;;;;;;;;;;;;;19;24;;;-5;PFP;;;Commited faul pen.;;;;;;;
+09;A;ISL;ISL;4882778;H2;158;50:29;14;1297855;Haraldsson ÷;;;;;;12;1989550;Sirghie M;;4;;;;19;24;;;-5;SHOT;;;Shot penalty (7m) saved;;;;;;;
+09;A;ISL;ISL;4882789;H2;159;51:02;6;1297849;Matth√≠asson S;;;;;;12;1989550;Sirghie M;;4;;;;19;24;;;-5;SHOT;;;Shot breakthrough saved;;;;;;;
+09;B;ROU;ROU;4882798;H2;160;51:33;33;1989563;Radu C;;;;;;16;1297833;√Årnason B;;4;;;;19;24;;;-5;SHOT;;;Shot center back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4882808;H2;161;51:42;10;1297837;Erlingsson E;;;;;;;;;;;;;;19;24;;;-5;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4882809;H2;162;51:43;8;1297830;El√≠sson A;;;;;;12;1989550;Sirghie M;;0;;;;20;24;;;-4;G;;;Goal right wing ;;;;;;;
+09;B;ROU;ROU;4882827;H2;163;52:13;33;1989563;Radu C;;;;;;16;1297833;√Årnason B;;4;;;;20;24;;;-4;SHOT;;;Shot right back position (9m) saved;;;;;;;
+09;A;ISL;ISL;4882832;H2;164;52:32;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;20;24;;;-4;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4882845;H2;165;53:03;33;1989563;Radu C;;;;;;16;1297833;√Årnason B;;4;;;;20;24;;;-4;SHOT;;;Shot breakthrough saved;;;;;;;
+09;A;ISL;ISL;4882853;H2;166;53:09;10;1297837;Erlingsson E;;;;;;;;;;;;;;20;24;;;-4;AST;;;Assist;;;;;;;
+09;A;ISL;ISL;4882854;H2;167;53:11;18;1297853;Thorvaldsson T;;;;;;12;1989550;Sirghie M;;0;;;;21;24;;;-3;G;;;Goal center line (6m) ;;;;;;;
+09;B;ROU;ROU;4882860;H2;168;53:12;;; ;;;;;;;;;;;;;;21;24;;;-3;TOUT;;;Timeout;;;;;;;
+09;B;ROU;ROU;4882915;H2;169;53:37;33;1989563;Radu C;;;;;;;;;;;;;;21;24;;;-3;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4882919;H2;170;53:42;3;1989558;Oancea A;;;;;;16;1297833;√Årnason B;;0;;;;21;25;;;-4;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4882929;H2;171;54:07;10;1297837;Erlingsson E;;;;;;12;1989550;Sirghie M;;0;;;;22;25;;;-3;G;;;Goal breakthrough ;;;;;;;
+09;B;ROU;ROU;4882945;H2;172;54:39;44;1989551;Stanciuc D;;;;;;16;1297833;√Årnason B;;0;;;;22;26;;;-4;G;;;Goal left back position (9m) ;;;;;;;
+09;A;ISL;ISL;4882963;H2;173;55:05;3;1297850;Sigurj√≥nsson S;;;;;;;;;TO;;;;;22;26;;;-4;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4882965;H2;174;55:09;33;1989563;Radu C;;;;;;;;;;;;;;22;26;;;-4;ST;;;Steal;;;;;;;
+09;B;ROU;ROU;4882973;H2;175;55:24;44;1989551;Stanciuc D;;;;;;;;;;;;;;22;26;;;-4;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4882978;H2;176;55:37;78;1989556;Focsaneanu A;;;;;;16;1297833;√Årnason B;;0;;;;22;27;;;-5;G;;;Goal left line (6m) ;;;;;;;
+09;A;ISL;ISL;4883008;H2;177;56:16;11;1297832;Steinsson B;;;;;;12;1989550;Sirghie M;;0;;;;23;27;;;-4;G;;;Goal center back position (9m) ;;;;;;;
+09;B;ROU;ROU;4883028;H2;178;56:49;44;1989551;Stanciuc D;;;;;;;;;;;;;;23;27;;;-4;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4883032;H2;179;56:54;78;1989556;Focsaneanu A;;;;;;16;1297833;√Årnason B;;0;;;;23;28;;;-5;G;;;Goal center line (6m) ;;;;;;;
+09;A;ISL;ISL;4883034;H2;180;57:02;;; ;;;;;;;;;;;;;;23;28;;;-5;TOUT;;;Timeout;;;;;;;
+09;A;ISL;ISL;4883086;H2;181;57:37;10;1297837;Erlingsson E;;;;;;;;;TO;;;;;23;28;;;-5;TO;;;Turnover;;;;;;;
+09;B;ROU;ROU;4883090;H2;182;57:39;44;1989551;Stanciuc D;;;;;;;;;;;;;;23;28;;;-5;ST;;;Steal;;;;;;;
+09;B;ROU;ROU;4883107;H2;183;58:21;44;1989551;Stanciuc D;;;;;;;;;;;;;;23;28;;;-5;AST;;;Assist;;;;;;;
+09;B;ROU;ROU;4883108;H2;184;58:23;14;1989557;Armanu S;;;;;;16;1297833;√Årnason B;;0;;;;23;29;;;-6;G;;;Goal left wing ;;;;;;;
+09;A;ISL;ISL;4883118;H2;185;58:33;17;1297851;Einarsson S;;;;;;12;1989550;Sirghie M;;0;;;;24;29;;;-5;G;;;Goal center back position (9m) ;;;;;;;
+09;B;ROU;ROU;4883147;H2;186;59:12;44;1989551;Stanciuc D;;;;;;;;;;;;;;24;29;;;-5;PCC;;;Pass clear chance;;;;;;;
+09;B;ROU;ROU;4883150;H2;187;59:16;78;1989556;Focsaneanu A;;;;;;;;;;;;;;24;29;;;-5;RFP;;;Earned pen.;;;;;;;
+09;A;ISL;ISL;4883155;H2;188;59:16;17;1297851;Einarsson S;;;;;;;;;;;;;;24;29;;;-5;PFP;;;Commited faul pen.;;;;;;;
+09;B;ROU;ROU;4883164;H2;189;59:21;44;1989551;Stanciuc D;;;;;;;;;;2;;;;24;29;;;-5;SHOT;;;Shot penalty (7m) missed goal;;;;;;;
+09;A;ISL;ISL;4883180;H2;190;59:48;10;1297837;Erlingsson E;;;;;;;;;;;;;;24;29;;;-5;RFP;;;Earned pen.;;;;;;;
+09;B;ROU;ROU;4883183;H2;191;59:50;3;1989558;Oancea A;;;;;;;;;;;;;;24;29;;;-5;PFP;;;Commited faul pen.;;;;;;;
+09;A;ISL;ISL;4883188;H2;192;59:57;10;1297837;Erlingsson E;;;;;;12;1989550;Sirghie M;;0;;;;25;29;;;-4;G;;;Goal penalty (7m) ;;;;;;;

@@ -1,0 +1,257 @@
+[Definition]
+gameinfo=Game;Group;TIDA;TeamNameA;TeamName2A;NatA;TeamA;TIDB;TeamNameB;TeamName2B;NatB;TeamB;Lastper;PLTIME;ActPer;CurPer;GStatus;PStatus;FinishTime;Win;RA;RB;RA1;RB1;RA2;RB2;OT1A;OT1B;OT2A;OT2B;PSA;PSB;nNormal;nExtra
+referee=Game;Name1;Nat1;REF1ID;REF1Kind;REF1Info;Name2;Nat2;REF2ID;REF2Kind;REF2Info;Name3;Nat3;REF3ID;REF3Kind;REF3Info;NoYC;No2min;NoRC;NoEX
+statind=Game;TC;TID;Team;First;Nr;ID;Name;SurName;FirstName;PosIx;PosShort;PA;AllG;AllShots;AllEff;FieldG;FieldShots;FieldEff;P7mG;P7mShots;P7mEff;P6mG;P6mShots;P6mEff;WingG;WingShots;WingEff;BTG;BTShots;BTEff;NearG;NearShots;NearEff;P9mG;P9mShots;P9mEff;FBG;FBShots;FBEff;FGG;FGShots;FGEff;FBCG;FBCShots;FBCEff;FBLG;FBLShots;FBLEff;FBRG;FBRShots;FBREff;PosG;PosAll;PosEff;Ass;ST;BL;RF7m;PF7m;YC;P2minT;P2minN;P2m;P22m;RC;EX;Time;ENG;ENShots;ENEff;XMG;XMShots;XMEff;TO;TF;TOG;Is;GkSaves;GkShots;GkEff
+keepind=Game;TC;TID;Team;First;Nr;ID;Name;SurName;FirstName;AllS;AllShots;AllEff;FBS;FBShots;FBEff;FGS;FGShots;FGEff;PosS;PosShots;PosEff;NearS;NearShots;NearEff;P7mS;P7mShots;P7mEff;WingS;WingShots;WingEff;P9mS;P9mShots;P9mEff;FieldS;FieldShots;FieldEff;P6mS;P6mShots;P6mEff;BTS;BTShots;BTEff;Time
+statteam=Game;TC;TID;Team;TeamName;AllG;AllShots;AllEff;FieldG;FieldShots;FieldEff;P7mG;P7mShots;P7mEff;P6mG;P6mShots;P6mEff;WingG;WingShots;WingEff;BTG;BTShots;BTEff;NearG;NearShots;NearEff;P9mG;P9mShots;P9mEff;FBG;FBShots;FBEff;FGG;FGShots;FGEff;FBCG;FBCShots;FBCEff;FBLG;FBLShots;FBLEff;FBRG;FBRShots;FBREff;PosG;PosAll;PosEff;Ass;ST;BL;RF7m;PF7m;YC;P2minT;P2minN;P2m;P22m;RC;EX;Time;ENG;ENShots;ENEff;XMG;XMShots;XMEff;TO;TF;TOG;TTF;TTOG;TPPTime;TPPG;Cmt
+actions=Game;TC;TID;Team;NoAct;Per;Pos;PLTime;Nr;ID;Name;Nr2;TC2;ID2;Name2;Text2;GKNr;GKID;GKName;Action;Succ;Z1;Z2;Comment;GoalA;GoalB;PSA;PSB;Diff;Short;Code2;Code3;Text;TimeStamp;xShot;yShot;yDest;zDest;Speed;Distance
+
+[gameinfo]
+06;D;CRO;Croatia;Croatia;CRO;CRO;CAN;Canada;Canada;CAN;CAN;H2;;E;E;E;E;;1;44;20;20;12;24;08;;;;;;;;
+
+[referee]
+06;SORIA FABIAN Miguel;ESP;1320471;Referee;;ALVAREZ MENENDEZ Jesus;ESP;1320470;Referee;;LEMES Cristian;URU;1205356;Reserve Referee;;0;0;0;0
+
+[statind]
+06;A;CRO;CRO;;18;1297806;ČAPRIĆ Aleksandar;Čaprić;Aleksandar;2;LB;1;6;8;75;6;8;75;;;;;;;1;1;100;4;5;80;5;6;83;;;;1;2;50;;;;1;2;50;;;;;;;;;;3;2;0;0;0;0;0;0;0;0;;0;0;21:04;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;*;19;1979466;ĆEŠKO Diano Neris;Ćeško;Diano Neris;2;LB;1;4;5;80;4;5;80;;;;;;;;;;2;2;100;2;2;100;2;3;67;;;;;;;;;;;;;;;;;;;2;0;2;1;0;0;0;0;0;0;;0;0;20:57;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;*;2;1297803;BAJAN Marko;Bajan;Marko;2;LW;1;7;8;88;6;7;86;1;1;100;;;;3;4;75;;;;3;4;75;;;;3;3;100;;;;3;3;100;;;;;;;;;;0;1;0;0;0;0;0;0;0;0;;0;0;28:34;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;*;1;1297798;HERCEG Tin;Herceg;Tin;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;27:29;;;;;;;1;;1;N;9;21;43
+06;A;CRO;CRO;*;11;1297824;MALINARICH Luka;Malinarich;Luka;2;P;;2;2;100;2;2;100;;;;2;2;100;;;;;;;2;2;100;;;;;;;;;;;;;;;;;;;;;;1;0;1;1;0;1;2;1;1;0;;0;0;30:01;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;;12;1297799;KAHLINA Nikola;Kahlina;Nikola;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1;0;0;0;0;0;0;0;0;0;;0;0;29:38;;;;;;;0;;0;N;7;15;47
+06;A;CRO;CRO;;13;1989284;VRBANEC Tin;Vrbanec;Tin;2;P;;3;3;100;3;3;100;;;;1;1;100;;;;;;;1;1;100;1;1;100;1;1;100;;;;1;1;100;;;;;;;;;;1;0;0;0;0;0;0;0;0;0;;0;0;14:57;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;;14;1297823;KRSTIĆ Franko;Krstić;Franko;2;P;;1;1;100;1;1;100;;;;;;;;;;;;;;;;;;;1;1;100;;;;1;1;100;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;20:29;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;;20;1989277;JURANIC Jura Egon;Juranic;Jura Egon;2;LB;;1;3;33;1;3;33;;;;1;1;100;;;;;;;1;1;100;0;2;0;;;;;;;;;;;;;;;;;;;2;0;0;0;0;0;2;1;1;0;;0;0;32:19;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;*;24;1989278;IVANKOVIĆ Nikola;Ivanković;Nikola;2;CB;;1;1;100;1;1;100;;;;;;;;;;1;1;100;1;1;100;;;;;;;;;;;;;;;;;;;;;;3;1;0;0;0;0;0;0;0;0;;0;0;29:26;;;;;;;1;;1;N;0;0;
+06;A;CRO;CRO;;25;1297813;BOROVEC Tian;Borovec;Tian;2;CB;;1;2;50;1;2;50;;;;1;1;100;;;;0;1;0;1;2;50;;;;;;;;;;;;;;;;;;;;;;2;0;0;1;0;0;0;0;0;0;;0;0;26:06;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;;27;1989280;BAKOVIĆ Tin;Baković;Tin;2;CB;;3;4;75;1;2;50;2;2;100;;;;;;;;;;;;;1;2;50;;;;;;;;;;;;;;;;;;;3;0;0;0;0;0;0;0;0;0;;0;0;13:07;;;;;;;1;;1;N;0;0;
+06;A;CRO;CRO;*;30;1297817;KRUPIĆ Petar;Krupić;Petar;2;RB;;3;4;75;3;4;75;;;;2;2;100;;;;;;;2;2;100;1;2;50;;;;;;;;;;;;;;;;;;;3;1;0;0;0;0;0;0;0;0;;0;0;30:00;;;;;;;1;;1;N;0;0;
+06;A;CRO;CRO;;33;1989285;POPOVIĆ Teo;Popović;Teo;2;LB;;1;1;100;1;1;100;;;;1;1;100;;;;;;;1;1;100;;;;;;;;;;;;;;;;;;;;;;1;0;0;0;0;0;0;0;0;0;;0;0;10:37;;;;;;;0;;0;N;0;0;
+06;A;CRO;CRO;;4;1989283;CELEGIN Jakov;Celegin;Jakov;2;LW;;8;10;80;8;10;80;;;;1;1;100;4;6;67;;;;5;7;71;;;;3;3;100;;;;3;3;100;;;;;;;;;;0;2;0;0;0;0;0;0;0;0;;0;0;30:00;;;;;;;1;;1;N;0;0;
+06;A;CRO;CRO;*;5;1297818;MOLC Maksimilijan;Molc;Maksimilijan;2;LW;;3;3;100;3;3;100;;;;;;;3;3;100;;;;3;3;100;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;3;0;2;1;1;0;;0;0;55:16;;;;;;;2;;2;N;0;0;
+06;B;CAN;CAN;;1;1989651;ECHEGARAY Santiago;Echegaray;Santiago;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;29:52;;;;;;;0;;0;N;5;29;17
+06;B;CAN;CAN;*;10;1989654;LAVOIE Joaquin;Lavoie;Joaquin;2;RW;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;1;0;0;1;0;2;1;1;0;;0;0;34:07;;;;;;;1;;1;N;0;0;
+06;B;CAN;CAN;;11;1989663;COIN Thibault Laurent;Coin;Thibault Laurent;2;RB;;0;1;0;0;1;0;;;;;;;;;;;;;;;;0;1;0;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;28:15;;;;;;;1;;1;N;0;0;
+06;B;CAN;CAN;;13;1989642;SAVARD Antony;Savard;Antony;2;RB;;1;3;33;1;3;33;;;;;;;0;1;0;;;;0;1;0;1;2;50;;;;;;;;;;;;;;;;;;;0;0;0;0;2;0;0;0;0;0;;0;0;20:22;;;;;;;0;;0;N;0;0;
+06;B;CAN;CAN;*;15;1989657;DESBIENS Antoine;Desbiens;Antoine;2;RB;;4;10;40;4;10;40;;;;;;;;;;0;1;0;0;1;0;4;9;44;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;35:23;;;;;;;3;;3;N;0;0;
+06;B;CAN;CAN;*;17;1989641;KUYPERS Colton;Kuypers;Colton;2;LB;;8;16;50;6;13;46;2;3;67;0;2;0;;;;;;;0;2;0;6;11;55;;;;;;;;;;;;;;;;;;;2;0;0;2;0;0;2;1;1;0;;0;0;38:02;;;;;;;0;;0;N;0;0;
+06;B;CAN;CAN;;22;1989658;DANIELSSON Alfred George Rolf;Danielsson;Alfred George Rolf;2;CB;;2;2;100;2;2;100;;;;;;;;;;;;;;;;2;2;100;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;14:40;;;;;;;3;;3;N;0;0;
+06;B;CAN;CAN;;24;1989649;CADORET Zachary;Cadoret;Zachary;2;P;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;18:09;;;;;;;0;;0;N;0;0;
+06;B;CAN;CAN;;3;1989661;BARBOZA GONZALEZ Mateo;Barboza Gonzalez;Mateo;2;CB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1;0;0;1;0;0;0;0;0;0;;0;0;15:30;;;;;;;2;;2;N;0;0;
+06;B;CAN;CAN;;4;1989655;KLEINMANN Rhys;Kleinmann;Rhys;2;CB;;0;2;0;0;2;0;;;;0;1;0;;;;;;;0;1;0;0;1;0;;;;;;;;;;;;;;;;;;;1;0;0;0;0;0;0;0;0;0;;0;0;16:10;;;;;;;4;;4;N;0;0;
+06;B;CAN;CAN;;6;1989656;HOULE Charles;Houle;Charles;2;LB;;1;1;100;1;1;100;;;;;;;1;1;100;;;;1;1;100;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;20:55;;;;;;;1;;1;N;0;0;
+06;B;CAN;CAN;*;7;1989653;CHASS� Nicolas;Chassé;Nicolas;2;LW;;1;3;33;1;3;33;;;;;;;1;3;33;;;;1;3;33;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;33:47;;;;;;;1;;1;N;0;0;
+06;B;CAN;CAN;;77;1989659;COGHILL Matthew;Coghill;Matthew;2;RB;;2;3;67;2;3;67;;;;1;1;100;1;2;50;;;;2;3;67;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;20:00;;;;;;;1;;1;N;0;0;
+06;B;CAN;CAN;*;8;1989652;LEFEBVRE-GAGNON Simon;Lefebvre-Gagnon;Simon;2;RB;;1;2;50;1;2;50;;;;;;;;;;1;1;100;1;1;100;0;1;0;;;;;;;;;;;;;;;;;;;0;1;0;0;0;0;0;0;0;0;;0;0;24:27;;;;;;;0;;0;N;0;0;
+06;B;CAN;CAN;*;9;1989662;MATTEO Fabio;Matteo;Fabio;2;P;;0;1;0;0;1;0;;;;0;1;0;;;;;;;0;1;0;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;39:58;;;;;;;0;;0;N;0;0;
+06;B;CAN;CAN;*;92;1989660;BISOU Nael;Bisou;Nael;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;0;0;0;0;0;0;0;0;0;;0;0;30:00;;;;;;;1;;1;N;1;21;5
+
+[keepind]
+06;A;CRO;CRO;*;1;1297798;HERCEG Tin;Herceg;Tin;9;21;43;;;;9;19;47;9;19;47;4;7;57;0;2;0;
+06;A;CRO;CRO;;12;1297799;KAHLINA Nikola;Kahlina;Nikola;7;15;47;;;;6;14;43;6;14;43;1;3;33;1;1;100;
+06;B;CAN;CAN;;1;1989651;ECHEGARAY Santiago;Echegaray;Santiago;5;29;17;0;5;0;5;27;19;5;22;23;4;19;21;0;2;0;
+06;B;CAN;CAN;*;92;1989660;BISOU Nael;Bisou;Nael;1;21;5;1;5;20;1;20;5;0;15;0;0;12;0;0;1;0;
+
+[statteam]
+06;A;CRO;CRO;Croatia;44;55;80;41;52;79;3;3;100;9;9;100;11;14;79;7;9;78;27;32;84;5;10;50;9;10;90;;;;9;10;90;;;;;;;;;;22;7;3;3;3;1;6;3;3;0;0;0;;;;;;;;;;;0;0;0;0;
+06;B;CAN;CAN;Canada;20;44;45;18;42;43;2;3;67;1;5;20;3;7;43;1;2;50;5;14;36;13;27;48;;;;;;;;;;;;;;;;;;;4;2;0;3;3;0;4;2;2;0;0;0;;;;;;;;;;;0;0;0;0;
+
+[actions]
+06;A;CRO;CRO;4884588;H2;143;0:00;12;1297799;Kahlina N;;;;;;;;;;;;;;0;0;;;0;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884743;H2;161;0:00;5;1297818;Molc M;;;;;;;;;TO;;;;;0;0;;;0;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4883446;H2;1;1:14;15;1989657;Desbiens A;;;;;;1;1297798;Herceg T;;4;;;;0;0;;;0;SHOT;;;Shot right back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4883470;H2;2;2:08;30;1297817;Krupić P;;;;;;;;;;;;;;0;0;;;0;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4883471;H2;3;2:09;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;1;0;;;+1;G;;;Goal left wing ;;;;;;;
+06;B;CAN;CAN;4883477;H2;4;2:36;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;4;;;;1;0;;;+1;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4883478;H2;5;2:42;24;1989278;Ivanković N;;;;;;;;;TO;;;;;1;0;;;+1;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4883490;H2;6;3:16;15;1989657;Desbiens A;;;;;;1;1297798;Herceg T;;4;;;;1;0;;;+1;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4883504;H2;7;3:49;19;1979466;Ćeško D;;;;;;92;1989660;Bisou N;;0;;;;2;0;;;+2;G;;;Goal center back position (9m) ;;;;;;;
+06;B;CAN;CAN;4883521;H2;8;4:22;17;1989641;Kuypers C;;;;;;;;;;3;;;;2;0;;;+2;SHOT;;;Shot center back position (9m) blocked;;;;;;;
+06;A;CRO;CRO;4883524;H2;9;4:25;19;1979466;Ćeško D;;;;;;;;;;;;;;2;0;;;+2;BLK;;;Block;;;;;;;
+06;B;CAN;CAN;4883525;H2;10;4:29;8;1989652;Lefebvre-Gagnon S;;;;;;;;;;;;;;2;0;;;+2;ST;;;Steal;;;;;;;
+06;A;CRO;CRO;4883532;H2;11;4:41;1;1297798;Herceg T;;;;;;;;;TO;;;;;2;0;;;+2;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4883552;H2;13;5:16;9;1989662;Matteo F;;;;;;;;;;2;;;;2;0;;;+2;SHOT;;;Shot left line (6m) missed goal;;;;;;;
+06;B;CAN;CAN;4883557;H2;14;5:26;8;1989652;Lefebvre-Gagnon S;;;;;;;;;;;;;;2;0;;;+2;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4883558;H2;15;5:34;30;1297817;Krupić P;;;;;;92;1989660;Bisou N;;0;;;;3;0;;;+3;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4883575;H2;16;6:08;7;1989653;Chassé N;;;;;;1;1297798;Herceg T;;0;;;;3;1;;;+2;G;;;Goal left wing ;;;;;;;
+06;A;CRO;CRO;4883584;H2;17;6:18;19;1979466;Ćeško D;;;;;;92;1989660;Bisou N;;0;;;;4;1;;;+3;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4883586;H2;18;6:27;17;1989641;Kuypers C;;;;;;;;;;;;;;4;1;;;+3;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4883588;H2;19;6:49;11;1297824;Malinarich L;;;;;;;;;;;;;;4;1;;;+3;YC;;;Yellow card;;;;;;;
+06;B;CAN;CAN;4883607;H2;20;7:14;15;1989657;Desbiens A;;;;;;1;1297798;Herceg T;;4;;;;4;1;;;+3;SHOT;;;Shot breakthrough saved;;;;;;;
+06;A;CRO;CRO;4883611;H2;21;7:21;5;1297818;Molc M;;;;;;92;1989660;Bisou N;;0;;;;5;1;;;+4;G;;;Goal right wing ;;;;;;;
+06;A;CRO;CRO;4883619;H2;22;7:28;30;1297817;Krupić P;;;;;;;;;;;;;;5;1;;;+4;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4883627;H2;23;7:57;15;1989657;Desbiens A;;;;;;1;1297798;Herceg T;;0;;;;5;2;;;+3;G;;;Goal left back position (9m) ;;;;;;;
+06;B;CAN;CAN;4883634;H2;24;8:00;15;1989657;Desbiens A;;;;;;;;;;;;;;5;2;;;+3;RS;;;Earned Suspension;;;;;;;
+06;A;CRO;CRO;4883640;H2;25;8:00;11;1297824;Malinarich L;;;;;;;;;;;;;;5;2;;;+3;TMS;;;Suspension;;;;;;;
+06;A;CRO;CRO;4883664;H2;26;8:37;24;1989278;Ivanković N;;;;;;;;;;;;;;5;2;;;+3;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4883665;H2;27;8:38;19;1979466;Ćeško D;;;;;;92;1989660;Bisou N;;0;;;;6;2;;;+4;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4883679;H2;28;8:58;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;0;;;;6;3;;;+3;G;;;Goal left back position (9m) ;;;;;;;
+06;A;CRO;CRO;4883697;H2;29;9:32;24;1989278;Ivanković N;;;;;;92;1989660;Bisou N;;0;;;;7;3;;;+4;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4883712;H2;30;10:04;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;4;;;;7;3;;;+4;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;B;CAN;CAN;4883713;H2;31;10:11;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;4;;;;7;3;;;+4;SHOT;;;Shot left line (6m) saved;;;;;;;
+06;A;CRO;CRO;4883728;H2;32;10:40;11;1297824;Malinarich L;;;;;;92;1989660;Bisou N;;0;;;;8;3;;;+5;G;;;Goal left line (6m) ;;;;;;;
+06;A;CRO;CRO;4883729;H2;33;10:43;19;1979466;Ćeško D;;;;;;;;;;;;;;8;3;;;+5;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4883731;H2;34;10:51;17;1989641;Kuypers C;;;;;;;;;;;;;;8;3;;;+5;RS;;;Earned Suspension;;;;;;;
+06;A;CRO;CRO;4883732;H2;35;10:51;5;1297818;Molc M;;;;;;;;;;;;;;8;3;;;+5;TMS;;;Suspension;;;;;;;
+06;B;CAN;CAN;4883745;H2;36;10:57;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;0;;;;8;4;;;+4;G;;;Goal penalty (7m) ;;;;;;;
+06;B;CAN;CAN;4883750;H2;37;11:05;17;1989641;Kuypers C;;;;;;;;;;;;;;8;4;;;+4;RFP;;;Earned pen.;;;;;;;
+06;A;CRO;CRO;4883755;H2;38;11:10;5;1297818;Molc M;;;;;;;;;;;;;;8;4;;;+4;PFP;;;Commited faul pen.;;;;;;;
+06;A;CRO;CRO;4883779;H2;39;11:31;24;1989278;Ivanković N;;;;;;;;;;;;;;8;4;;;+4;RS;;;Earned Suspension;;;;;;;
+06;B;CAN;CAN;4883780;H2;40;11:31;17;1989641;Kuypers C;;;;;;;;;;;;;;8;4;;;+4;TMS;;;Suspension;;;;;;;
+06;A;CRO;CRO;4883785;H2;41;11:46;30;1297817;Krupić P;;;;;;;;;TO;;;;;8;4;;;+4;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4883789;H2;42;11:50;92;1989660;Bisou N;;;;;;;;;TO;;;;;8;4;;;+4;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4883805;H2;43;12:30;19;1979466;Ćeško D;;;;;;92;1989660;Bisou N;;0;;;;9;4;;;+5;G;;;Goal center back position (9m) ;;;;;;;
+06;B;CAN;CAN;4883821;H2;44;13:03;8;1989652;Lefebvre-Gagnon S;;;;;;1;1297798;Herceg T;;0;;;;9;5;;;+4;G;;;Goal breakthrough ;;;;;;;
+06;A;CRO;CRO;4883837;H2;45;13:25;19;1979466;Ćeško D;;;;;;;;;;;;;;9;5;;;+4;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4883838;H2;46;13:26;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;10;5;;;+5;G;;;Goal left wing ;;;;;;;
+06;B;CAN;CAN;4883848;H2;47;14:03;17;1989641;Kuypers C;;;;;;;;;;3;;;;10;5;;;+5;SHOT;;;Shot center line (6m) blocked;;;;;;;
+06;A;CRO;CRO;4883850;H2;48;14:07;19;1979466;Ćeško D;;;;;;;;;;;;;;10;5;;;+5;BLK;;;Block;;;;;;;
+06;A;CRO;CRO;4883859;H2;49;14:24;30;1297817;Krupić P;;;;;;92;1989660;Bisou N;;0;;;;11;5;;;+6;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4883861;H2;50;14:38;7;1989653;Chassé N;;;;;;1;1297798;Herceg T;;4;;;;11;5;;;+6;SHOT;;;Shot left wing saved;;;;;;;
+06;B;CAN;CAN;4883875;H2;51;14:56;;; ;;;;;;;;;;;;;;11;5;;;+6;TOUT;;;Timeout;;;;;;;
+06;B;CAN;CAN;4883903;H2;52;15:14;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;0;;;;11;6;;;+5;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4883920;H2;53;15:47;30;1297817;Krupić P;;;;;;;;;;1;;;;11;6;;;+5;SHOT;;;Shot right back position (9m) post;;;;;;;
+06;B;CAN;CAN;4883933;H2;54;16:31;11;1989663;Coin T;;;;;;1;1297798;Herceg T;;4;;;;11;6;;;+5;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;B;CAN;CAN;4883944;H2;55;16:56;15;1989657;Desbiens A;;;;;;;;;TO;;;;;11;6;;;+5;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4883953;H2;56;17:41;19;1979466;Ćeško D;;;;;;;;;;2;;;;11;6;;;+5;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+06;B;CAN;CAN;4883969;H2;57;18:19;11;1989663;Coin T;;;;;;;;;TO;;;;;11;6;;;+5;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4883974;H2;58;18:20;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;12;6;;;+6;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4883982;H2;59;18:43;11;1297824;Malinarich L;;;;;;;;;;;;;;12;6;;;+6;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4883986;H2;60;18:54;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;0;;;;12;7;;;+5;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884003;H2;61;19:31;30;1297817;Krupić P;;;;;;92;1989660;Bisou N;;0;;;;13;7;;;+6;G;;;Goal right back position (9m) ;;;;;;;
+06;B;CAN;CAN;4884011;H2;62;20:00;15;1989657;Desbiens A;;;;;;1;1297798;Herceg T;;0;;;;13;8;;;+5;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884027;H2;63;20:48;19;1979466;Ćeško D;;;;;;;;;;;;;;13;8;;;+5;RFP;;;Earned pen.;;;;;;;
+06;B;CAN;CAN;4884028;H2;64;20:54;13;1989642;Savard A;;;;;;;;;;;;;;13;8;;;+5;PFP;;;Commited faul pen.;;;;;;;
+06;A;CRO;CRO;4884029;H2;65;20:55;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;14;8;;;+6;G;;;Goal penalty (7m) ;;;;;;;
+06;B;CAN;CAN;4884049;H2;67;21:43;3;1989661;Barboza Gonzalez M;;;;;;;;;;;;;;14;8;;;+6;RFP;;;Earned pen.;;;;;;;
+06;B;CAN;CAN;4884051;H2;68;21:54;17;1989641;Kuypers C;;;;;;1;1297798;Herceg T;;0;;;;14;9;;;+5;G;;;Goal penalty (7m) ;;;;;;;
+06;A;CRO;CRO;4884056;H2;69;21:55;5;1297818;Molc M;;;;;;;;;;;;;;14;9;;;+5;PFP;;;Commited faul pen.;;;;;;;
+06;A;CRO;CRO;4884072;H2;70;22:31;24;1989278;Ivanković N;;;;;;;;;;;;;;14;9;;;+5;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884073;H2;71;22:33;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;15;9;;;+6;G;;;Goal left wing ;;;;;;;
+06;A;CRO;CRO;4884083;H2;74;23:16;18;1297806;Čaprić A;;;;;;92;1989660;Bisou N;;4;;;;15;9;;;+6;SHOT;;;Shot fast break saved;;;;;;;
+06;A;CRO;CRO;4884084;H2;75;23:16;18;1297806;Čaprić A;;;;;;;;;;;;;;15;9;;;+6;ST;;;Steal;;;;;;;
+06;B;CAN;CAN;4884085;H2;76;23:16;3;1989661;Barboza Gonzalez M;;;;;;;;;TO;;;;;15;9;;;+6;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4884103;H2;77;23:56;6;1989656;Houle C;;;;;;;;;TO;;;;;15;9;;;+6;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884108;H2;78;23:58;30;1297817;Krupić P;;;;;;;;;;;;;;15;9;;;+6;ST;;;Steal;;;;;;;
+06;A;CRO;CRO;4884115;H2;79;24:07;14;1297823;Krstić F;;;;;;92;1989660;Bisou N;;0;;;;16;9;;;+7;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4884118;H2;80;24:17;30;1297817;Krupić P;;;;;;;;;;;;;;16;9;;;+7;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884124;H2;81;24:37;15;1989657;Desbiens A;;;;;;;;;TO;;;;;16;9;;;+7;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884125;H2;82;24:38;24;1989278;Ivanković N;;;;;;;;;;;;;;16;9;;;+7;ST;;;Steal;;;;;;;
+06;A;CRO;CRO;4884126;H2;83;24:39;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;17;9;;;+8;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4884131;H2;84;24:56;24;1989278;Ivanković N;;;;;;;;;;;;;;17;9;;;+8;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884145;H2;85;25:33;22;1989658;Danielsson A;;;;;;1;1297798;Herceg T;;0;;;;17;10;;;+7;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884152;H2;86;25:46;20;1989277;Juranic J;;;;;;;;;;1;;;;17;10;;;+7;SHOT;;;Shot left back position (9m) post;;;;;;;
+06;B;CAN;CAN;4884168;H2;87;26:52;4;1989655;Kleinmann R;;;;;;;;;;;;;;17;10;;;+7;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884169;H2;88;26:54;77;1989659;Coghill M;;;;;;1;1297798;Herceg T;;0;;;;17;11;;;+6;G;;;Goal center line (6m) ;;;;;;;
+06;A;CRO;CRO;4884184;H2;89;27:28;30;1297817;Krupić P;;;;;;;;;;;;;;17;11;;;+6;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884185;H2;90;27:32;2;1297803;Bajan M;;;;;;;;;;2;;;;17;11;;;+6;SHOT;;;Shot left wing missed goal;;;;;;;
+06;A;CRO;CRO;4884207;H2;92;28:04;2;1297803;Bajan M;;;;;;;;;;;;;;17;11;;;+6;ST;;;Steal;;;;;;;
+06;B;CAN;CAN;4884209;H2;93;28:17;4;1989655;Kleinmann R;;;;;;;;;TO;;;;;17;11;;;+6;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884210;H2;94;28:21;2;1297803;Bajan M;;;;;;92;1989660;Bisou N;;0;;;;18;11;;;+7;G;;;Goal fast break ;;;;;;;
+06;B;CAN;CAN;4884214;H2;95;28:32;22;1989658;Danielsson A;;;;;;1;1297798;Herceg T;;0;;;;18;12;;;+6;G;;;Goal left back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884216;H2;96;28:42;18;1297806;Čaprić A;;;;;;92;1989660;Bisou N;;0;;;;19;12;;;+7;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4884228;H2;97;29:14;22;1989658;Danielsson A;;;;;;;;;TO;;;;;19;12;;;+7;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884234;H2;98;29:21;18;1297806;Čaprić A;;;;;;;;;;;;;;19;12;;;+7;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884235;H2;99;29:21;20;1989277;Juranic J;;;;;;92;1989660;Bisou N;;0;;;;20;12;;;+8;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4884248;H2;100;29:50;15;1989657;Desbiens A;;;;;;;;;;;;;;20;12;;;+8;PCC;;;Pass clear chance;;;;;;;
+06;B;CAN;CAN;4884254;H2;101;29:55;77;1989659;Coghill M;;;;;;1;1297798;Herceg T;;4;;;;20;12;;;+8;SHOT;;;Shot right wing saved;;;;;;;
+06;A;CRO;CRO;4884341;H2;104;30:30;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;4;;;;20;12;;;+8;SHOT;;;Shot breakthrough saved;;;;;;;
+06;A;CRO;CRO;4884344;H2;105;30:54;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;0;;;;21;12;;;+9;G;;;Goal ;;;;;;;
+06;B;CAN;CAN;4884345;H2;106;30:57;17;1989641;Kuypers C;;;;;;12;1297799;Kahlina N;;0;;;;21;13;;;+8;G;;;Goal right back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884374;H2;107;31:26;25;1297813;Borovec T;;;;;;1;1989651;Echegaray S;;4;;;;21;13;;;+8;SHOT;;;Shot breakthrough saved;;;;;;;
+06;A;CRO;CRO;4884378;H2;108;31:35;11;1297824;Malinarich L;;;;;;;;;;;;;;21;13;;;+8;PCC;;;Pass clear chance;;;;;;;
+06;B;CAN;CAN;4884394;H2;109;32:33;17;1989641;Kuypers C;;;;;;12;1297799;Kahlina N;;4;;;;21;13;;;+8;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4884397;H2;110;32:38;25;1297813;Borovec T;;;;;;;;;;;;;;21;13;;;+8;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884398;H2;111;32:39;11;1297824;Malinarich L;;;;;;1;1989651;Echegaray S;;0;;;;22;13;;;+9;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4884408;H2;112;33:09;13;1989642;Savard A;;;;;;12;1297799;Kahlina N;;0;;;;22;14;;;+8;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884416;H2;113;33:43;18;1297806;Čaprić A;;;;;;;;;;;;;;22;14;;;+8;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884417;H2;114;33:49;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;4;;;;22;14;;;+8;SHOT;;;Shot left wing saved;;;;;;;
+06;B;CAN;CAN;4884430;H2;115;34:23;13;1989642;Savard A;;;;;;;;;;3;;;;22;14;;;+8;SHOT;;;Shot center back position (9m) blocked;;;;;;;
+06;A;CRO;CRO;4884432;H2;116;34:27;11;1297824;Malinarich L;;;;;;;;;;;;;;22;14;;;+8;BLK;;;Block;;;;;;;
+06;A;CRO;CRO;4884435;H2;118;34:48;11;1297824;Malinarich L;;;;;;;;;;;;;;22;14;;;+8;RFP;;;Earned pen.;;;;;;;
+06;B;CAN;CAN;4884437;H2;119;34:54;13;1989642;Savard A;;;;;;;;;;;;;;22;14;;;+8;PFP;;;Commited faul pen.;;;;;;;
+06;A;CRO;CRO;4884442;H2;120;34:57;27;1989280;Baković T;;;;;;1;1989651;Echegaray S;;0;;;;23;14;;;+9;G;;;Goal penalty (7m) ;;;;;;;
+06;B;CAN;CAN;4884453;H2;121;36:01;17;1989641;Kuypers C;;;;;;12;1297799;Kahlina N;;0;;;;23;15;;;+8;G;;;Goal left back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884457;H2;122;36:16;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;24;15;;;+9;G;;;Goal left wing ;;;;;;;
+06;A;CRO;CRO;4884461;H2;123;36:21;18;1297806;Čaprić A;;;;;;;;;;;;;;24;15;;;+9;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884476;H2;124;37:16;8;1989652;Lefebvre-Gagnon S;;;;;;12;1297799;Kahlina N;;4;;;;24;15;;;+9;SHOT;;;Shot right back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4884477;H2;125;37:24;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;0;;;;25;15;;;+10;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4884496;H2;126;37:56;17;1989641;Kuypers C;;;;;;12;1297799;Kahlina N;;0;;;;25;16;;;+9;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884505;H2;127;38:18;27;1989280;Baković T;;;;;;;;;TO;;;;;25;16;;;+9;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4884506;H2;128;38:22;10;1989654;Lavoie J;;;;;;;;;;;;;;25;16;;;+9;ST;;;Steal;;;;;;;
+06;B;CAN;CAN;4884515;H2;129;39:02;15;1989657;Desbiens A;;;;;;12;1297799;Kahlina N;;4;;;;25;16;;;+9;SHOT;;;Shot left back position (9m) saved;;;;;;;
+06;B;CAN;CAN;4884529;H2;130;39:23;7;1989653;Chassé N;;;;;;;;;TO;;;;;25;16;;;+9;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884531;H2;131;39:28;20;1989277;Juranic J;;;;;;;;;;;;;;25;16;;;+9;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884532;H2;132;39:29;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;26;16;;;+10;G;;;Goal left wing ;;;;;;;
+06;B;CAN;CAN;4884546;H2;133;40:17;15;1989657;Desbiens A;;;;;;12;1297799;Kahlina N;;4;;;;26;16;;;+10;SHOT;;;Shot right back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4884548;H2;134;40:36;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;0;;;;27;16;;;+11;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4884556;H2;135;40:49;9;1989662;Matteo F;;;;;;;;;;;;;;27;16;;;+11;PCC;;;Pass clear chance;;;;;;;
+06;B;CAN;CAN;4884558;H2;136;40:55;7;1989653;Chassé N;;;;;;;;;;2;;;;27;16;;;+11;SHOT;;;Shot left wing missed goal;;;;;;;
+06;A;CRO;CRO;4884567;H2;137;41:13;27;1989280;Baković T;;;;;;;;;;;;;;27;16;;;+11;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884568;H2;138;41:14;5;1297818;Molc M;;;;;;1;1989651;Echegaray S;;0;;;;28;16;;;+12;G;;;Goal right wing ;;;;;;;
+06;B;CAN;CAN;4884575;H2;139;41:49;17;1989641;Kuypers C;;;;;;;;;;2;;;;28;16;;;+12;SHOT;;;Shot center back position (9m) missed goal;;;;;;;
+06;A;CRO;CRO;4884597;H2;144;41:49;4;1989283;Celegin J;;;;;;;;;TO;;;;;28;16;;;+12;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4884582;H2;141;41:57;;; ;;;;;;;;;;;;;;28;16;;;+12;TOUT;;;Timeout;;;;;;;
+06;A;CRO;CRO;4884585;H2;142;41:57;12;1297799;Kahlina N;;;;;;;;;;;;;;28;16;;;+12;PCC;;;Pass clear chance;;;;;;;
+06;B;CAN;CAN;4884615;H2;145;42:28;15;1989657;Desbiens A;;;;;;12;1297799;Kahlina N;;4;;;;28;16;;;+12;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;A;CRO;CRO;4884623;H2;146;42:37;20;1989277;Juranic J;;;;;;;;;;1;;;;28;16;;;+12;SHOT;;;Shot left back position (9m) post;;;;;;;
+06;B;CAN;CAN;4884638;H2;147;43:06;15;1989657;Desbiens A;;;;;;;;;;;;;;28;16;;;+12;RS;;;Earned Suspension;;;;;;;
+06;A;CRO;CRO;4884642;H2;148;43:06;20;1989277;Juranic J;;;;;;;;;;;;;;28;16;;;+12;TMS;;;Suspension;;;;;;;
+06;B;CAN;CAN;4884653;H2;149;43:31;15;1989657;Desbiens A;;;;;;;;;TO;;;;;28;16;;;+12;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884657;H2;150;43:36;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;29;16;;;+13;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4884666;H2;151;43:44;4;1989283;Celegin J;;;;;;;;;;;;;;29;16;;;+13;ST;;;Steal;;;;;;;
+06;B;CAN;CAN;4884676;H2;152;44:09;4;1989655;Kleinmann R;;;;;;12;1297799;Kahlina N;;4;;;;29;16;;;+13;SHOT;;;Shot line (6m) saved;;;;;;;
+06;A;CRO;CRO;4884683;H2;153;44:38;18;1297806;Čaprić A;;;;;;;;;;;;;;29;16;;;+13;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884684;H2;154;44:39;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;30;16;;;+14;G;;;Goal left wing ;;;;;;;
+06;B;CAN;CAN;4884700;H2;155;45:00;4;1989655;Kleinmann R;;;;;;;;;TO;;;;;30;16;;;+14;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884701;H2;156;45:02;18;1297806;Čaprić A;;;;;;;;;;;;;;30;16;;;+14;ST;;;Steal;;;;;;;
+06;A;CRO;CRO;4884707;H2;157;45:04;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;0;;;;31;16;;;+15;G;;;Goal fast break ;;;;;;;
+06;B;CAN;CAN;4884718;H2;158;45:44;15;1989657;Desbiens A;;;;;;12;1297799;Kahlina N;;0;;;;31;17;;;+14;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4884725;H2;159;46:00;18;1297806;Čaprić A;;;;;;;;;;;;;;31;17;;;+14;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884742;H2;160;46:17;5;1297818;Molc M;;;;;;;;;TO;;;;;31;17;;;+14;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4884748;H2;162;46:49;10;1989654;Lavoie J;;;;;;;;;TO;;;;;31;17;;;+14;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884749;H2;163;46:55;18;1297806;Čaprić A;;;;;;1;1989651;Echegaray S;;0;;;;32;17;;;+15;G;;;Goal breakthrough ;;;;;;;
+06;B;CAN;CAN;4884763;H2;164;47:55;4;1989655;Kleinmann R;;;;;;;;;;1;;;;32;17;;;+15;SHOT;;;Shot center back position (9m) post;;;;;;;
+06;A;CRO;CRO;4884773;H2;165;48:28;25;1297813;Borovec T;;;;;;;;;;;;;;32;17;;;+15;RS;;;Earned Suspension;;;;;;;
+06;B;CAN;CAN;4884774;H2;166;48:28;10;1989654;Lavoie J;;;;;;;;;;;;;;32;17;;;+15;TMS;;;Suspension;;;;;;;
+06;A;CRO;CRO;4884778;H2;167;48:28;25;1297813;Borovec T;;;;;;;;;;;;;;32;17;;;+15;RFP;;;Earned pen.;;;;;;;
+06;B;CAN;CAN;4884779;H2;168;48:28;10;1989654;Lavoie J;;;;;;;;;;;;;;32;17;;;+15;PFP;;;Commited faul pen.;;;;;;;
+06;A;CRO;CRO;4884781;H2;169;48:32;27;1989280;Baković T;;;;;;1;1989651;Echegaray S;;0;;;;33;17;;;+16;G;;;Goal penalty (7m) ;;;;;;;
+06;B;CAN;CAN;4884797;H2;170;49:05;4;1989655;Kleinmann R;;;;;;;;;TO;;;;;33;17;;;+16;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884801;H2;171;49:09;25;1297813;Borovec T;;;;;;;;;;;;;;33;17;;;+16;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884806;H2;172;49:14;33;1989285;Popović T;;;;;;1;1989651;Echegaray S;;0;;;;34;17;;;+17;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4884823;H2;173;49:54;4;1989655;Kleinmann R;;;;;;;;;TO;;;;;34;17;;;+17;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884825;H2;174;50:17;27;1989280;Baković T;;;;;;;;;;;;;;34;17;;;+17;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884826;H2;175;50:24;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;4;;;;34;17;;;+17;SHOT;;;Shot left wing saved;;;;;;;
+06;A;CRO;CRO;4884830;H2;176;50:27;27;1989280;Baković T;;;;;;;;;;;;;;34;17;;;+17;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884831;H2;177;50:29;13;1989284;Vrbanec T;;;;;;1;1989651;Echegaray S;;0;;;;35;17;;;+18;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4884844;H2;178;51:33;13;1989642;Savard A;;;;;;;;;;1;;;;35;17;;;+18;SHOT;;;Shot right wing post;;;;;;;
+06;B;CAN;CAN;4884845;H2;179;51:41;17;1989641;Kuypers C;;;;;;;;;;;;;;35;17;;;+18;PCC;;;Pass clear chance;;;;;;;
+06;A;CRO;CRO;4884849;H2;180;51:57;20;1989277;Juranic J;;;;;;;;;;;;;;35;17;;;+18;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884853;H2;181;52:03;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;36;17;;;+19;G;;;Goal left wing ;;;;;;;
+06;B;CAN;CAN;4884866;H2;182;52:32;17;1989641;Kuypers C;;;;;;;;;;;;;;36;17;;;+19;RFP;;;Earned pen.;;;;;;;
+06;A;CRO;CRO;4884870;H2;183;52:37;5;1297818;Molc M;;;;;;;;;;;;;;36;17;;;+19;PFP;;;Commited faul pen.;;;;;;;
+06;B;CAN;CAN;4884877;H2;184;52:56;17;1989641;Kuypers C;;;;;;12;1297799;Kahlina N;;4;;;;36;17;;;+19;SHOT;;;Shot penalty (7m) saved;;;;;;;
+06;A;CRO;CRO;4884887;H2;185;53:21;27;1989280;Baković T;;;;;;1;1989651;Echegaray S;;4;;;;36;17;;;+19;SHOT;;;Shot center back position (9m) saved;;;;;;;
+06;B;CAN;CAN;4884893;H2;186;53:29;17;1989641;Kuypers C;;;;;;;;;;;;;;36;17;;;+19;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884894;H2;187;53:30;6;1989656;Houle C;;;;;;12;1297799;Kahlina N;;0;;;;36;18;;;+18;G;;;Goal left wing ;;;;;;;
+06;A;CRO;CRO;4884908;H2;188;54:04;27;1989280;Baković T;;;;;;1;1989651;Echegaray S;;0;;;;37;18;;;+19;G;;;Goal center back position (9m) ;;;;;;;
+06;B;CAN;CAN;4884913;H2;189;54:11;77;1989659;Coghill M;;;;;;;;;TO;;;;;37;18;;;+19;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4884920;H2;190;54:16;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;38;18;;;+20;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4884927;H2;191;54:38;12;1297799;Kahlina N;;;;;;;;;;;;;;38;18;;;+20;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884945;H2;192;54:51;13;1989284;Vrbanec T;;;;;;;;;;;;;;38;18;;;+20;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4884946;H2;193;54:55;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;39;18;;;+21;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4884951;H2;194;54:57;3;1989661;Barboza Gonzalez M;;;;;;;;;TO;;;;;39;18;;;+21;TO;;;Turnover;;;;;;;
+06;B;CAN;CAN;4884969;H2;195;55:52;3;1989661;Barboza Gonzalez M;;;;;;;;;;;;;;39;18;;;+21;AST;;;Assist;;;;;;;
+06;B;CAN;CAN;4884979;H2;196;55:59;77;1989659;Coghill M;;;;;;12;1297799;Kahlina N;;0;;;;39;19;;;+20;G;;;Goal right wing ;;;;;;;
+06;A;CRO;CRO;4884980;H2;197;56:00;5;1297818;Molc M;;;;;;1;1989651;Echegaray S;;0;;;;40;19;;;+21;G;;;Goal right wing ;;;;;;;
+06;A;CRO;CRO;4884981;H2;198;56:02;27;1989280;Baković T;;;;;;;;;;;;;;40;19;;;+21;AST;;;right back position (9m) Assist;;;;;;;
+06;A;CRO;CRO;4885002;H2;199;57:10;13;1989284;Vrbanec T;;;;;;1;1989651;Echegaray S;;0;;;;41;19;;;+22;G;;;Goal center back position (9m) ;;;;;;;
+06;B;CAN;CAN;4885008;H2;200;57:33;22;1989658;Danielsson A;;;;;;;;;TO;;;;;41;19;;;+22;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4885010;H2;201;57:36;13;1989284;Vrbanec T;;;;;;1;1989651;Echegaray S;;0;;;;42;19;;;+23;G;;;Goal fast break ;;;;;;;
+06;B;CAN;CAN;4885045;H2;202;58:49;15;1989657;Desbiens A;;;;;;12;1297799;Kahlina N;;0;;;;42;20;;;+22;G;;;Goal center back position (9m) ;;;;;;;
+06;A;CRO;CRO;4885066;H2;203;59:19;33;1989285;Popović T;;;;;;;;;;;;;;42;20;;;+22;AST;;;Assist;;;;;;;
+06;A;CRO;CRO;4885070;H2;204;59:23;25;1297813;Borovec T;;;;;;1;1989651;Echegaray S;;0;;;;43;20;;;+23;G;;;Goal center line (6m) ;;;;;;;
+06;B;CAN;CAN;4885081;H2;205;59:51;22;1989658;Danielsson A;;;;;;;;;TO;;;;;43;20;;;+23;TO;;;Turnover;;;;;;;
+06;A;CRO;CRO;4885085;H2;206;59:54;4;1989283;Celegin J;;;;;;1;1989651;Echegaray S;;0;;;;44;20;;;+24;G;;;Goal fast break ;;;;;;;
+06;A;CRO;CRO;4885086;H2;207;59:58;4;1989283;Celegin J;;;;;;;;;;;;;;44;20;;;+24;ST;;;Steal;;;;;;;

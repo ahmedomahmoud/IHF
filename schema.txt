@@ -1,0 +1,111 @@
+1. championships
+id              PK
+name
+description
+start_date
+end_date
+
+
+2. teams
+id              PK
+name
+abbreviation
+championship_id FK → championships(id)
+
+
+3. players
+id              PK
+first_name
+last_name
+Number
+team_id         FK → teams(id)
+
+4.matches
+id               PK
+game_code        TEXT
+date             DATE
+championship_id  FK → championships(id)
+team_a_id        FK → teams(id)
+team_b_id        FK → teams(id)
+score_a          INT
+score_b          INT
+score_a_1st_half INT
+score_b_1st_half INT
+score_a_2nd_half INT
+score_b_2nd_half INT
+status           TEXT
+
+
+
+5. referees
+id              PK
+name
+country
+role            (e.g. Referee, Reserve Referee)
+
+
+6. player_stats
+id                  PK
+match_id            FK → matches(id)
+player_id           FK → players(id)
+team_id             FK → teams(id)
+
+-- Basic performance
+all_goals           INT
+shots_efficiency          FLOAT
+
+-- Discipline
+yellow_cards        INT
+red_cards           INT
+blue_cards          INT
+suspensions_2min    INT
+
+
+... (more fields parsed from [statind])
+
+
+7. team_stats
+id                        PK
+match_id                 FK → matches(id)
+team_id                  FK → teams(id)
+
+-- Shot counts and efficiency
+all_goals                INT
+all_shots               INT
+all_efficiency           FLOAT
+
+goals_7m                 INT
+eff_7m                   FLOAT
+
+goals_9m                 INT
+eff_9m                   FLOAT
+
+goals_6m                 INT
+eff_6m                   FLOAT
+
+goals_near               INT
+eff_near                 FLOAT
+
+goals_wing               INT
+eff_wing                 FLOAT
+
+goals_fastbreak          INT
+eff_fastbreak            FLOAT
+
+-- Discipline and cards
+yellow_cards             INT
+red_cards                INT
+blue_cards               INT
+suspensions_2min         INT
+
+-- Penalty shots
+total_7m_shots           INT
+
+... (parsed from [statteam])
+
+
+"""
+diagram schema 
+
+https://mermaid.live/edit#pako:eNq9Vk1vozAQ_SvI57RqaAIJ1672Uu2q51UkNMAAVsFGttkum_a_r81HEsBJut0PDlEYv2c_zxsP3pOYJ0gCguIThUxAuWOOfuIcyopyJnNaSef19eaG7x2FUEoncHYk51LJHbmALUHFOXbomDMFlB0I3Tw9sCqgQdFPC5cwoVSgDkCne0u5sFLMyzXCoLGnCExRYK-ZpymNKShMnKg5Q5jJypCh0Bx5hjARNYMPubiwbQO1pX3fBc1DmXJo4jw9asaToCWIxnnEwybMI5WgLHMYlDgLJihjQSulpz6OJVqmSaBQofk7GUCWnITfBoWdIXNlH9MV85op0cziEEUCv2urRoLNUqcZCrt1P3OBNGNmXUfxcQ4HIQf9gx0f2EFKhVShdR8FzEbMrF_rMkIxjrX1opeb6W4zO9M7VNtc7zW5mZYTmk4wMXbstZlMxlpJCLZgZEWGS73dHIrUSrk4CqGrC-s8dz7ab8ecmFr-lWIYWQHXzRjhI_tCdvcO7edfHxjBi4mpbeHYtfY1deZs9L3pNwrOjENRhBmH4sShtOCgjc25kiG2rRdZ3IxpDRYFfwljEMnEW4GJLRwVNdrispYVMmmsDt2Sso8mY2D0ubBS-h5iLY_3n-yTD8ef53oIt9meWmAGzhnQzhP65ZSj8aPoEbu1YrdWrGfFelYsQxA29Dh-xL_ourfhx_EjPtU9Wn9V4NlGsgz-x_JUXEGh0z21b1S6763coQyv1SFZkEzQhARK1LggJYoSzCtpq3FHVI66ARFzR0lAPBue4VTAvnFeDjTB6ywnQaozrN_qynxd-lvnAaKvEigeTOcigbt0t-0kJNiTHyS4v_du177vb5Yr31ttvM16QRoS3Hir2_X9Zr3a6J_10rvz3xbkZ7vu8vZu62_d5crdbjx3469XC4IJVVx86a697e337Rf7wHM0
+""
