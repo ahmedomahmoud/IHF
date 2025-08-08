@@ -3,6 +3,7 @@ from pprint import pprint
 import psycopg2
 from dotenv import load_dotenv
 import os
+import json
 championship_id=1
 
 data = parse_cp_file("cp-files/txt/01.CP")
@@ -80,6 +81,14 @@ def insert_teams(parsed_data, conn, championship_id=1):
         conn.commit()
 
 
+def extract_score_json(team_data):
+    return {
+        "total": int(team_data["G"]),         # Goals
+        "first_half": int(team_data["G1"]),   # First half goals
+        "second_half": int(team_data["G2"])   # Second half goals
+    }
+
+
 def insert_match(parsed_data, conn):
     gameinfo = parsed_data["gameinfo"][0]
 
@@ -87,62 +96,74 @@ def insert_match(parsed_data, conn):
     team_a_abbr = gameinfo["TIDA"]
     team_b_abbr = gameinfo["TIDB"]
 
-    # Step 1: Look up team_a_id and team_b_id from abbreviation
     with conn.cursor() as cur:
+        # Get team A ID
         cur.execute("SELECT id FROM teams WHERE abbreviation = %s", (team_a_abbr,))
         team_a_row = cur.fetchone()
         if not team_a_row:
             print(f"Team A with abbreviation {team_a_abbr} not found.")
-            return
+            return None
         team_a_id = team_a_row[0]
 
+        # Get team B ID
         cur.execute("SELECT id FROM teams WHERE abbreviation = %s", (team_b_abbr,))
         team_b_row = cur.fetchone()
         if not team_b_row:
             print(f"Team B with abbreviation {team_b_abbr} not found.")
-            return
+            return None
         team_b_id = team_b_row[0]
 
-        # Step 2: Prepare match data
+        # Check if match already exists
+        cur.execute("SELECT id FROM matches WHERE game_code = %s", (game_code,))
+        existing = cur.fetchone()
+        if existing:
+            print(f"Match with game_code {game_code} already exists. Skipping insert.")
+            return existing[0]  # Return existing match_id
+
+        # Build score JSONs
+        team_a_score = {
+            "total": int(gameinfo["RA"]) if gameinfo["RA"] else 0,
+            "first_half": int(gameinfo["RA1"]) if gameinfo["RA1"] else 0,
+            "second_half": int(gameinfo["RA2"]) if gameinfo["RA2"] else 0
+        }
+
+        team_b_score = {
+            "total": int(gameinfo["RB"]) if gameinfo["RB"] else 0,
+            "first_half": int(gameinfo["RB1"]) if gameinfo["RB1"] else 0,
+            "second_half": int(gameinfo["RB2"]) if gameinfo["RB2"] else 0
+        }
+
+        # Prepare data for insertion
         match_data = {
             "game_code": game_code,
             "championship_id": championship_id,
             "team_a_id": team_a_id,
             "team_b_id": team_b_id,
-            "score_a": int(gameinfo["RA"]) if gameinfo["RA"] else None,
-            "score_b": int(gameinfo["RB"]) if gameinfo["RB"] else None,
-            "score_a_1st_half": int(gameinfo["RA1"]) if gameinfo["RA1"] else None,
-            "score_b_1st_half": int(gameinfo["RB1"]) if gameinfo["RB1"] else None,
-            "score_a_2nd_half": int(gameinfo["RA2"]) if gameinfo["RA2"] else None,
-            "score_b_2nd_half": int(gameinfo["RB2"]) if gameinfo["RB2"] else None,
-            "status": gameinfo["GStatus"] or None,
+            "team_a_score": json.dumps(team_a_score),
+            "team_b_score": json.dumps(team_b_score),
+            "status": gameinfo.get("GStatus")
         }
 
-        # Step 3: Check if match already exists
-        cur.execute("SELECT id FROM matches WHERE game_code = %s", (game_code,))
-        if cur.fetchone():
-            print(f"Match with game_code {game_code} already exists. Skipping insert.")
-        else:
-            cur.execute("""
-                INSERT INTO matches (
-                    game_code, championship_id,
-                    team_a_id, team_b_id,
-                    score_a, score_b,
-                    score_a_1st_half, score_b_1st_half,
-                    score_a_2nd_half, score_b_2nd_half,
-                    status
-                ) VALUES (
-                    %(game_code)s, %(championship_id)s,
-                    %(team_a_id)s, %(team_b_id)s,
-                    %(score_a)s, %(score_b)s,
-                    %(score_a_1st_half)s, %(score_b_1st_half)s,
-                    %(score_a_2nd_half)s, %(score_b_2nd_half)s,
-                    %(status)s
-                )
-            """, match_data)
-            print(f"Inserted match {game_code} between {team_a_abbr} and {team_b_abbr}")
+        # Insert into matches table
+        cur.execute("""
+            INSERT INTO matches (
+                game_code, championship_id,
+                team_a_id, team_b_id,
+                team_a_score, team_b_score,
+                status
+            ) VALUES (
+                %(game_code)s, %(championship_id)s,
+                %(team_a_id)s, %(team_b_id)s,
+                %(team_a_score)s, %(team_b_score)s,
+                %(status)s
+            ) RETURNING id
+        """, match_data)
 
+        match_id = cur.fetchone()[0]
         conn.commit()
+        print(f"Inserted match {game_code} between {team_a_abbr} and {team_b_abbr}")
+        return match_id
+
 
 def insert_referees(parsed_data, conn):
     referee_data = parsed_data.get("referee", [])
@@ -271,6 +292,19 @@ def insert_players(parsed_data, conn):
         conn.commit()
 
 def insert_player_stats(parsed_data, conn):
+
+    def safe_int(value, default=0):
+        try:
+            return int(value)
+        except (ValueError, TypeError):
+            return default
+
+    def safe_float(value, default=0.0):
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            return default
+        
     statind = parsed_data.get("statind", [])
     gameinfo = parsed_data.get("gameinfo", [])
 
@@ -285,7 +319,7 @@ def insert_player_stats(parsed_data, conn):
         cur.execute("SELECT id FROM matches WHERE game_code = %s", (game_code,))
         match = cur.fetchone()
         if not match:
-            print(f" Match {game_code} not found.")
+            print(f"Match {game_code} not found.")
             return
 
         match_id = match[0]
@@ -316,23 +350,15 @@ def insert_player_stats(parsed_data, conn):
                 continue
 
             player_id = player[0]
-
-            def parse_int(val): return int(val) if val and val.isdigit() else 0
-            def parse_float(val): 
-                try: return float(val)
-                except: return 0.0
-
-            stats = {
-                "match_id": match_id,
-                "player_id": player_id,
-                "team_id": team_id,
-                "all_goals": parse_int(row.get("AllG")),
-                "shots_efficiency": parse_float(row.get("AllEff")),
-                "yellow_cards": parse_int(row.get("YC")),
-                "red_cards": parse_int(row.get("RC")),
-                "blue_cards": parse_int(row.get("EX")),
-                "suspensions_2min": parse_int(row.get("P2minT"))
+            stats_json = {
+                "all_goals": safe_int(row.get("AllG")),
+                "shots_efficiency": safe_float(row.get("AllEff")),
+                "yellow_cards": safe_int(row.get("YC")),
+                "red_cards": safe_int(row.get("RC")),
+                "blue_cards": safe_int(row.get("EX")),
+                "suspensions_2min": safe_int(row.get("P2minT"))
             }
+
 
             # Check if already inserted
             cur.execute("""
@@ -346,20 +372,40 @@ def insert_player_stats(parsed_data, conn):
             # Insert stats
             cur.execute("""
                 INSERT INTO player_stats (
-                    match_id, player_id, team_id,
-                    all_goals, shots_efficiency,
-                    yellow_cards, red_cards, blue_cards, suspensions_2min
-                ) VALUES (
-                    %(match_id)s, %(player_id)s, %(team_id)s,
-                    %(all_goals)s, %(shots_efficiency)s,
-                    %(yellow_cards)s, %(red_cards)s, %(blue_cards)s, %(suspensions_2min)s
-                )
-            """, stats)
+                    match_id, player_id, team_id, stats
+                ) VALUES (%s, %s, %s, %s)
+            """, (match_id, player_id, team_id, json.dumps(stats_json)))
+
             print(f"Inserted stats for {first_name} {last_name} (match {game_code})")
 
         conn.commit()
 
-def insert_team_stats(parsed_data, conn):
+def clean_stats(row):
+
+    return {
+        "all_goals": int(row["AllG"]),
+        "all_shots": int(row["AllShots"]),
+        "all_efficiency": float(row["AllEff"]),
+        "goals_7m": int(row["P7mG"]),
+        "eff_7m": float(row["P7mEff"]),
+        "goals_9m": int(row["P9mG"]),
+        "eff_9m": float(row["P9mEff"]),
+        "goals_6m": int(row["P6mG"]),
+        "eff_6m": float(row["P6mEff"]),
+        "goals_near": int(row["NearG"]),
+        "eff_near": float(row["NearEff"]),
+        "goals_wing": int(row["WingG"]),
+        "eff_wing": float(row["WingEff"]),
+        "goals_fastbreak": int(row["FBG"]),
+        "eff_fastbreak": float(row["FBEff"]),
+        "yellow_cards": int(row["YC"]),
+        "red_cards": int(row["RC"]),
+        "blue_cards": int(row["EX"]),
+        "suspensions_2min": int(row["P2minT"]),
+        "total_7m_shots": int(row["P7mShots"])
+    }
+
+def insert_match_team_stats_json(parsed_data, conn):
     statteam = parsed_data.get("statteam", [])
     gameinfo = parsed_data.get("gameinfo", [])
 
@@ -372,102 +418,46 @@ def insert_team_stats(parsed_data, conn):
     with conn.cursor() as cur:
         # Get match_id
         cur.execute("SELECT id FROM matches WHERE game_code = %s", (game_code,))
-        match = cur.fetchone()
-        if not match:
+        match_row = cur.fetchone()
+        if not match_row:
             print(f"Match {game_code} not found.")
             return
 
-        match_id = match[0]
+        match_id = match_row[0]
+        team_a_abbr = gameinfo[0]["TIDA"]
+        team_b_abbr = gameinfo[0]["TIDB"]
 
-        for row in statteam:
-            team_abbr = row.get("TID")
-            if not team_abbr:
-                continue
+        team_a_data = next((row for row in statteam if row["TID"] == team_a_abbr), None)
+        team_b_data = next((row for row in statteam if row["TID"] == team_b_abbr), None)
 
-            # Get team_id
-            cur.execute("SELECT id FROM teams WHERE abbreviation = %s", (team_abbr,))
-            team = cur.fetchone()
-            if not team:
-                print(f"Team {team_abbr} not found.")
-                continue
+        if not team_a_data or not team_b_data:
+            print(f"Could not find stats for both teams: {team_a_abbr}, {team_b_abbr}")
+            return
 
-            team_id = team[0]
+        team_a_stats = clean_stats(team_a_data)
+        team_b_stats = clean_stats(team_b_data)
 
-            # Check if stats already inserted
-            cur.execute("""
-                SELECT 1 FROM team_stats
-                WHERE match_id = %s AND team_id = %s
-            """, (match_id, team_id))
-
-            if cur.fetchone():
-                print(f"Team stats already exist for team {team_abbr} in match {game_code}")
-                continue
-
-            def parse_int(val): return int(val) if val and val.isdigit() else 0
-            def parse_float(val): 
-                try: return float(val)
-                except: return 0.0
-
-            stats = {
-                "match_id": match_id,
-                "team_id": team_id,
-                "all_goals": parse_int(row.get("AllG")),
-                "all_shots": parse_int(row.get("AllShots")),
-                "all_efficiency": parse_float(row.get("AllEff")),
-                "goals_7m": parse_int(row.get("P7mG")),
-                "eff_7m": parse_float(row.get("P7mEff")),
-                "goals_9m": parse_int(row.get("P9mG")),
-                "eff_9m": parse_float(row.get("P9mEff")),
-                "goals_6m": parse_int(row.get("P6mG")),
-                "eff_6m": parse_float(row.get("P6mEff")),
-                "goals_near": parse_int(row.get("NearG")),
-                "eff_near": parse_float(row.get("NearEff")),
-                "goals_wing": parse_int(row.get("WingG")),
-                "eff_wing": parse_float(row.get("WingEff")),
-                "goals_fastbreak": parse_int(row.get("FBG")),
-                "eff_fastbreak": parse_float(row.get("FBEff")),
-                "yellow_cards": parse_int(row.get("YC")),
-                "red_cards": parse_int(row.get("RC")),
-                "blue_cards": parse_int(row.get("EX")),
-                "suspensions_2min": parse_int(row.get("P2minT")),
-                "total_7m_shots": parse_int(row.get("P7mShots"))
-            }
-
-            cur.execute("""
-                INSERT INTO team_stats (
-                    match_id, team_id,
-                    all_goals, all_shots, all_efficiency,
-                    goals_7m, eff_7m,
-                    goals_9m, eff_9m,
-                    goals_6m, eff_6m,
-                    goals_near, eff_near,
-                    goals_wing, eff_wing,
-                    goals_fastbreak, eff_fastbreak,
-                    yellow_cards, red_cards, blue_cards,
-                    suspensions_2min, total_7m_shots
-                ) VALUES (
-                    %(match_id)s, %(team_id)s,
-                    %(all_goals)s, %(all_shots)s, %(all_efficiency)s,
-                    %(goals_7m)s, %(eff_7m)s,
-                    %(goals_9m)s, %(eff_9m)s,
-                    %(goals_6m)s, %(eff_6m)s,
-                    %(goals_near)s, %(eff_near)s,
-                    %(goals_wing)s, %(eff_wing)s,
-                    %(goals_fastbreak)s, %(eff_fastbreak)s,
-                    %(yellow_cards)s, %(red_cards)s, %(blue_cards)s,
-                    %(suspensions_2min)s, %(total_7m_shots)s
-                )
-            """, stats)
-
-            print(f"Inserted team stats for team {team_abbr} (match {game_code})")
+        # Update only team stats JSON in matches
+        cur.execute("""
+            UPDATE matches
+            SET team_a_stats = %s,
+                team_b_stats = %s
+            WHERE id = %s
+        """, (
+            json.dumps(team_a_stats),
+            json.dumps(team_b_stats),
+            match_id
+        ))
 
         conn.commit()
-
+        print(f"Updated match {game_code} with team stats JSONs.")
+        
 insert_teams(data, conn)
 insert_match(data, conn)
 insert_referees(data, conn)
 insert_players(data, conn)
 insert_player_stats(data, conn)
-insert_team_stats(data, conn)
+insert_match_team_stats_json(data, conn)
+
 # Done
 conn.close()
