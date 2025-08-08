@@ -24,6 +24,7 @@ conn = psycopg2.connect(
     user=DB_USER,
     password=DB_PASSWORD
 )
+
 def insert_teams(parsed_data, conn, championship_id=1):
     gameinfo = parsed_data['gameinfo'][0]
 
