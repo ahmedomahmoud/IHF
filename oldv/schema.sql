@@ -42,7 +42,7 @@ DROP TABLE IF EXISTS player_stats, referees, players, teams, matches, championsh
 -- -- Table for Matches
 -- CREATE TABLE matches (
 --     id SERIAL PRIMARY KEY,
---     game_code VARCHAR(50) NOTNULL,
+--     game_code VARCHAR(50) NOT NULL,
 --     championship_id INT,
 --     team_a_id INT,
 --     team_b_id INT,

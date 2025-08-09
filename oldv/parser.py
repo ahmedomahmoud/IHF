@@ -3,16 +3,14 @@ from collections import defaultdict
 import chardet
 
 
-def parse_cp_file(file_path):
+def parse_cp_file(file_content: bytes):
 
-    with open(file_path, 'rb') as f:
-        result = chardet.detect(f.read())
-        encoding = result['encoding']
+    result = chardet.detect(file_content)
+    encoding = result['encoding']
     
     print(f"Detected encoding: {encoding}")
 
-    with open(file_path, 'r', encoding=encoding) as f:
-        lines = f.readlines()
+    lines = file_content.decode(encoding).splitlines()
     
 
     definitions = {}
