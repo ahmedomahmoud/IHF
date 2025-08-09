@@ -1,4 +1,4 @@
-from parser import parse_cp_file
+from app.parser import parse_cp_file
 from pprint import pprint
 import psycopg2
 from dotenv import load_dotenv

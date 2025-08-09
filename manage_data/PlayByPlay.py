@@ -1,4 +1,4 @@
-from database import db
+from oldv.database import db
 import motor.motor_asyncio
 import asyncio 
 import json
