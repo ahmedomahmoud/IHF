@@ -84,9 +84,12 @@ class PlayerOut(BaseModel):
     id: int
     first_name: str
     last_name: str
-    Number: int
+    number: int
     team_id: Optional[int] = None
     match_id: Optional[int] = None
+
+    class Config:
+        orm_mode = True
 
 # --- Standard Referee Output ---
 class RefereeOut(BaseModel):
