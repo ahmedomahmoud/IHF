@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field
-from typing import List, Optional
-from datetime import datetime 
+from pydantic import BaseModel
+from typing import List, Optional,Dict
+from datetime import date
 
 
 # --- User Models ---
@@ -35,35 +35,93 @@ class TokenData(BaseModel):
     username: Optional[str] = None
 
 
-# --- Team Model ---
+# --- Team Models ---
 
-class Team(BaseModel):
-    id: str
+class TeamBase(BaseModel):
     name: str
-    country: str
+    abbreviation: str
+
+
+class TeamCreate(TeamBase):
+    pass
+
+
+class TeamUpdate(BaseModel):
+    name: Optional[str] = None
+    abbreviation: Optional[str] = None
+
+
+class TeamOut(TeamBase):
+    id: int
 
 
 # --- Championship Models ---
 
 class ChampionshipBase(BaseModel):
     name: str
-    description: str
-    start_date: datetime
-    end_date: datetime
-    teams: List[Team]
+    description: Optional[str] = None
+    start_date: date
+    end_date: date
 
 
 class ChampionshipCreate(ChampionshipBase):
-    pass
+    teams: Optional[List[int]] = None  # List of team IDs
 
 
 class ChampionshipUpdate(BaseModel):
-    name: Optional[str]
-    description: Optional[str]
-    start_date: Optional[datetime]
-    end_date: Optional[datetime]
-    teams: Optional[List[Team]]
+    name: Optional[str] = None
+    description: Optional[str] = None
+    start_date: Optional[date] = None
+    end_date: Optional[date] = None
+    teams: Optional[List[int]] = None  # List of team IDs
 
 
 class ChampionshipOut(ChampionshipBase):
-    id: str
+    id: int
+    teams: List[TeamOut] = []  # Nested team data
+
+class PlayerOut(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    Number: int
+    team_id: Optional[int] = None
+    match_id: Optional[int] = None
+
+# --- Standard Referee Output ---
+class RefereeOut(BaseModel):
+    id: int
+    name: str
+    country: Optional[str] = None
+
+# --- Referee with Match Role ---
+class RefereeWithRoleOut(RefereeOut):
+    role: Optional[str] = None
+
+
+class MatchBaseOut(BaseModel):
+    id: int
+    game_code: str
+    championship_id: int
+    team_a_id: int
+    team_b_id: int
+    team_a: Optional["TeamOut"] = None
+    team_b: Optional["TeamOut"] = None
+
+# --- Score + status output ---
+class MatchScoreOut(MatchBaseOut):
+    status: str
+    team_a_score: Optional[Dict] = None
+    team_b_score: Optional[Dict] = None
+
+# --- States output ---
+class MatchStatesOut(MatchBaseOut):
+    team_a_stats: Optional[Dict] = None
+    team_b_stats: Optional[Dict] = None
+
+
+class PlayerStatsOut(BaseModel):
+    match_id: int
+    player_id: int
+    team_id: int
+    stats: Optional[Dict] = None

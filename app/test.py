@@ -1,5 +1,4 @@
 from auth import create_access_token, verify_token
-from schemas import TokenData
 from datetime import timedelta
 
 # Simulate user data

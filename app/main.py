@@ -1,11 +1,38 @@
-from fastapi import FastAPI, HTTPException, Depends, status
-import schemas, utils, auth, database
+from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
+import schemas
+import utils
+import auth
+import database
 from fastapi.security import OAuth2PasswordRequestForm
-from bson import ObjectId
-from typing import List
+from manage_data.parser import parse_cp_file
+from manage_data.data_orm import Champ
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, Column, Integer, String, Text, Date, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, sessionmaker   
+from pprint import pprint
+from datetime import date
 
 app = FastAPI()
 
+# pprint(parsed_data["gameinfo"])
+
+load_dotenv()
+
+# Build DATABASE_URL
+DB_USER = os.getenv("DB_USER")
+DB_PASS = os.getenv("DB_PASS")
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_NAME = os.getenv("DB_NAME")
+
+if not all([DB_USER, DB_PASS, DB_HOST, DB_NAME]):
+    raise RuntimeError("Missing DB configuration in .env")
+
+DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
+engine = create_engine(DATABASE_URL)
+Base = declarative_base()
+SessionLocal = sessionmaker(bind=engine)
 
 # --- REGISTER ---
 @app.post("/auth/register", status_code=201)
@@ -43,69 +70,27 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     return {"access_token": token, "token_type": "bearer"}
 
 
+# --- UPLOAD CP FILE ---
+@app.post("/upload-cp-file/")
+async def upload_cp_file(file: UploadFile = File(...)):
+    file_content = await file.read()
+    parsed_data = parse_cp_file(file_content)
+    pprint(parsed_data["gameinfo"])
+    session = SessionLocal()
+    try:
+        champ = Champ(name="World Handball Championship 2025", session=session)
+        if not champ.champ_exists:
+            champ.add_championship("World Handball Championship 2025", "The 29th edition of the championship.", date(2025, 1, 14), date(2025, 2, 2))
+        print("Processing parsed data...")
+        champ.process_data(parsed_data)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        session.rollback()
+    finally:
+        session.close()
+    
 
 
-# --- GET All Championships (Public) ---
-@app.get("/championships", response_model=List[schemas.ChampionshipOut])
-async def get_all_championships():
-    championships = []
-    cursor = database.championship_collection.find()
-    async for champ in cursor:
-        champ["id"] = str(champ["_id"])
-        championships.append(schemas.ChampionshipOut(**champ))
-    return championships
 
 
-# --- GET One Championship (Public) ---
-@app.get("/championships/{champ_id}", response_model=schemas.ChampionshipOut)
-async def get_championship(champ_id: str):
-    champ = await database.championship_collection.find_one({"_id": ObjectId(champ_id)})
-    if not champ:
-        raise HTTPException(status_code=404, detail="Championship not found")
-    champ["id"] = str(champ["_id"])
-    return schemas.ChampionshipOut(**champ)
 
-
-# --- CREATE Championship (Protected) ---
-@app.post("/championships", response_model=schemas.ChampionshipOut)
-async def create_championship(
-    champ: schemas.ChampionshipCreate,
-    current_user: schemas.UserOut = Depends(auth.get_current_user)
-):
-    new_champ = champ.dict()
-    result = await database.championship_collection.insert_one(new_champ)
-    new_champ["id"] = str(result.inserted_id)
-    return schemas.ChampionshipOut(**new_champ)
-
-
-# --- UPDATE Championship (Protected) ---
-@app.put("/championships/{champ_id}", response_model=schemas.ChampionshipOut)
-async def update_championship(
-    champ_id: str,
-    update: schemas.ChampionshipUpdate,
-    current_user: schemas.UserOut = Depends(auth.get_current_user)
-):
-    updated_data = {k: v for k, v in update.dict().items() if v is not None}
-    result = await database.championship_collection.update_one(
-        {"_id": ObjectId(champ_id)},
-        {"$set": updated_data}
-    )
-
-    if result.modified_count == 0:
-        raise HTTPException(status_code=404, detail="Championship not found or no changes")
-
-    champ = await database.championship_collection.find_one({"_id": ObjectId(champ_id)})
-    champ["id"] = str(champ["_id"])
-    return schemas.ChampionshipOut(**champ)
-
-
-# --- DELETE Championship (Protected) ---
-@app.delete("/championships/{champ_id}")
-async def delete_championship(
-    champ_id: str,
-    current_user: schemas.UserOut = Depends(auth.get_current_user)
-):
-    result = await database.championship_collection.delete_one({"_id": ObjectId(champ_id)})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Championship not found")
-    return {"message": "Championship deleted successfully"}
