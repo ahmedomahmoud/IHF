@@ -1,34 +1,7 @@
 from .orm import Team, Championship, TeamInChamp, Player, Match, Referee, RefereeInMatch, PlayerStats
-from .parser import parse_cp_file
-from pprint import pprint
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker,Session
-import os
-from dotenv import load_dotenv
+from sqlalchemy.orm import Session
 from datetime import date
 from fastapi import HTTPException
-
-
-# path = "/home/ahmed/linkdev/ihf/cp-files/txt/01.CP"
-# parsed_data = parse_cp_file(path)
-# pprint(parsed_data["gameinfo"])
-
-# load_dotenv()
-
-# # Build DATABASE_URL
-# DB_USER = os.getenv("DB_USER")
-# DB_PASS = os.getenv("DB_PASS")
-# DB_HOST = os.getenv("DB_HOST", "localhost")
-# DB_NAME = os.getenv("DB_NAME")
-
-# if not all([DB_USER, DB_PASS, DB_HOST, DB_NAME]):
-#     raise RuntimeError("Missing DB configuration in .env")
-
-# DATABASE_URL = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:5432/{DB_NAME}"
-# engine = create_engine(DATABASE_URL)
-# Base = declarative_base()
-# SessionLocal = sessionmaker(bind=engine)
 
 
 class Champ:

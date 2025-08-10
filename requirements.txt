@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+SQLAlchemy
+python-jose[cryptography]
+motor
+python-dotenv
+bcrypt
+chardet
+psycopg2-binary
+pydantic

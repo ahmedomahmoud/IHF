@@ -8,8 +8,6 @@ from manage_data.parser import parse_cp_file
 from manage_data.data_orm import Champ
 from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats
 from sqlalchemy.orm import Session
-from pprint import pprint
-from datetime import date
 
 app = FastAPI()
 
@@ -58,20 +56,20 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 # --- UPLOAD CP FILE ---
-@app.post("/upload-cp-file/")
-async def upload_cp_file(file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
-    file_content = await file.read()
-    parsed_data = parse_cp_file(file_content)
-    pprint(parsed_data["gameinfo"])
+@app.post("/championships/{championship_name}/upload-cp-file/")
+async def upload_cp_file(championship_name: str, file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
     try:
-        champ = Champ(name="World Handball Championship 2025", session=db)
+        champ = Champ(name=championship_name, session=db)
         if not champ.champ_exists:
-            champ.add_championship("World Handball Championship 2025", "The 29th edition of the championship.", date(2025, 1, 14), date(2025, 2, 2))
-        print("Processing parsed data...")
+            raise HTTPException(status_code=404, detail=f"Championship '{championship_name}' not found.")
+        file_content = await file.read()
+        parsed_data = parse_cp_file(file_content)
         champ.process_data(parsed_data)
+        return {"message": f"File uploaded and processed for championship '{championship_name}' successfully."}
+        
     except Exception as e:
-        print(f"An error occurred: {e}")
         db.rollback()
+        raise HTTPException(status_code=500, detail=f"An error occurred while processing the file: {e}")
 
 
 # --- Championship Routes ---
