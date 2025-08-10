@@ -79,33 +79,239 @@ uvicorn main:app --reload
 
 The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on your Uvicorn configuration).
 
-## API Endpoints Overview
+## API Documentation
 
-*   **Authentication:**
-    *   `POST /auth/register`: Register a new user.
-    *   `POST /auth/login`: Log in and receive an access token.
-*   **Championships:**
-    *   `GET /championships`: Get all championships.
-    *   `GET /championships/{championship_id}`: Get championship by ID.
-    *   `GET /championships/name/{championship_name}`: Get championship by name.
-    *   `POST /championships`: Create a new championship.
-    *   `POST /championships/{championship_name}/upload-cp-file/`: Upload and process a `.CP` file for a specific championship.
-*   **Teams:**
-    *   `GET /teams`: Get all teams.
-    *   `GET /teams/{team_id}`: Get team by ID.
-    *   `GET /teams/abbreviation/{abbreviation}`: Get team by abbreviation.
-    *   `POST /teams`: Create a new team.
-*   **Matches:**
-    *   `GET /matches/{match_id}/score`: Get match score.
-    *   `GET /matches/{match_id}/stats`: Get match statistics.
-    *   `GET /matches/{match_id}/referees`: Get referees for a match.
-*   **Players:**
-    *   `GET /teams/{team_id}/players`: Get players by team.
-    *   `GET /matches/{match_id}/teams/{team_id}/players/stats`: Get player stats for a team in a match.
-    *   `GET /matches/{match_id}/players/stats`: Get all player stats in a match.
-    *   `GET /matches/{match_id}/teams/{team_id}/players/{player_id}/stats`: Get specific player stats in a match.
-*   **Play-by-Play Actions:**
-    *   `GET /PlayByPlay/matches/{match_id}/page/{page_no}`: Get paginated play-by-play actions for a match.
+### Authentication
+
+#### `POST /auth/register`
+
+*   **Description:** Registers a new user.
+*   **Request Body (`UserCreate`):**
+    ```json
+    {
+        "first_name": "string",
+        "last_name": "string",
+        "username": "string",
+        "password": "string"
+    }
+    ```
+*   **Responses:**
+    *   `201 Created`: User registered successfully.
+        ```json
+        {
+            "message": "User registered successfully",
+            "user_id": "string"
+        }
+        ```
+    *   `400 Bad Request`: Username already exists.
+
+#### `POST /auth/login`
+
+*   **Description:** Logs in a user and returns an access token.
+*   **Request Body (form data):**
+    *   `username`: The user's username.
+    *   `password`: The user's password.
+*   **Responses:**
+    *   `200 OK` (`Token`):
+        ```json
+        {
+            "access_token": "string",
+            "token_type": "bearer"
+        }
+        ```
+    *   `400 Bad Request`: Invalid username or password.
+
+---
+
+### Championships
+
+#### `POST /championships/{championship_name}/upload-cp-file/`
+
+*   **Description:** Uploads and processes a `.CP` file for a specific championship. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `championship_name` (string): The name of the championship.
+*   **File Upload:**
+    *   `file`: The `.CP` file to upload.
+*   **Responses:**
+    *   `200 OK`:
+        ```json
+        {
+            "message": "File uploaded and processed for championship '{championship_name}' successfully."
+        }
+        ```
+    *   `404 Not Found`: Championship not found.
+    *   `500 Internal Server Error`: An error occurred while processing the file.
+
+#### `GET /championships`
+
+*   **Description:** Retrieves a list of all championships.
+*   **Responses:**
+    *   `200 OK` (List[`ChampionshipOut`]): A list of championship objects.
+
+#### `GET /championships/{championship_id}`
+
+*   **Description:** Retrieves a specific championship by its ID.
+*   **Path Parameters:**
+    *   `championship_id` (integer): The ID of the championship.
+*   **Responses:**
+    *   `200 OK` (`ChampionshipOut`): The championship object.
+    *   `404 Not Found`: Championship not found.
+
+#### `GET /championships/name/{championship_name}`
+
+*   **Description:** Retrieves a specific championship by its name.
+*   **Path Parameters:**
+    *   `championship_name` (string): The name of the championship.
+*   **Responses:**
+    *   `200 OK` (`ChampionshipOut`): The championship object.
+    *   `404 Not Found`: Championship not found.
+
+#### `POST /championships`
+
+*   **Description:** Creates a new championship. This endpoint requires authentication.
+*   **Request Body (`ChampionshipCreate`):**
+    ```json
+    {
+        "name": "string",
+        "description": "string (optional)",
+        "start_date": "date",
+        "end_date": "date",
+        "teams": "List[integer] (optional)"
+    }
+    ```
+*   **Responses:**
+    *   `201 Created` (`ChampionshipOut`): The newly created championship object.
+
+---
+
+### Teams
+
+#### `GET /teams`
+
+*   **Description:** Retrieves a list of all teams.
+*   **Responses:**
+    *   `200 OK` (List[`TeamOut`]): A list of team objects.
+
+#### `GET /teams/{team_id}`
+
+*   **Description:** Retrieves a specific team by its ID.
+*   **Path Parameters:**
+    *   `team_id` (integer): The ID of the team.
+*   **Responses:**
+    *   `200 OK` (`TeamOut`): The team object.
+    *   `404 Not Found`: Team not found.
+
+#### `GET /teams/abbreviation/{abbreviation}`
+
+*   **Description:** Retrieves a specific team by its abbreviation.
+*   **Path Parameters:**
+    *   `abbreviation` (string): The abbreviation of the team.
+*   **Responses:**
+    *   `200 OK` (`TeamOut`): The team object.
+    *   `404 Not Found`: Team not found.
+
+#### `POST /teams`
+
+*   **Description:** Creates a new team. This endpoint requires authentication.
+*   **Request Body (`TeamCreate`):**
+    ```json
+    {
+        "name": "string",
+        "abbreviation": "string"
+    }
+    ```
+*   **Responses:**
+    *   `201 Created` (`TeamOut`): The newly created team object.
+
+---
+
+### Matches
+
+#### `GET /matches/{match_id}/score`
+
+*   **Description:** Retrieves the score for a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+*   **Responses:**
+    *   `200 OK` (`MatchScoreOut`): The match score object.
+    *   `404 Not Found`: Match not found.
+
+#### `GET /matches/{match_id}/stats`
+
+*   **Description:** Retrieves the statistics for a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+*   **Responses:**
+    *   `200 OK` (`MatchStatesOut`): The match statistics object.
+    *   `404 Not Found`: Match not found.
+
+#### `GET /matches/{match_id}/referees`
+
+*   **Description:** Retrieves the referees for a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+*   **Responses:**
+    *   `200 OK` (List[`RefereeWithRoleOut`]): A list of referee objects with their roles.
+    *   `404 Not Found`: Referees not found for this match.
+
+---
+
+### Players
+
+#### `GET /teams/{team_id}/players`
+
+*   **Description:** Retrieves a list of players for a specific team.
+*   **Path Parameters:**
+    *   `team_id` (integer): The ID of the team.
+*   **Responses:**
+    *   `200 OK` (List[`PlayerOut`]): A list of player objects.
+    *   `404 Not Found`: Players not found for this team.
+
+#### `GET /matches/{match_id}/teams/{team_id}/players/stats`
+
+*   **Description:** Retrieves the statistics for all players of a specific team in a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+    *   `team_id` (integer): The ID of the team.
+*   **Responses:**
+    *   `200 OK` (List[`PlayerStatsOut`]): A list of player statistics objects.
+    *   `404 Not Found`: Player stats not found for this team in this match.
+
+#### `GET /matches/{match_id}/players/stats`
+
+*   **Description:** Retrieves the statistics for all players in a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+*   **Responses:**
+    *   `200 OK` (List[`PlayerStatsOut`]): A list of player statistics objects.
+    *   `404 Not Found`: Player stats not found for this match.
+
+#### `GET /matches/{match_id}/teams/{team_id}/players/{player_id}/stats`
+
+*   **Description:** Retrieves the statistics for a specific player of a specific team in a specific match.
+*   **Path Parameters:**
+    *   `match_id` (integer): The ID of the match.
+    *   `team_id` (integer): The ID of the team.
+    *   `player_id` (integer): The ID of the player.
+*   **Responses:**
+    *   `200 OK` (`PlayerStatsOut`): The player statistics object.
+    *   `404 Not Found`: Player stats not found for this player in this match.
+
+---
+
+### Play-by-Play
+
+#### `GET /championships/name/{championship_name}/PlayByPlay/matches/{game_code}/page/{page_no}`
+
+*   **Description:** Retrieves a paginated list of play-by-play actions for a specific match.
+*   **Path Parameters:**
+    *   `championship_name` (string): The name of the championship.
+    *   `game_code` (string): The code for the game.
+    *   `page_no` (integer): The page number for pagination.
+*   **Responses:**
+    *   `200 OK` (List[`Action`]): A list of action objects.
+    *   `404 Not Found`: Match not found.
+
 
 ## Database Schema
 

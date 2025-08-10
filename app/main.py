@@ -193,8 +193,8 @@ def get_player_stats_in_match(match_id: int, team_id: int, player_id: int, db: S
         raise HTTPException(status_code=404, detail="Player stats not found for this player in this match")
     return player_stats
 
-@app.get("/championships/name/{championship_name}/PlayByPlay/matches/{match_id}/page/{page_no}", response_model= list[schemas.Action])
-async def get_actions (match_id:str, championship_name : str,page_no: int):
-    if not await checker(match_id,championship_name):
+@app.get("/championships/name/{championship_name}/PlayByPlay/matches/{game_code}/page/{page_no}", response_model= list[schemas.Action])
+async def get_actions (game_code:str, championship_name : str,page_no: int):
+    if not await checker(game_code,championship_name):
         raise HTTPException(status_code=404, detail="Match not found")
-    return await action_page(match_id, page_no,championship_name)
+    return await action_page(game_code, page_no,championship_name)
