@@ -89,7 +89,7 @@ class PlayerOut(BaseModel):
     match_id: Optional[int] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # --- Standard Referee Output ---
 class RefereeOut(BaseModel):

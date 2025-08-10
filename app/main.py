@@ -134,11 +134,11 @@ def get_match_score(match_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Match not found")
     return match
 
-@app.get("/matches/{match_id}/teams/{team_id}/stats", response_model=schemas.MatchStatesOut)
-def get_team_stats_in_match(match_id: int, team_id: int, db: Session = Depends(get_db)):
-    match = db.query(Match).filter(Match.id == match_id, (Match.team_a_id == team_id) | (Match.team_b_id == team_id)).first()
+@app.get("/matches/{match_id}/stats", response_model=schemas.MatchStatesOut)
+def get_stats_in_match(match_id: int, db: Session = Depends(get_db)):
+    match = db.query(Match).filter(Match.id == match_id).first()
     if not match:
-        raise HTTPException(status_code=404, detail="Match or Team not found in this match")
+        raise HTTPException(status_code=404, detail="Match not found ")
     return match
 
 @app.get("/matches/{match_id}/referees", response_model=list[schemas.RefereeWithRoleOut])
