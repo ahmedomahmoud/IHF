@@ -128,3 +128,12 @@ class PlayerStatsOut(BaseModel):
     player_id: int
     team_id: int
     stats: Optional[Dict] = None
+
+
+class Action(BaseModel):
+    Game: str
+    Team: str
+    Name: str
+    Nr: str
+    Text: str
+    PLTime: str

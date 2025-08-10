@@ -53,7 +53,7 @@ class Champ:
         return championship
 
 
-    def create_teams(self,parsed_data:dict, name=None, abbreviation=None) -> list[Team]:
+    def create_teams(self,parsed_data:dict[str,dict[str, str]], name=None, abbreviation=None) -> list[Team]:
        
         if (not name and abbreviation) or (name and not abbreviation):
             raise HTTPException(
@@ -124,7 +124,7 @@ class Champ:
             print(f"Linked team {team_abbr} to championship {self.championship.name}")
 
 
-    def add_match(self,parsed_data:dict) -> Match:
+    def add_match(self,parsed_data:dict[str,dict[str, str]]) -> Match:
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -191,7 +191,7 @@ class Champ:
         return match
 
 
-    def update_match_score(self,parsed_data: dict) -> Match:
+    def update_match_score(self,parsed_data: dict[str,dict[str, str]]) -> Match:
 
         if not self.champ_exists:
             raise HTTPException(
@@ -221,7 +221,7 @@ class Champ:
         return match
 
 
-    def clean_stats(self,row: dict) -> dict:
+    def clean_stats(self,row: dict[str,dict[str, str]]) -> dict[str, int | float]:
         return {
             "all_goals": self.safe_int(row.get("AllG")),
             "all_shots": self.safe_int(row.get("AllShots")),
@@ -246,7 +246,7 @@ class Champ:
         }
 
 
-    def update_match_stats(self,parsed_data: dict) -> Match:
+    def update_match_stats(self,parsed_data: dict[str,dict[str, str]]) -> Match:
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -295,7 +295,7 @@ class Champ:
         return match
 
 
-    def insert_referees(self,parsed_data: dict) -> list[Referee]:
+    def insert_referees(self,parsed_data: dict[str,dict[str, str]]) -> list[Referee]:
         
         referee_data = parsed_data.get("referee", [])
         if not referee_data:
@@ -384,7 +384,7 @@ class Champ:
             session.add(match_ref_link)
 
 
-    def insert_players(self,parsed_data:dict) -> None :
+    def insert_players(self,parsed_data:dict[str,dict[str, str]]) -> None :
         statind = parsed_data.get("statind", [])
 
         if not statind:
@@ -430,7 +430,7 @@ class Champ:
         self.session.commit()
 
 
-    def insert_player_stats(self,parsed_data:dict) -> None:
+    def insert_player_stats(self,parsed_data:dict[str,dict[str, str]]) -> None:
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -507,7 +507,7 @@ class Champ:
         self.session.commit()
 
 
-    def update_player_stats(self,parsed_data: dict) -> None:
+    def update_player_stats(self,parsed_data: dict[str,dict[str, str]]) -> None:
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -578,7 +578,7 @@ class Champ:
         self.session.commit()
 
 
-    def _parsed_before(self, parsed_data: dict) -> bool:
+    def _parsed_before(self, parsed_data: dict[str,dict[str, str]]) -> bool:
         """Check if the parsed data has been processed before."""
         if not self.champ_exists:
             raise HTTPException(
@@ -595,7 +595,7 @@ class Champ:
         return existing_match is not None
 
 
-    def _add_data(self, parsed_data: dict) -> None:
+    def _add_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Main method to add parsed data to the database."""
         if not self.champ_exists:
             raise HTTPException(
@@ -629,7 +629,8 @@ class Champ:
         # add match stats
         self.update_match_stats(parsed_data)
 
-    def _update_data(self, parsed_data: dict) -> None:
+
+    def _update_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Main method to update parsed data in the database."""
         if not self.champ_exists:
             raise HTTPException(
@@ -647,7 +648,7 @@ class Champ:
         self.update_player_stats(parsed_data)
     
     
-    def process_data(self, parsed_data: dict) -> None:
+    def process_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Process parsed data based on whether it has been processed before."""
         if self._parsed_before(parsed_data):
             print("Data has been processed before. Updating existing records.")

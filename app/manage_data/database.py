@@ -14,4 +14,4 @@ db = client[MONGODB_DB]
 
 # Collections
 user_collection = db["users"]
-championship_collection = db["championships"]
+pbp_collection= db["PlayByPlay"] 

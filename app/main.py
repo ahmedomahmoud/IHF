@@ -2,13 +2,13 @@ from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 import schemas
 import utils
 import auth
-import database
+import manage_data.database
 from fastapi.security import OAuth2PasswordRequestForm
 from manage_data.parser import parse_cp_file
 from manage_data.data_orm import Champ
 from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats
 from sqlalchemy.orm import Session
-
+from manage_data.PlayByPlay import action_page, checker, insert_actions 
 app = FastAPI()
 
 # Dependency to get a DB session
@@ -22,7 +22,7 @@ def get_db():
 # --- REGISTER ---
 @app.post("/auth/register", status_code=201)
 async def register(user: schemas.UserCreate):
-    existing_user = await database.user_collection.find_one({"username": user.username})
+    existing_user = await manage_data.database.user_collection.find_one({"username": user.username})
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already exists")
 
@@ -35,7 +35,7 @@ async def register(user: schemas.UserCreate):
         "password": hashed_pw
     }
 
-    result = await database.user_collection.insert_one(new_user)
+    result = await manage_data.database.user_collection.insert_one(new_user)
 
     return {"message": "User registered successfully", "user_id": str(result.inserted_id)}
 
@@ -43,7 +43,7 @@ async def register(user: schemas.UserCreate):
 # --- LOGIN ---
 @app.post("/auth/login", response_model=schemas.Token)
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = await database.user_collection.find_one({"username": form_data.username})
+    user = await manage_data.database.user_collection.find_one({"username": form_data.username})
     if not user:
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
@@ -65,6 +65,7 @@ async def upload_cp_file(championship_name: str, file: UploadFile = File(...), c
         file_content = await file.read()
         parsed_data = parse_cp_file(file_content)
         champ.process_data(parsed_data)
+        await insert_actions(parsed_data, championship_name)
         return {"message": f"File uploaded and processed for championship '{championship_name}' successfully."}
         
     except Exception as e:
@@ -191,3 +192,9 @@ def get_player_stats_in_match(match_id: int, team_id: int, player_id: int, db: S
     if not player_stats:
         raise HTTPException(status_code=404, detail="Player stats not found for this player in this match")
     return player_stats
+
+@app.get("/championships/name/{championship_name}/PlayByPlay/matches/{match_id}/page/{page_no}", response_model= list[schemas.Action])
+async def get_actions (match_id:str, championship_name : str,page_no: int):
+    if not await checker(match_id,championship_name):
+        raise HTTPException(status_code=404, detail="Match not found")
+    return await action_page(match_id, page_no,championship_name)

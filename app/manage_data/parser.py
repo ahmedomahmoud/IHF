@@ -3,7 +3,7 @@ from collections import defaultdict
 import chardet
 
 
-def parse_cp_file(file_content: bytes):
+def parse_cp_file(file_content: bytes)-> dict[str, list[dict[str, str]]]:
 
     result = chardet.detect(file_content)
     encoding = result['encoding']
@@ -16,7 +16,6 @@ def parse_cp_file(file_content: bytes):
     definitions = {}
     data_sections = defaultdict(list)
     current_section = None
-    section_headers = {}
 
     for line in lines:
         line = line.strip()

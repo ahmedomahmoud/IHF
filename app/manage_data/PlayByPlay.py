@@ -1,51 +1,36 @@
-from oldv.database import db
-import motor.motor_asyncio
-import asyncio 
-from parser import parse_cp_file
+from .database import  pbp_collection
+from typing import List
+from schemas import Action
 
-class Action:
-    def __init__(self, GameID, TeamName, PlayerName, PlayerNumber, Text, TimeStamp):
-        self.GameID = GameID
-        self.TeamName = TeamName
-        self.PlayerName = PlayerName
-        self.PlayerNumber = PlayerNumber
-        self.Text = Text
-        self.TimeStamp = TimeStamp
+async def insert_actions(parsed: dict[str,dict[str, str]], championship_name: str): 
+    count_mongo = await pbp_collection.count_documents({"Game": parsed["gameinfo"][0]["Game"], "championship": championship_name})
+    actions_to_process =parsed["actions"][count_mongo:]
+    print(f"Processing {len(actions_to_process)} actions for championship '{championship_name}'")
+    for action in actions_to_process:
+        action["championship"] = championship_name
+        exists = await pbp_collection.find_one({
+            "Game": action["Game"],
+            "championship": action["championship"],
+            "Team": action["Team"],
+            "Name": action["Name"],
+            "Nr": action["Nr"],
+            "Text": action["Text"],
+            "PLTime": action["PLTime"]
+        })
+        if not exists:
+            try:
+                await pbp_collection.insert_one(action)
+            except Exception as e:
+                print("Insert failed:", e)
 
-    def to_dict(self):
-        return {
-            "GameID": self.GameID,
-            "TeamName": self.TeamName,
-            "PlayerName": self.PlayerName,
-            "PlayerNumber": self.PlayerNumber,
-            "Text": self.Text,
-            "TimeStamp": self.TimeStamp
-        }
+async def checker (match_id:str, championship_name: str)->bool:
+    if await pbp_collection.find_one({"Game": match_id, "championship": championship_name}):
+        return True
+    else:
+        return False
 
-
-async def action_insertion(parsed: dict[str,dict[str, str]]):
-    collection=db["PlayByPlay"]
-    for action in parsed["actions"]:
-        action_obj = Action(
-            action["Game"],
-            action["Team"],
-            action["Name"],
-            action["Nr"],
-            action["Text"],
-            action["PLTime"]
-        )
-        await collection.insert_one(action_obj.to_dict())
-
-
-parsed=parse_cp_file("01.CP")
-asyncio.run(action_insertion(parsed))
-
-async def show_all_documents():
-    client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://saraandlilly557:ynvpAPvcsi45pIGT@projectihf.lyjlazt.mongodb.net/")
-    db = client["PlayByPlay"]
-    collection=db["PlayByPlay"]
-
-    async for document in collection.find():
-        print(document)
-
-asyncio.run(show_all_documents()) 
+async def action_page(match_id:str, page_no:int,championship_name:str)-> List [Action]:
+    skip_count = (page_no - 1) * 5
+    cursor = pbp_collection.find({"Game": str(match_id),"championship" : championship_name}).sort("_id", -1).skip(skip_count).limit(5)
+    results = await cursor.to_list(length=5)
+    return [Action(**r) for r in results]
