@@ -126,11 +126,11 @@ This is a protected endpoint for uploading CP files.
 
 **Example `curl` command:**
 Replace `<YOUR_ACCESS_TOKEN>` with your actual token and `my_championship` with the championship name.
-You'll need a sample CP file (e.g., `sample.cp`).
+You'll need a sample CP file (e.g., `sample.CP`).
 
 ```bash
 curl -X POST "http://localhost:8000/championships/my_championship/upload-cp-file/" \
      -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
-     -F "file=@/path/to/your/sample.cp"
+     -F "file=@/path/to/your/sample.CP"
 ```
-**Note:** Replace `/path/to/your/sample.cp` with the actual path to your CP file.
+**Note:** Replace `/path/to/your/sample.CP` with the actual path to your CP file.
