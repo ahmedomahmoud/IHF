@@ -1,0 +1,136 @@
+# API Usage Guide
+
+This guide demonstrates how to interact with the API, covering authentication and accessing various endpoints using `curl`.
+
+## 1. Authentication
+
+### 1.1. Register a New User (Optional)
+
+If you don't have an account, you can register a new user.
+
+**Endpoint:** `POST /auth/register`
+
+**Request Body:**
+```json
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "username": "johndoe",
+  "password": "your_secure_password"
+}
+```
+
+**Example `curl` command:**
+```bash
+curl -X POST "http://localhost:8000/auth/register" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "first_name": "John",
+           "last_name": "Doe",
+           "username": "johndoe",
+           "password": "your_secure_password"
+         }'
+```
+
+### 1.2. Log In and Obtain an Access Token
+
+After registration (or if you already have an account), log in to get an access token. This token is required for accessing protected endpoints.
+
+**Endpoint:** `POST /auth/login`
+
+**Request Body (form-data):**
+- `username`: Your registered username
+- `password`: Your password
+
+**Example `curl` command:**
+```bash
+curl -X POST "http://localhost:8000/auth/login" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "username=johndoe&password=your_secure_password"
+```
+
+**Expected Response:**
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "bearer"
+}
+```
+**Note:** Copy the `access_token` value. You will use it in subsequent requests.
+
+## 2. Accessing Protected Endpoints
+
+Once you have an `access_token`, include it in the `Authorization` header of your requests as `Bearer <your_access_token>`.
+
+### 2.1. Create a Championship
+
+This is an example of a protected endpoint.
+
+**Endpoint:** `POST /championships`
+
+**Request Body:**
+```json
+{
+  "name": "My New Championship",
+  "description": "A championship for testing purposes",
+  "start_date": "2024-01-01",
+  "end_date": "2024-12-31"
+}
+```
+
+**Example `curl` command:**
+Replace `<YOUR_ACCESS_TOKEN>` with the token obtained from the login step.
+```bash
+curl -X POST "http://localhost:8000/championships" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+     -d '{
+           "name": "My New Championship",
+           "description": "A championship for testing purposes",
+           "start_date": "2024-01-01",
+           "end_date": "2024-12-31"
+         }'
+```
+
+## 3. Accessing Public Endpoints
+
+Public endpoints do not require an authentication token.
+
+### 3.1. Get All Championships
+
+**Endpoint:** `GET /championships`
+
+**Example `curl` command:**
+```bash
+curl -X GET "http://localhost:8000/championships"
+```
+
+**Expected Response (example):**
+```json
+[
+  {
+    "id": 1,
+    "name": "My New Championship",
+    "description": "A championship for testing purposes",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31"
+  }
+]
+```
+
+## 4. Upload CP File
+
+This is a protected endpoint for uploading CP files.
+
+**Endpoint:** `POST /championships/{championship_name}/upload-cp-file/`
+
+**Example `curl` command:**
+Replace `<YOUR_ACCESS_TOKEN>` with your actual token and `my_championship` with the championship name.
+You'll need a sample CP file (e.g., `sample.cp`).
+
+```bash
+curl -X POST "http://localhost:8000/championships/my_championship/upload-cp-file/" \
+     -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+     -F "file=@/path/to/your/sample.cp"
+```
+**Note:** Replace `/path/to/your/sample.cp` with the actual path to your CP file.
