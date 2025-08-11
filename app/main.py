@@ -4,13 +4,14 @@ import utils
 import auth
 import manage_data.database
 from fastapi.security import OAuth2PasswordRequestForm
-from manage_data.parser import parse_cp_file
+from manage_data.parser import CpFileParser
 from manage_data.data_orm import Champ
 from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats
 from sqlalchemy.orm import Session
 from manage_data.PlayByPlay import action_page, checker, insert_actions 
-app = FastAPI()
 
+app = FastAPI()
+parser = CpFileParser()
 # Dependency to get a DB session
 def get_db():
     db = SessionLocal()
@@ -60,10 +61,13 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 async def upload_cp_file(championship_name: str, file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
     try:
         champ = Champ(name=championship_name, session=db)
+        print(f"Processing file: {file.filename} for championship '{championship_name}'")
         if not champ.champ_exists:
             raise HTTPException(status_code=404, detail=f"Championship '{championship_name}' not found.")
         file_content = await file.read()
-        parsed_data = parse_cp_file(file_content)
+        parsed_data = parser.parse(file_content,file.filename)
+        print(f"File {file.filename} parsed successfully.")
+        print(f"actions length {len(parsed_data['actions'])}")
         champ.process_data(parsed_data)
         await insert_actions(parsed_data, championship_name)
         return {"message": f"File uploaded and processed for championship '{championship_name}' successfully."}

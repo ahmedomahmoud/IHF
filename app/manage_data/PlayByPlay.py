@@ -3,8 +3,9 @@ from typing import List
 from schemas import Action
 
 async def insert_actions(parsed: dict[str,dict[str, str]], championship_name: str): 
-    count_mongo = await pbp_collection.count_documents({"Game": parsed["gameinfo"][0]["Game"], "championship": championship_name})
-    actions_to_process =parsed["actions"][count_mongo:]
+    #count_mongo = await pbp_collection.count_documents({"Game": parsed["gameinfo"][0]["Game"], "championship": championship_name})
+    #actions_to_process =parsed["actions"][count_mongo:]
+    actions_to_process =parsed["actions"]
     print(f"Processing {len(actions_to_process)} actions for championship '{championship_name}'")
     for action in actions_to_process:
         action["championship"] = championship_name
@@ -19,6 +20,7 @@ async def insert_actions(parsed: dict[str,dict[str, str]], championship_name: st
         })
         if not exists:
             try:
+                print(f"Inserting action: {action['PLTime']}")
                 await pbp_collection.insert_one(action)
             except Exception as e:
                 print("Insert failed:", e)
