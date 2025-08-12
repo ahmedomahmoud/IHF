@@ -53,20 +53,20 @@ async def login(login_data: schemas.UserLogin): # Changed from OAuth2PasswordReq
 
 
 # --- UPLOAD CP FILE ---
-@app.post("/championships/{championship_name}/upload-cp-file/")
-async def upload_cp_file(championship_name: str, file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
+@app.post("/championships/{championship_id}/upload-cp-file/")
+async def upload_cp_file(championship_id: int, file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
     try:
-        champ = Champ(name=championship_name, session=db)
-        print(f"Processing file: {file.filename} for championship '{championship_name}'")
+        champ = Champ(id=championship_id, session=db)
+        print(f"Processing file: {file.filename} for championship '{championship_id}'")
         if not champ.champ_exists:
-            raise HTTPException(status_code=404, detail=f"Championship '{championship_name}' not found.")
+            raise HTTPException(status_code=404, detail=f"Championship '{championship_id}' not found.")
         file_content = await file.read()
         parsed_data = parser.parse(file_content,file.filename)
         print(f"File {file.filename} parsed successfully.")
         print(f"actions length {len(parsed_data['actions'])}")
         champ.process_data(parsed_data)
-        await insert_actions(parsed_data, championship_name)
-        return {"message": f"File uploaded and processed for championship '{championship_name}' successfully. , new actions count: {len(parsed_data['actions'])}"}
+        await insert_actions(parsed_data, championship_id)
+        return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
         
     except Exception as e:
         db.rollback()
@@ -147,8 +147,8 @@ def link_teams_to_championship(champ_id: int,team_ids: schemas.TeamIDs,current_u
     db.commit()
     return champ
 
-@app.delete("/championships/{champ_id}",response_model=schemas.ChampionshipOut)
-def delete_championship(champ_id: int,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+@app.delete("/championships/{champ_id}")
+async def delete_championship(champ_id: int,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
     champ = db.query(Championship).filter(Championship.id == champ_id).first()
     if not champ:
         raise HTTPException(status_code=404, detail="Championship not found.")
@@ -156,7 +156,10 @@ def delete_championship(champ_id: int,current_user: schemas.UserOut = Depends(au
     db.delete(champ)
     db.commit()
 
-    return champ
+    # Delete associated actions from MongoDB
+    await manage_data.database.pbp_collection.delete_many({"championship": champ_id})
+
+    return {"message": "Championship deleted successfully"}
 
 
 
@@ -290,8 +293,8 @@ def get_player_stats_in_match(match_id: int, team_id: int, player_id: int, db: S
         raise HTTPException(status_code=404, detail="Player stats not found for this player in this match")
     return player_stats
 
-@app.get("/championships/name/{championship_name}/PlayByPlay/matches/{game_code}/page/{page_no}", response_model= list[schemas.Action])
-async def get_actions (game_code:str, championship_name : str,page_no: int):
-    if not await checker(game_code,championship_name):
+@app.get("/championships/{championship_id}/PlayByPlay/matches/{game_code}/page/{page_no}", response_model= list[schemas.Action])
+async def get_actions (game_code:str, championship_id : int,page_no: int):
+    if not await checker(game_code,championship_id):
         raise HTTPException(status_code=404, detail="Match not found")
-    return await action_page(game_code, page_no,championship_name)
+    return await action_page(game_code, page_no,championship_id)

@@ -6,10 +6,10 @@ from fastapi import HTTPException
 
 class Champ:
 
-    def __init__(self, name: str, session: Session):
-        self.name = name
+    def __init__(self, id: int, session: Session):
+        self.id = id
         self.session = session
-        existing = session.query(Championship).filter_by(name=name).first()
+        existing = session.query(Championship).filter_by(id=id).first()
         self.champ_exists = False
         if existing:
             self.champ_exists = True
@@ -30,28 +30,6 @@ class Champ:
         except (ValueError, TypeError):
             return -1.0
         
-
-    def add_championship(self, name: str, description: str, start_date: date, end_date: date)-> Championship:
-        # Check if it already exists
-        existing = self.session.query(Championship).filter_by(name=name).first()
-        if existing:
-            print(f"Championship already exists: {existing}")
-            return existing
-
-        # Create and add
-        championship = Championship(
-            name=name,
-            description=description,
-            start_date=start_date,
-            end_date=end_date
-        )
-        self.session.add(championship)
-        self.session.commit()
-        print(f"Added championship: {championship}")
-        self.champ_exists = True
-        self.championship = championship
-        return championship
-
 
     def create_teams(self,parsed_data:dict[str,dict[str, str]], name=None, abbreviation=None) -> list[Team]:
        
