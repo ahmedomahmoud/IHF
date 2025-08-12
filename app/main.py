@@ -3,7 +3,6 @@ import schemas
 import utils
 import auth
 import manage_data.database
-from fastapi.security import OAuth2PasswordRequestForm
 from manage_data.parser import CpFileParser
 from manage_data.data_orm import Champ
 from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats , TeamInChamp

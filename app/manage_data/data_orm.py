@@ -1,6 +1,5 @@
 from .orm import Team, Championship, TeamInChamp, Player, Match, Referee, RefereeInMatch, PlayerStats
 from sqlalchemy.orm import Session
-from datetime import date
 from fastapi import HTTPException
 
 
