@@ -38,15 +38,22 @@ After registration (or if you already have an account), log in to get an access 
 
 **Endpoint:** `POST /auth/login`
 
-**Request Body (form-data):**
-- `username`: Your registered username
-- `password`: Your password
+**Request Body (`UserLogin`):**
+```json
+{
+  "username": "string",
+  "password": "string"
+}
+```
 
 **Example `curl` command:**
 ```bash
 curl -X POST "http://localhost:8000/auth/login" \
-     -H "Content-Type: application/x-www-form-urlencoded" \
-     -d "username=johndoe&password=your_secure_password"
+     -H "Content-Type: application/json" \
+     -d '{
+           "username": "johndoe",
+           "password": "your_secure_password"
+         }'
 ```
 
 **Expected Response:**
@@ -122,15 +129,16 @@ curl -X GET "http://localhost:8000/championships"
 
 This is a protected endpoint for uploading CP files.
 
-**Endpoint:** `POST /championships/{championship_name}/upload-cp-file/`
+**Endpoint:** `POST /championships/{championship_id}/upload-cp-file/`
 
 **Example `curl` command:**
-Replace `<YOUR_ACCESS_TOKEN>` with your actual token and `my_championship` with the championship name.
+Replace `<YOUR_ACCESS_TOKEN>` with your actual token and `1` with the championship ID.
 You'll need a sample CP file (e.g., `sample.CP`).
 
 ```bash
-curl -X POST "http://localhost:8000/championships/my_championship/upload-cp-file/" \
+curl -X POST "http://localhost:8000/championships/1/upload-cp-file/" \
      -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
      -F "file=@/path/to/your/sample.CP"
 ```
+
 **Note:** Replace `/path/to/your/sample.CP` with the actual path to your CP file.

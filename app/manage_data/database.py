@@ -15,3 +15,6 @@ db = client[MONGODB_DB]
 # Collections
 user_collection = db["users"]
 pbp_collection= db["PlayByPlay"] 
+
+# Ensure indexes for frequently queried fields
+pbp_collection.create_index([("Game", 1), ("championship", 1)]) 

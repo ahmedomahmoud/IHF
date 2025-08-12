@@ -108,9 +108,13 @@ The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on 
 #### `POST /auth/login`
 
 *   **Description:** Logs in a user and returns an access token.
-*   **Request Body (form data):**
-    *   `username`: The user's username.
-    *   `password`: The user's password.
+*   **Request Body (`UserLogin`):**
+    ```json
+    {
+        "username": "string",
+        "password": "string"
+    }
+    ```
 *   **Responses:**
     *   `200 OK` (`Token`):
         ```json
@@ -125,18 +129,18 @@ The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on 
 
 ### Championships
 
-#### `POST /championships/{championship_name}/upload-cp-file/`
+#### `POST /championships/{championship_id}/upload-cp-file/`
 
 *   **Description:** Uploads and processes a `.CP` file for a specific championship. This endpoint requires authentication.
 *   **Path Parameters:**
-    *   `championship_name` (string): The name of the championship.
+    *   `championship_id` (integer): The ID of the championship.
 *   **File Upload:**
     *   `file`: The `.CP` file to upload.
 *   **Responses:**
     *   `200 OK`:
         ```json
         {
-            "message": "File uploaded and processed for championship '{championship_name}' successfully."
+            "message": "File uploaded and processed for championship '{championship_id}' successfully."
         }
         ```
     *   `404 Not Found`: Championship not found.
@@ -175,12 +179,61 @@ The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on 
         "name": "string",
         "description": "string (optional)",
         "start_date": "date",
-        "end_date": "date",
-        "teams": "List[integer] (optional)"
+        "end_date": "date"
     }
     ```
 *   **Responses:**
     *   `201 Created` (`ChampionshipOut`): The newly created championship object.
+
+#### `PUT /championships/{champ_id}`
+
+*   **Description:** Updates a championship. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `champ_id` (integer): The ID of the championship to update.
+*   **Request Body (`ChampionshipUpdate`):**
+    ```json
+    {
+        "name": "string (optional)",
+        "description": "string (optional)",
+        "start_date": "date (optional)",
+        "end_date": "date (optional)"
+    }
+    ```
+*   **Responses:**
+    *   `200 OK` (`ChampionshipOut`): The updated championship object.
+    *   `404 Not Found`: Championship not found.
+    *   `400 Bad Request`: Another championship with the same name already exists.
+
+#### `POST /championships/{champ_id}/teams`
+
+*   **Description:** Links teams to a championship. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `champ_id` (integer): The ID of the championship.
+*   **Request Body (`TeamIDs`):**
+    ```json
+    {
+        "team_ids": [
+            "integer"
+        ]
+    }
+    ```
+*   **Responses:**
+    *   `200 OK` (`championshipout_linked`): The championship with linked teams.
+    *   `404 Not Found`: Championship or Team not found.
+
+#### `DELETE /championships/{champ_id}`
+
+*   **Description:** Deletes a championship. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `champ_id` (integer): The ID of the championship to delete.
+*   **Responses:**
+    *   `200 OK`:
+        ```json
+        {
+            "message": "Championship deleted successfully"
+        }
+        ```
+    *   `404 Not Found`: Championship not found.
 
 ---
 
@@ -222,6 +275,32 @@ The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on 
     ```
 *   **Responses:**
     *   `201 Created` (`TeamOut`): The newly created team object.
+
+#### `PUT /teams/{team_id}`
+
+*   **Description:** Updates a team. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `team_id` (integer): The ID of the team to update.
+*   **Request Body (`TeamUpdate`):**
+    ```json
+    {
+        "name": "string (optional)",
+        "abbreviation": "string (optional)"
+    }
+    ```
+*   **Responses:**
+    *   `200 OK` (`TeamOut`): The updated team object.
+    *   `404 Not Found`: Team not found.
+    *   `400 Bad Request`: Another team with the same name or abbreviation already exists.
+
+#### `DELETE /teams/{team_id}`
+
+*   **Description:** Deletes a team. This endpoint requires authentication.
+*   **Path Parameters:**
+    *   `team_id` (integer): The ID of the team to delete.
+*   **Responses:**
+    *   `200 OK` (`TeamOut`): The deleted team object.
+    *   `404 Not Found`: Team not found.
 
 ---
 
@@ -301,11 +380,11 @@ The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on 
 
 ### Play-by-Play
 
-#### `GET /championships/name/{championship_name}/PlayByPlay/matches/{game_code}/page/{page_no}`
+#### `GET /championships/{championship_id}/PlayByPlay/matches/{game_code}/page/{page_no}`
 
 *   **Description:** Retrieves a paginated list of play-by-play actions for a specific match.
 *   **Path Parameters:**
-    *   `championship_name` (string): The name of the championship.
+    *   `championship_id` (integer): The ID of the championship.
     *   `game_code` (string): The code for the game.
     *   `page_no` (integer): The page number for pagination.
 *   **Responses:**
