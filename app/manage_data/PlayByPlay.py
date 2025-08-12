@@ -6,7 +6,6 @@ async def insert_actions(parsed: dict[str,dict[str, str]], championship_id: int)
     #count_mongo = await pbp_collection.count_documents({"Game": parsed["gameinfo"][0]["Game"], "championship": championship_name})
     #actions_to_process =parsed["actions"][count_mongo:]
     actions_to_process =parsed["actions"]
-    print(f"Processing {len(actions_to_process)} actions for championship '{championship_id}'")
     for action in actions_to_process:
         action["championship"] = championship_id
         exists = await pbp_collection.find_one({
@@ -20,10 +19,9 @@ async def insert_actions(parsed: dict[str,dict[str, str]], championship_id: int)
         })
         if not exists:
             try:
-                print(f"Inserting action: {action['PLTime']}")
                 await pbp_collection.insert_one(action)
             except Exception as e:
-                print("Insert failed:", e)
+                print(f"Insertion of one action failed:", e)
 
 async def checker (match_id:str, championship_id: int)->bool:
     if await pbp_collection.find_one({"Game": match_id, "championship": championship_id}):

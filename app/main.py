@@ -57,14 +57,15 @@ async def login(login_data: schemas.UserLogin): # Changed from OAuth2PasswordReq
 async def upload_cp_file(championship_id: int, file: UploadFile = File(...), current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
     try:
         champ = Champ(id=championship_id, session=db)
-        print(f"Processing file: {file.filename} for championship '{championship_id}'")
+        
         if not champ.champ_exists:
             raise HTTPException(status_code=404, detail=f"Championship '{championship_id}' not found.")
         file_content = await file.read()
         parsed_data = parser.parse(file_content,file.filename)
-        print(f"File {file.filename} parsed successfully.")
-        print(f"actions length {len(parsed_data['actions'])}")
+        
+        
         champ.process_data(parsed_data)
+        
         await insert_actions(parsed_data, championship_id)
         return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
         

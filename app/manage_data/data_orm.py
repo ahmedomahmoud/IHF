@@ -13,10 +13,9 @@ class Champ:
         self.champ_exists = False
         if existing:
             self.champ_exists = True
-            print(f"Championship already exists: {existing}")
             self.championship=existing
 
-
+    
     def safe_int(self,value: int | str | None) -> int:
         try:
             return int(value)
@@ -42,13 +41,11 @@ class Champ:
         if name and abbreviation:
             existing_team = self.session.query(Team).filter_by(abbreviation=abbreviation).first()
             if existing_team:
-                print(f"Team already exists: {existing_team}")
                 return
             else:
                 team = Team(name=name, abbreviation=abbreviation)
                 self.session.add(team)
                 self.session.commit()
-                print(f"Created new team: {team}")
                 return [team]
             
         gameinfo = parsed_data["gameinfo"][0]
@@ -61,20 +58,16 @@ class Champ:
         result_teams = []
         for team_data in teams_data:
             existing_team = self.session.query(Team).filter_by(abbreviation=team_data["abbreviation"]).first()
-            if existing_team:
-                print(f"Team already exists: {existing_team}")
-            else:
+            if not existing_team:
                 team = Team(**team_data)
                 result_teams.append(team)
                 self.session.add(team)
-                print(f"Created new team: {team}")
 
         self.session.commit()
         return result_teams
 
 
     def link_team_to_championship(self,team_abbr:str)-> None:
-    
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -93,13 +86,10 @@ class Champ:
             championship_id=self.championship.id
         ).first()
 
-        if existing_link:
-            print(f"Link already exists: Team {team_abbr} in {self.championship}")
-        else:
+        if not existing_link:
             link = TeamInChamp(team_id=team.id, championship_id=self.championship.id)
             self.session.add(link)
             self.session.commit()
-            print(f"Linked team {team_abbr} to championship {self.championship.name}")
 
 
     def add_match(self,parsed_data:dict[str,dict[str, str]]) -> Match:
@@ -113,7 +103,6 @@ class Champ:
         # Check if match already exists
         existing_match = self.session.query(Match).filter_by(game_code=game_code , championship_id =self.championship.id).first()
         if existing_match:
-            print(f"Match with code '{game_code}' already exists.")
             return existing_match
 
         # Extract game basic info
@@ -165,7 +154,6 @@ class Champ:
 
         self.session.add(match)
         self.session.commit()
-        print(f"Match added: {match}")
         return match
 
 
@@ -182,20 +170,21 @@ class Champ:
         # Find the existing match
         match = self.session.query(Match).filter_by(game_code=game_code,championship_id =self.championship.id).first()
         if not match:
-            print(f"No match found with code '{game_code}' to update.")
             return None
 
-        # Update scores
-        match.team_a_score_total = self.safe_int(gameinfo.get("RA"))
-        match.team_a_score_first_half = self.safe_int(gameinfo.get("RA1"))
-        match.team_a_score_second_half = self.safe_int(gameinfo.get("RA2"))
+        match.team_a_score = {
+        "total": self.safe_int(gameinfo.get("RA")),
+        "first_half": self.safe_int(gameinfo.get("RA1")),
+        "second_half": self.safe_int(gameinfo.get("RA2")),
+        }
 
-        match.team_b_score_total = self.safe_int(gameinfo.get("RB"))
-        match.team_b_score_first_half = self.safe_int(gameinfo.get("RB1"))
-        match.team_b_score_second_half = self.safe_int(gameinfo.get("RB2"))
+        match.team_b_score = {
+            "total": self.safe_int(gameinfo.get("RB")),
+            "first_half": self.safe_int(gameinfo.get("RB1")),
+            "second_half": self.safe_int(gameinfo.get("RB2")),
+        }
 
         self.session.commit()
-        print(f"Updated scores for match '{game_code}'.")
         return match
 
 
@@ -224,7 +213,7 @@ class Champ:
         }
 
 
-    def update_match_stats(self,parsed_data: dict[str,dict[str, str]]) -> Match:
+    def update_or_add_match_stats(self,parsed_data: dict[str,dict[str, str]]) -> Match:
         if not self.champ_exists:
             raise HTTPException(
                 status_code=404,
@@ -258,12 +247,9 @@ class Champ:
 
         # If teams don't exist (deleted or null), skip setting stats
         if not team_a or not team_b:
-            print(f"Match {match_code}: team_a or team_b is None. Skipping stats update.")
             return match
-        #print(team_code_to_stats)
         # Make sure the teams exist in parsed data
         if team_a.abbreviation not in team_code_to_stats or team_b.abbreviation not in team_code_to_stats:
-            print(f"Match {match_code}: One of the teams not found in statteam. Skipping stats update.")
             return match
         
         match.team_a_stats = team_code_to_stats[team_a.abbreviation]
@@ -383,7 +369,6 @@ class Champ:
             # Find team
             team = self.session.query(Team).filter_by(abbreviation=team_abbr).first()
             if not team:
-                print(f"Team '{team_abbr}' not found for player {first_name} {last_name}")
                 continue
 
             # Check if player exists
@@ -393,9 +378,7 @@ class Champ:
                 team_id=team.id
             ).first()
 
-            if existing_player:
-                print(f"Player {first_name} {last_name} already exists.")
-            else:
+            if not existing_player:
                 new_player = Player(
                     first_name=first_name,
                     last_name=last_name,
@@ -403,7 +386,6 @@ class Champ:
                     team_id=team.id
                 )
                 self.session.add(new_player)
-                print(f"Inserted player {first_name} {last_name} (Team: {team_abbr})")
 
         self.session.commit()
 
@@ -427,7 +409,6 @@ class Champ:
         match = self.session.query(Match).filter_by(game_code=game_code,championship_id =self.championship.id).first()
 
         if not match:
-            print(f"Match {game_code} not found.")
             return
 
         for row in statind:
@@ -440,7 +421,6 @@ class Champ:
 
             team = self.session.query(Team).filter_by(abbreviation=team_abbr).first()
             if not team:
-                print(f"Team {team_abbr} not found.")
                 continue
 
             player = self.session.query(Player).filter_by(
@@ -450,7 +430,6 @@ class Champ:
             ).first()
 
             if not player:
-                print(f"Player {first_name} {last_name} not found in team {team_abbr}")
                 continue
 
             # Check if stats already exist
@@ -460,7 +439,6 @@ class Champ:
             ).first()
 
             if existing:
-                print(f"Stats already exist for {first_name} {last_name} in match {game_code}")
                 continue
 
             stats_json = {
@@ -480,7 +458,6 @@ class Champ:
             )
 
             self.session.add(player_stats)
-            print(f"Inserted stats for {first_name} {last_name} (match {game_code})")
 
         self.session.commit()
 
@@ -519,7 +496,6 @@ class Champ:
 
             team = self.session.query(Team).filter_by(abbreviation=team_abbr).first()
             if not team:
-                print(f"Team {team_abbr} not found.")
                 continue
 
             player = self.session.query(Player).filter_by(
@@ -529,7 +505,6 @@ class Champ:
             ).first()
 
             if not player:
-                print(f"Player {first_name} {last_name} not found in team {team_abbr}")
                 continue
 
             existing = self.session.query(PlayerStats).filter_by(
@@ -538,7 +513,6 @@ class Champ:
             ).first()
 
             if not existing:
-                print(f"No existing stats found for {first_name} {last_name} in match {game_code}")
                 continue
 
             # Update stats
@@ -550,8 +524,6 @@ class Champ:
                 "blue_cards": self.safe_int(row.get("EX")),
                 "suspensions_2min": self.safe_int(row.get("P2minT"))
             }
-
-            print(f"Updated stats for {first_name} {last_name} (match {game_code})")
 
         self.session.commit()
 
@@ -581,16 +553,15 @@ class Champ:
                 detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
             )
 
-
-        # Add championship if not exists
-        self.add_championship(self.name, "Description", date.today(), date.today())
-
         # Create teams
         self.create_teams(parsed_data)
 
         # Link teams to championship
-        for team in self.session.query(Team).all():
-            self.link_team_to_championship(team.abbreviation)
+        team_a= parsed_data["gameinfo"][0]["TIDA"]
+        team_b= parsed_data["gameinfo"][0]["TIDB"]
+
+        self.link_team_to_championship(team_a)
+        self.link_team_to_championship(team_b)
 
         # Add match
         match = self.add_match(parsed_data)
@@ -605,7 +576,7 @@ class Champ:
         self.insert_player_stats(parsed_data)
 
         # add match stats
-        self.update_match_stats(parsed_data)
+        self.update_or_add_match_stats(parsed_data)
 
 
     def _update_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
@@ -620,7 +591,7 @@ class Champ:
         self.update_match_score(parsed_data)
 
         # Update match stats
-        self.update_match_stats(parsed_data)
+        self.update_or_add_match_stats(parsed_data)
 
         # Update player stats
         self.update_player_stats(parsed_data)
@@ -629,22 +600,7 @@ class Champ:
     def process_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Process parsed data based on whether it has been processed before."""
         if self._parsed_before(parsed_data):
-            print("Data has been processed before. Updating existing records.")
             self._update_data(parsed_data)
         else:
-            print("New data detected. Adding to the database.")
             self._add_data(parsed_data)
 
-# if __name__ == "__main__":
-#     session = SessionLocal()
-#     try:
-#         champ = Champ(name="World Handball Championship 2025", session=session)
-#         if not champ.champ_exists:
-#             champ.add_championship("World Handball Championship 2025", "The 29th edition of the championship.", date(2025, 1, 14), date(2025, 2, 2))
-#         print("Processing parsed data...")
-#         champ.process_data(parsed_data)
-#     except Exception as e:
-#         print(f"An error occurred: {e}")
-#         session.rollback()
-#     finally:
-#         session.close()

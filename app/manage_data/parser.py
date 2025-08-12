@@ -12,10 +12,8 @@ class CpFileParser:
         encoding = result['encoding']
         lines = file_content.decode(encoding).splitlines()
         if self.cached_file_name == file_name:
-            print("Using cached data for file:", file_name)
             return self._update_data(lines)
         else:
-            print("Parsing new file:", file_name)
             return self._full_parse(file_name, lines)
 
     def _full_parse(self, file_name: str, lines: list[str]):
