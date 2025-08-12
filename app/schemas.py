@@ -65,7 +65,7 @@ class ChampionshipBase(BaseModel):
 
 
 class ChampionshipCreate(ChampionshipBase):
-    teams: Optional[List[int]] = None  # List of team IDs
+    pass
 
 
 class ChampionshipUpdate(BaseModel):
@@ -73,12 +73,16 @@ class ChampionshipUpdate(BaseModel):
     description: Optional[str] = None
     start_date: Optional[date] = None
     end_date: Optional[date] = None
-    teams: Optional[List[int]] = None  # List of team IDs
-
 
 class ChampionshipOut(ChampionshipBase):
     id: int
+    
+class championshipout_linked(ChampionshipOut):
     teams: List[TeamOut] = []  # Nested team data
+
+    
+class TeamIDs(BaseModel):
+    team_ids: List[int]
 
 class PlayerOut(BaseModel):
     id: int

@@ -45,7 +45,7 @@ class Team(Base):
     players = relationship("Player", back_populates="team", cascade="all, delete-orphan")
 
     team_champ_links = relationship("TeamInChamp", back_populates="team", cascade="all, delete-orphan")
-    # championships = relationship("Championship", secondary="team_in_champ", back_populates="teams")
+    championships = relationship("Championship", secondary="team_in_champ", back_populates="teams")
 
     def __repr__(self):
         return f"<Team(id={self.id}, name='{self.name}', abbr='{self.abbreviation}')>"
@@ -61,7 +61,7 @@ class Championship(Base):
     end_date = Column(Date)
 
     team_champ_links = relationship("TeamInChamp", back_populates="championship", cascade="all, delete-orphan")
-    # teams = relationship("Team", secondary="team_in_champ", back_populates="championships")
+    teams = relationship("Team", secondary="team_in_champ", back_populates="championships")
 
     matches = relationship("Match", back_populates="championship", cascade="all, delete-orphan")
 

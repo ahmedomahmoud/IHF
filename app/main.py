@@ -6,8 +6,8 @@ import manage_data.database
 from fastapi.security import OAuth2PasswordRequestForm
 from manage_data.parser import CpFileParser
 from manage_data.data_orm import Champ
-from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats
-from sqlalchemy.orm import Session
+from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats , TeamInChamp
+from sqlalchemy.orm import Session , joinedload
 from manage_data.PlayByPlay import action_page, checker, insert_actions 
 
 app = FastAPI()
@@ -43,16 +43,12 @@ async def register(user: schemas.UserCreate):
 
 # --- LOGIN ---
 @app.post("/auth/login", response_model=schemas.Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = await manage_data.database.user_collection.find_one({"username": form_data.username})
-    if not user:
-        raise HTTPException(status_code=400, detail="Invalid username or password")
-
-    if not utils.verify_password(form_data.password, user["password"]):
+async def login(login_data: schemas.UserLogin): # Changed from OAuth2PasswordRequestForm
+    user = await manage_data.database.user_collection.find_one({"username": login_data.username})
+    if not user or not utils.verify_password(login_data.password, user["password"]):
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
     token = auth.create_access_token(data={"sub": user["username"]})
-
     return {"access_token": token, "token_type": "bearer"}
 
 
@@ -70,7 +66,7 @@ async def upload_cp_file(championship_name: str, file: UploadFile = File(...), c
         print(f"actions length {len(parsed_data['actions'])}")
         champ.process_data(parsed_data)
         await insert_actions(parsed_data, championship_name)
-        return {"message": f"File uploaded and processed for championship '{championship_name}' successfully."}
+        return {"message": f"File uploaded and processed for championship '{championship_name}' successfully. , new actions count: {len(parsed_data['actions'])}"}
         
     except Exception as e:
         db.rollback()
@@ -96,13 +92,73 @@ def get_championship_by_name(championship_name: str, db: Session = Depends(get_d
         raise HTTPException(status_code=404, detail="Championship not found")
     return championship
 
-@app.post("/championships", response_model=schemas.ChampionshipOut, status_code=201)
+@app.post("/championships", response_model=schemas.ChampionshipOut)
 def create_championship(championship: schemas.ChampionshipCreate, current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
+    existing = db.query(Championship).filter(Championship.name.ilike(championship.name)).first()
+    if existing:
+        raise HTTPException(status_code=400,detail=f"Championship '{championship.name}' already exists.")
     new_championship = Championship(**championship.dict())
     db.add(new_championship)
     db.commit()
     db.refresh(new_championship)
     return new_championship
+
+@app.put("/championships/{champ_id}", response_model=schemas.ChampionshipOut)
+def update_championship(champ_id: int,updated_champ: schemas.ChampionshipUpdate,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+    # Find the championship
+    champ = db.query(Championship).filter(Championship.id == champ_id).first()
+    if not champ:
+        raise HTTPException(status_code=404, detail="Championship not found.")
+    # If updating name, check for conflicts
+    if updated_champ.name:
+        conflict = db.query(Championship).filter(Championship.name.ilike(updated_champ.name),Championship.id != champ_id).first()
+        if conflict:
+            raise HTTPException(status_code=400,detail=f"Another championship with name '{updated_champ.name}' already exists.")
+
+    # Apply updates only for provided fields
+    for field, value in updated_champ.dict(exclude_unset=True).items():
+        setattr(champ, field, value)
+
+    # Save changes
+    db.commit()
+    db.refresh(champ)
+    return champ
+
+
+@app.post("/championships/{champ_id}/teams",response_model=schemas.championshipout_linked,)
+def link_teams_to_championship(champ_id: int,team_ids: schemas.TeamIDs,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+    champ = db.query(Championship).filter(Championship.id == champ_id).first()
+    if not champ:
+        raise HTTPException(status_code=404, detail="Championship not found.")
+    for team_id in team_ids.team_ids:
+        team = db.query(Team).filter(Team.id == team_id).first()
+        if not team:
+            raise HTTPException(status_code=404, detail=f"Team {team_id} not found.")
+        
+        # Prevent duplicate links
+        exists = db.query(TeamInChamp).filter_by(
+            team_id=team_id, championship_id=champ_id
+        ).first()
+        if not exists:
+            db.add(TeamInChamp(team_id=team_id, championship_id=champ_id))
+
+    champ= db.query(Championship).options(joinedload(Championship.teams)).filter(Championship.id == champ_id).first()
+
+    db.commit()
+    return champ
+
+@app.delete("/championships/{champ_id}",response_model=schemas.ChampionshipOut)
+def delete_championship(champ_id: int,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+    champ = db.query(Championship).filter(Championship.id == champ_id).first()
+    if not champ:
+        raise HTTPException(status_code=404, detail="Championship not found.")
+
+    db.delete(champ)
+    db.commit()
+
+    return champ
+
+
 
 # --- Team Routes ---
 @app.get("/teams", response_model=list[schemas.TeamOut])
@@ -123,13 +179,50 @@ def get_team_by_abbreviation(abbreviation: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Team not found")
     return team
 
-@app.post("/teams", response_model=schemas.TeamOut, status_code=201)
+@app.post("/teams", response_model=schemas.TeamOut)
 def create_team(team: schemas.TeamCreate, current_user: schemas.UserOut = Depends(auth.get_current_user), db: Session = Depends(get_db)):
+    existing_team = db.query(Team).filter((Team.name.ilike(team.name)) | (Team.abbreviation.ilike(team.abbreviation))).first()
+
+    if existing_team:
+        raise HTTPException(status_code=400,detail=f"Team with name '{team.name}' or abbreviation '{team.abbreviation}' already exists.")
     new_team = Team(**team.dict())
     db.add(new_team)
     db.commit()
     db.refresh(new_team)
     return new_team
+
+@app.put("/teams/{team_id}", response_model=schemas.TeamOut)
+def update_team(team_id: int,updated_team: schemas.TeamUpdate,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+    # Fetch team by ID
+    team = db.query(Team).filter(Team.id == team_id).first()
+    if not team:
+        raise HTTPException(status_code=404, detail="Team not found.")
+
+    # If updating name or abbreviation, check for conflicts
+    if updated_team.name or updated_team.abbreviation:
+        conflict = db.query(Team).filter(((Team.name.ilike(updated_team.name)) if updated_team.name else False) |
+            ((Team.abbreviation.ilike(updated_team.abbreviation)) if updated_team.abbreviation else False),Team.id != team_id).first()
+        if conflict:
+            raise HTTPException(status_code=400,detail="Another team already exists with that name or abbreviation.")
+    # Apply updates
+    for field, value in updated_team.dict(exclude_unset=True).items():
+        setattr(team, field, value)
+
+    db.commit()
+    db.refresh(team)
+    return team
+
+@app.delete("/teams/{team_id}",response_model=schemas.TeamOut)
+def delete_team(team_id: int ,current_user: schemas.UserOut = Depends(auth.get_current_user),db: Session = Depends(get_db)):
+    team = db.query(Team).filter(Team.id == team_id).first()
+
+    if not team:
+        raise HTTPException(status_code=404, detail="Team not found.")
+
+    db.delete(team)
+    db.commit()
+    return team
+
 
 # --- Match Routes ---
 @app.get("/matches/{match_id}/score", response_model=schemas.MatchScoreOut)
