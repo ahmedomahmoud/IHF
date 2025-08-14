@@ -15,22 +15,21 @@ class Champ:
             self.championship=existing
 
     
-    def safe_int(self,value: int | str | None) -> int:
+    def _safe_int(self,value: int | str | None) -> int:
         try:
             return int(value)
         except (ValueError, TypeError):
             return -1
 
 
-    def safe_float(self,value: float | str | None)-> float:
+    def _safe_float(self,value: float | str | None)-> float:
         try:
             return float(value)
         except (ValueError, TypeError):
             return -1.0
         
 
-    def create_teams(self,parsed_data:dict[str,dict[str, str]], name=None, abbreviation=None) -> list[Team]:
-       
+    def _create_teams(self,parsed_data:dict[str,dict[str, str]], name=None, abbreviation=None) -> list[Team]:
         if (not name and abbreviation) or (name and not abbreviation):
             raise HTTPException(
                 status_code=400, #Bad Request, which is appropriate since the client sent incomplete data.
@@ -66,24 +65,12 @@ class Champ:
         return result_teams
 
 
-    def link_team_to_championship(self,team_abbr:str)-> None:
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
-            )
-
+    def _link_team_to_championship(self,team_abbr:str)-> None:
         team = self.session.query(Team).filter_by(abbreviation=team_abbr).first()
         if not team:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Team with abbreviation '{team_abbr}' not found."
-            )
+            raise HTTPException(status_code=404,detail=f"Team with abbreviation '{team_abbr}' not found.")
 
-        existing_link = self.session.query(TeamInChamp).filter_by(
-            team_id=team.id,
-            championship_id=self.championship.id
-        ).first()
+        existing_link = self.session.query(TeamInChamp).filter_by(team_id=team.id,championship_id=self.championship.id).first()
 
         if not existing_link:
             link = TeamInChamp(team_id=team.id, championship_id=self.championship.id)
@@ -91,12 +78,7 @@ class Champ:
             self.session.commit()
 
 
-    def add_match(self,parsed_data:dict[str,dict[str, str]]) -> Match:
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
-            )
+    def _add_match(self,parsed_data:dict[str,dict[str, str]]) -> Match:
         gameinfo = parsed_data["gameinfo"][0]
         game_code = gameinfo["Game"]
         # Check if match already exists
@@ -113,33 +95,26 @@ class Champ:
 
         # Get team scores
         team_a_score = {
-            "total": self.safe_int(gameinfo["RA"]) ,
-            "first_half": self.safe_int(gameinfo["RA1"]) ,
-            "second_half": self.safe_int(gameinfo["RA2"]) 
+            "total": self._safe_int(gameinfo["RA"]) ,
+            "first_half": self._safe_int(gameinfo["RA1"]) ,
+            "second_half": self._safe_int(gameinfo["RA2"]) 
         }
 
         team_b_score = {
-            "total": self.safe_int(gameinfo["RB"]),
-            "first_half": self.safe_int(gameinfo["RB1"]) ,
-            "second_half": self.safe_int(gameinfo["RB2"]) 
+            "total": self._safe_int(gameinfo["RB"]),
+            "first_half": self._safe_int(gameinfo["RB1"]) ,
+            "second_half": self._safe_int(gameinfo["RB2"]) 
         }
 
         # Find teams by abbreviation
         team_a = self.session.query(Team).filter_by(abbreviation=team_a_abbr).first()
         if not team_a:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Team '{team_a_abbr}' not found."
-            )
+            raise HTTPException(status_code=404,etail=f"Team '{team_a_abbr}' not found.")
 
         team_b = self.session.query(Team).filter_by(abbreviation=team_b_abbr).first()
         if not team_b:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Team '{team_b_abbr}' not found."
-            )
+            raise HTTPException(status_code=404,detail=f"Team '{team_b_abbr}' not found.")
 
-        
         # Create match object
         match = Match(
             game_code=game_code,
@@ -156,13 +131,7 @@ class Champ:
         return match
 
 
-    def update_match_score(self,parsed_data: dict[str,dict[str, str]]) -> Match:
-
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
-            )
+    def _update_match_score(self,parsed_data: dict[str,dict[str, str]]) -> Match:
         gameinfo = parsed_data["gameinfo"][0]
         game_code = gameinfo["Game"]
 
@@ -172,72 +141,61 @@ class Champ:
             return None
 
         match.team_a_score = {
-        "total": self.safe_int(gameinfo.get("RA")),
-        "first_half": self.safe_int(gameinfo.get("RA1")),
-        "second_half": self.safe_int(gameinfo.get("RA2")),
+        "total": self._safe_int(gameinfo.get("RA")),
+        "first_half": self._safe_int(gameinfo.get("RA1")),
+        "second_half": self._safe_int(gameinfo.get("RA2")),
         }
 
         match.team_b_score = {
-            "total": self.safe_int(gameinfo.get("RB")),
-            "first_half": self.safe_int(gameinfo.get("RB1")),
-            "second_half": self.safe_int(gameinfo.get("RB2")),
+            "total": self._safe_int(gameinfo.get("RB")),
+            "first_half": self._safe_int(gameinfo.get("RB1")),
+            "second_half": self._safe_int(gameinfo.get("RB2")),
         }
 
         self.session.commit()
         return match
 
 
-    def clean_stats(self,row: dict[str,dict[str, str]]) -> dict[str, int | float]:
+    def _clean_stats(self,row: dict[str,dict[str, str]]) -> dict[str, int | float]:
         return {
-            "all_goals": self.safe_int(row.get("AllG")),
-            "all_shots": self.safe_int(row.get("AllShots")),
-            "all_efficiency": self.safe_float(row.get("AllEff")),
-            "goals_7m": self.safe_int(row.get("P7mG")),
-            "eff_7m": self.safe_float(row.get("P7mEff")),
-            "goals_9m": self.safe_int(row.get("P9mG")),
-            "eff_9m": self.safe_float(row.get("P9mEff")),
-            "goals_6m": self.safe_int(row.get("P6mG")),
-            "eff_6m": self.safe_float(row.get("P6mEff")),
-            "goals_near": self.safe_int(row.get("NearG")),
-            "eff_near": self.safe_float(row.get("NearEff")),
-            "goals_wing": self.safe_int(row.get("WingG")),
-            "eff_wing": self.safe_float(row.get("WingEff")),
-            "goals_fastbreak": self.safe_int(row.get("FBG")),
-            "eff_fastbreak": self.safe_float(row.get("FBEff")),
-            "yellow_cards": self.safe_int(row.get("YC")),
-            "red_cards": self.safe_int(row.get("RC")),
-            "blue_cards": self.safe_int(row.get("EX")),
-            "suspensions_2min": self.safe_int(row.get("P2minT")),
-            "total_7m_shots": self.safe_int(row.get("P7mShots")),
+            "all_goals": self._safe_int(row.get("AllG")),
+            "all_shots": self._safe_int(row.get("AllShots")),
+            "all_efficiency": self._safe_float(row.get("AllEff")),
+            "goals_7m": self._safe_int(row.get("P7mG")),
+            "eff_7m": self._safe_float(row.get("P7mEff")),
+            "goals_9m": self._safe_int(row.get("P9mG")),
+            "eff_9m": self._safe_float(row.get("P9mEff")),
+            "goals_6m": self._safe_int(row.get("P6mG")),
+            "eff_6m": self._safe_float(row.get("P6mEff")),
+            "goals_near": self._safe_int(row.get("NearG")),
+            "eff_near": self._safe_float(row.get("NearEff")),
+            "goals_wing": self._safe_int(row.get("WingG")),
+            "eff_wing": self._safe_float(row.get("WingEff")),
+            "goals_fastbreak": self._safe_int(row.get("FBG")),
+            "eff_fastbreak": self._safe_float(row.get("FBEff")),
+            "yellow_cards": self._safe_int(row.get("YC")),
+            "red_cards": self._safe_int(row.get("RC")),
+            "blue_cards": self._safe_int(row.get("EX")),
+            "suspensions_2min": self._safe_int(row.get("P2minT")),
+            "total_7m_shots": self._safe_int(row.get("P7mShots")),
         }
 
 
-    def update_or_add_match_stats(self,parsed_data: dict[str,dict[str, str]]) -> Match:
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship{self.name} does not exist. Please create it first. using add_championship method."
-            )
+    def _update_or_add_match_stats(self,parsed_data: dict[str,dict[str, str]]) -> Match:
         statteam = parsed_data.get("statteam", [])
         if not statteam or len(statteam) < 2:
-            raise HTTPException(
-                status_code=400,
-                detail="Statteam data is incomplete or missing."
-            )
+            raise HTTPException(status_code=400,detail="Statteam data is incomplete or missing.")
+        
         match_code = statteam[0].get("Game")
         match = self.session.query(Match).filter_by(game_code=match_code,championship_id =self.championship.id).first()
         if not match:
-            raise HTTPException(
-                status_code=404,
-                detail=f"No match found with code '{match_code}'."
-            )
+            raise HTTPException(status_code=404,detail=f"No match found with code '{match_code}'.")
 
-    
         # Create a mapping from team code to team_id
         team_code_to_stats = {}
         for row in statteam:
             team_code = row.get("Team")
-            stats = self.clean_stats(row)
+            stats = self._clean_stats(row)
             team_code_to_stats[team_code] = stats
 
         # Load actual teams from DB for this match
@@ -258,7 +216,7 @@ class Champ:
         return match
 
 
-    def insert_referees(self,parsed_data: dict[str,dict[str, str]]) -> list[Referee]:
+    def _insert_referees(self,parsed_data: dict[str,dict[str, str]]) -> list[Referee]:
         
         referee_data = parsed_data.get("referee", [])
         if not referee_data:
@@ -275,10 +233,7 @@ class Champ:
         if link_to_match:
             match = self.session.query(Match).filter_by(game_code=game_code).first()
             if not match:
-                raise HTTPException(
-                    status_code=404,
-                    detail=f"No match found for game code '{game_code}'."
-                )
+                raise HTTPException(status_code=404,detail=f"No match found for game code '{game_code}'.")
 
         # Prepare referee list
         referees_info = [
@@ -303,16 +258,10 @@ class Champ:
 
         for ref_info in referees_info:
             # Create or fetch referee
-            referee = self.session.query(Referee).filter_by(
-                name=ref_info["name"],
-                country=ref_info["country"]
-            ).first()
+            referee = self.session.query(Referee).filter_by(name=ref_info["name"],country=ref_info["country"]).first()
 
             if not referee:
-                referee = Referee(
-                    name=ref_info["name"],
-                    country=ref_info["country"]
-                )
+                referee = Referee(name=ref_info["name"],country=ref_info["country"])
                 self.session.add(referee)
                 self.session.flush()
 
@@ -320,41 +269,27 @@ class Champ:
 
             # Optionally link to match
             if link_to_match and match:
-                self.link_referees_to_match(self.session, match, referee, ref_info["role"])
+                self._link_referees_to_match(self.session, match, referee, ref_info["role"])
 
         self.session.commit()
         return created_or_found_refs
 
 
-    def link_referees_to_match(self,session: Session, match: Match, referee: Referee, role: str) -> None:
+    def _link_referees_to_match(self,session: Session, match: Match, referee: Referee, role: str) -> None:
         """Links a referee to a match if not already linked."""
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship{self.name} does not exist. Please create it first. using add_championship method."
-            )
-        existing_link = session.query(RefereeInMatch).filter_by(
-            match_id=match.id,
-            referee_id=referee.id,
-        ).first()
+     
+        existing_link = session.query(RefereeInMatch).filter_by(match_id=match.id,referee_id=referee.id,).first()
 
         if not existing_link:
-            match_ref_link = RefereeInMatch(
-                match_id=match.id,
-                referee_id=referee.id,
-                role=role
-            )
+            match_ref_link = RefereeInMatch(match_id=match.id,referee_id=referee.id,role=role)
             session.add(match_ref_link)
 
 
-    def insert_players(self,parsed_data:dict[str,dict[str, str]]) -> None :
+    def _insert_players(self,parsed_data:dict[str,dict[str, str]]) -> None :
         statind = parsed_data.get("statind", [])
 
         if not statind:
-            raise HTTPException(
-                status_code=400,
-                detail="No player data found in [statind]."
-            )
+            raise HTTPException(status_code=400,detail="No player data found in [statind].")
 
         for row in statind:
             first_name = row.get("FirstName")
@@ -371,38 +306,21 @@ class Champ:
                 continue
 
             # Check if player exists
-            existing_player = self.session.query(Player).filter_by(
-                first_name=first_name,
-                last_name=last_name,
-                team_id=team.id
-            ).first()
+            existing_player = self.session.query(Player).filter_by(first_name=first_name,last_name=last_name,team_id=team.id).first()
 
             if not existing_player:
-                new_player = Player(
-                    first_name=first_name,
-                    last_name=last_name,
-                    number=self.safe_int(number) ,
-                    team_id=team.id
-                )
+                new_player = Player(first_name=first_name,last_name=last_name,number=self._safe_int(number) ,team_id=team.id)
                 self.session.add(new_player)
 
         self.session.commit()
 
 
-    def insert_player_stats(self,parsed_data:dict[str,dict[str, str]]) -> None:
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship{self.name} does not exist. Please create it first. using add_championship method."
-            )
+    def _insert_player_stats(self,parsed_data:dict[str,dict[str, str]]) -> None:
         statind = parsed_data.get("statind", [])
         gameinfo = parsed_data.get("gameinfo", [])
 
         if not statind or not gameinfo:
-            raise HTTPException(
-                status_code=400,
-                detail="Missing [statind] or [gameinfo] section."
-            )
+            raise HTTPException(status_code=400,detail="Missing [statind] or [gameinfo] section.")
 
         game_code = gameinfo[0]["Game"]
         match = self.session.query(Match).filter_by(game_code=game_code,championship_id =self.championship.id).first()
@@ -422,68 +340,44 @@ class Champ:
             if not team:
                 continue
 
-            player = self.session.query(Player).filter_by(
-                first_name=first_name,
-                last_name=last_name,
-                team_id=team.id
-            ).first()
+            player = self.session.query(Player).filter_by(first_name=first_name,last_name=last_name,team_id=team.id).first()
 
             if not player:
                 continue
 
             # Check if stats already exist
-            existing = self.session.query(PlayerStats).filter_by(
-                match_id=match.id,
-                player_id=player.id
-            ).first()
+            existing = self.session.query(PlayerStats).filter_by(match_id=match.id,player_id=player.id).first()
 
             if existing:
                 continue
 
             stats_json = {
-                "all_goals": self.safe_int(row.get("AllG")),
-                "shots_efficiency": self.safe_float(row.get("AllEff")),
-                "yellow_cards": self.safe_int(row.get("YC")),
-                "red_cards": self.safe_int(row.get("RC")),
-                "blue_cards": self.safe_int(row.get("EX")),
-                "suspensions_2min": self.safe_int(row.get("P2minT"))
+                "all_goals": self._safe_int(row.get("AllG")),
+                "shots_efficiency": self._safe_float(row.get("AllEff")),
+                "yellow_cards": self._safe_int(row.get("YC")),
+                "red_cards": self._safe_int(row.get("RC")),
+                "blue_cards": self._safe_int(row.get("EX")),
+                "suspensions_2min": self._safe_int(row.get("P2minT"))
             }
 
-            player_stats = PlayerStats(
-                match_id=match.id,
-                player_id=player.id,
-                team_id=team.id,
-                stats=stats_json
-            )
-
+            player_stats = PlayerStats(match_id=match.id,player_id=player.id,team_id=team.id,stats=stats_json)
             self.session.add(player_stats)
 
         self.session.commit()
 
 
-    def update_player_stats(self,parsed_data: dict[str,dict[str, str]]) -> None:
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship{self.name} does not exist. Please create it first. using add_championship method."
-            )
+    def _update_player_stats(self,parsed_data: dict[str,dict[str, str]]) -> None:
         statind = parsed_data.get("statind", [])
         gameinfo = parsed_data.get("gameinfo", [])
 
         if not statind or not gameinfo:
-            raise HTTPException(
-                status_code=400,
-                detail="Missing [statind] or [gameinfo] section."
-            )
+            raise HTTPException(status_code=400,detail="Missing [statind] or [gameinfo] section.")
 
         game_code = gameinfo[0]["Game"]
         match = self.session.query(Match).filter_by(game_code=game_code,championship_id =self.championship.id).first()
 
         if not match:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Match {game_code} not found."
-            )
+            raise HTTPException(status_code=404,detail=f"Match {game_code} not found.")
 
         for row in statind:
             first_name = row.get("FirstName")
@@ -497,31 +391,24 @@ class Champ:
             if not team:
                 continue
 
-            player = self.session.query(Player).filter_by(
-                first_name=first_name,
-                last_name=last_name,
-                team_id=team.id
-            ).first()
+            player = self.session.query(Player).filter_by(first_name=first_name,last_name=last_name,team_id=team.id).first()
 
             if not player:
                 continue
 
-            existing = self.session.query(PlayerStats).filter_by(
-                match_id=match.id,
-                player_id=player.id
-            ).first()
+            existing = self.session.query(PlayerStats).filter_by(match_id=match.id,player_id=player.id).first()
 
             if not existing:
                 continue
 
             # Update stats
             existing.stats = {
-                "all_goals": self.safe_int(row.get("AllG")),
-                "shots_efficiency": self.safe_float(row.get("AllEff")),
-                "yellow_cards": self.safe_int(row.get("YC")),
-                "red_cards": self.safe_int(row.get("RC")),
-                "blue_cards": self.safe_int(row.get("EX")),
-                "suspensions_2min": self.safe_int(row.get("P2minT"))
+                "all_goals": self._safe_int(row.get("AllG")),
+                "shots_efficiency": self._safe_float(row.get("AllEff")),
+                "yellow_cards": self._safe_int(row.get("YC")),
+                "red_cards": self._safe_int(row.get("RC")),
+                "blue_cards": self._safe_int(row.get("EX")),
+                "suspensions_2min": self._safe_int(row.get("P2minT"))
             }
 
         self.session.commit()
@@ -530,10 +417,8 @@ class Champ:
     def _parsed_before(self, parsed_data: dict[str,dict[str, str]]) -> bool:
         """Check if the parsed data has been processed before."""
         if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship{self.name} does not exist. Please create it first. using add_championship method."
-            )
+            raise HTTPException(status_code=404,detail=f"Championship{self.id} does not exist. Please create it first.")
+        
         gameinfo = parsed_data.get("gameinfo", [])
         if not gameinfo:
             return False
@@ -546,54 +431,43 @@ class Champ:
 
     def _add_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Main method to add parsed data to the database."""
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
-            )
-
         # Create teams
-        self.create_teams(parsed_data)
+        self._create_teams(parsed_data)
 
         # Link teams to championship
         team_a= parsed_data["gameinfo"][0]["TIDA"]
         team_b= parsed_data["gameinfo"][0]["TIDB"]
 
-        self.link_team_to_championship(team_a)
-        self.link_team_to_championship(team_b)
+        self._link_team_to_championship(team_a)
+        self._link_team_to_championship(team_b)
 
         # Add match
-        match = self.add_match(parsed_data)
+        self._add_match(parsed_data)
         
         # Insert referees
-        self.insert_referees(parsed_data)
+        self._insert_referees(parsed_data)
 
         # Insert players
-        self.insert_players(parsed_data)
+        self._insert_players(parsed_data)
 
         # Insert player stats
-        self.insert_player_stats(parsed_data)
+        self._insert_player_stats(parsed_data)
 
         # add match stats
-        self.update_or_add_match_stats(parsed_data)
+        self._update_or_add_match_stats(parsed_data)
 
 
     def _update_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Main method to update parsed data in the database."""
-        if not self.champ_exists:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Championship {self.name} does not exist. Please create it first. using add_championship method."
-            )
 
         # Update match score
-        self.update_match_score(parsed_data)
+        self._update_match_score(parsed_data)
 
         # Update match stats
-        self.update_or_add_match_stats(parsed_data)
+        self._update_or_add_match_stats(parsed_data)
 
         # Update player stats
-        self.update_player_stats(parsed_data)
+        self._update_player_stats(parsed_data)
     
     
     def process_data(self, parsed_data: dict[str,dict[str, str]]) -> None:

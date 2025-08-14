@@ -67,7 +67,8 @@ async def upload_cp_file(championship_id: int, file: UploadFile = File(...), cur
         
         await insert_actions(parsed_data, championship_id)
         return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
-        
+    except HTTPException:
+        raise
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"An error occurred while processing the file: {e}")
