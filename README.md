@@ -86,7 +86,7 @@ To build and run the application using Docker, follow these steps:
 1.  **Build the Docker image:**
 
     ```bash
-    docker build -t ihf-app .
+    docker compose build .
     ```
 
 ### Docker Compose
@@ -98,7 +98,7 @@ To run the application and its database dependencies using Docker Compose, follo
 2.  **Run Docker Compose:**
 
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
     This will start the FastAPI application, PostgreSQL database, and MongoDB in detached mode.
