@@ -79,6 +79,36 @@ uvicorn main:app --reload
 
 The API will be accessible at `http://127.0.0.1:8000` (or similar, depending on your Uvicorn configuration).
 
+## Docker
+
+To build and run the application using Docker, follow these steps:
+
+1.  **Build the Docker image:**
+
+    ```bash
+    docker build -t ihf-app .
+    ```
+
+### Docker Compose
+
+To run the application and its database dependencies using Docker Compose, follow these steps:
+
+1.  **Ensure you have a `.env.docker` file with the required environment variables.**
+
+2.  **Run Docker Compose:**
+
+    ```bash
+    docker-compose up -d
+    ```
+
+    This will start the FastAPI application, PostgreSQL database, and MongoDB in detached mode.
+
+3.  **To stop the services:**
+
+    ```bash
+    docker-compose down
+    ```
+
 ## API Documentation
 
 ### Authentication
@@ -408,38 +438,4 @@ Contributions are welcome! Please follow these steps:
 4.  Commit your changes (`git commit -m 'Add some feature'`).
 5.  Push to the branch (`git push origin feature/your-feature-name`).
 6.  Open a Pull Request.
-
-## Docker
-
-To build and run the application using Docker, follow these steps:
-
-1.  **Build the Docker image:**
-
-    ```bash
-    docker build -t ihf-app .
-    ```
-
-### Docker Compose
-
-To run the application and its database dependencies using Docker Compose, follow these steps:
-
-1.  **Ensure you have a `.env` file with the required environment variables.**
-
-2.  **Run Docker Compose:**
-
-    ```bash
-    docker-compose up -d
-    ```
-
-    This will start the FastAPI application, PostgreSQL database, and MongoDB in detached mode.
-
-3.  **To stop the services:**
-
-    ```bash
-    docker-compose down
-    ```
-
-
-
-
 
