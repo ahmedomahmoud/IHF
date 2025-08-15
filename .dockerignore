@@ -1,0 +1,11 @@
+__pycache__/
+.git/
+.gitignore
+Dockerfile
+.env.example
+README.md
+schema.png
+schema.txt
+usage.txt
+.env
+docker-compose.yml

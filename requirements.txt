@@ -8,3 +8,4 @@ bcrypt
 chardet
 psycopg2-binary
 pydantic
+python-multipart

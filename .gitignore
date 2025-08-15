@@ -3,3 +3,4 @@ __pycache__
 
 cp-files
 .ruff_cache
+.env.docker
