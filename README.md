@@ -18,7 +18,6 @@ This project is a backend system designed to manage data for handball championsh
 *   **Relational Database:** PostgreSQL
 *   **NoSQL Database:** MongoDB
 *   **ORM (Relational):** SQLAlchemy
-*   **Database Migrations:** (Assumed, based on project structure, but not explicitly seen in provided files)
 *   **Authentication:** JWT (JSON Web Tokens)
 *   **Environment Management:** `python-dotenv`
 *   **Data Parsing:** Custom parser for `.CP` files
