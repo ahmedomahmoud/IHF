@@ -231,7 +231,7 @@ class Champ:
         # Try to get the match if linking is requested
         match = None
         if link_to_match:
-            match = self.session.query(Match).filter_by(game_code=game_code).first()
+            match = self.session.query(Match).filter_by(game_code=game_code ,championship_id =self.championship.id).first()
             if not match:
                 raise HTTPException(status_code=404,detail=f"No match found for game code '{game_code}'.")
 

@@ -17,4 +17,4 @@ user_collection = db["users"]
 pbp_collection= db["PlayByPlay"] 
 
 # Ensure indexes for frequently queried fields
-pbp_collection.create_index([("Game", 1), ("championship", 1)]) 
+pbp_collection.create_index([("championship", 1),("Game", 1),("PLTime",1) ]) 
