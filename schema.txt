@@ -69,3 +69,7 @@ player_id       INT, PK, FK -> players(id)
 team_id         INT, FK -> teams(id)
 stats           JSONB       (consolidates all individual stats like goals, cards, etc.)
 
+9. actions 
+id 		INT , PK
+match_id	INT , FK-> matches(id)
+stats           JSONB       (consolidates all individual actions like goals, cards, etc.)
