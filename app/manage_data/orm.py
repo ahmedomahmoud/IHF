@@ -183,7 +183,8 @@ class Action(Base):
 
     match = relationship("Match", back_populates="actions")
 
-    __table_args__ = (Index("ix_actions_data_time",cast(data["Time"].astext, Integer)),)
+    __table_args__ = (Index("ix_actions_data_time",cast(data["Time"].astext, Integer)),
+                      Index("ix_actions_data_pos", data["Pos"].astext))
 
     def __repr__(self):
         return f"<Action(id={self.id}, match_id={self.match_id})>"
