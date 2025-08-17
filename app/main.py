@@ -68,7 +68,7 @@ async def upload_cp_file(championship_id: int, file: UploadFile = File(...), cur
         if not match:
             raise HTTPException(status_code=404, detail=f"Match with game code '{game_code}' not found in championship '{championship_id}'.")
         
-        await insert_actions(parsed_data, match.id)
+        await insert_actions(parsed_data, match.id , championship_id)
         return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
     except HTTPException:
         raise
@@ -161,7 +161,7 @@ async def delete_championship(champ_id: int,current_user: schemas.UserOut = Depe
     db.commit()
 
     # Delete associated actions from MongoDB
-    await manage_data.database.pbp_collection.delete_many({"championship": champ_id})
+    await manage_data.database.pbp_collection.delete_many({"championship_id": champ_id})
 
     return {"message": "Championship deleted successfully"}
 

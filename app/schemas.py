@@ -135,6 +135,7 @@ class PlayerStatsOut(BaseModel):
 
 
 class Action(BaseModel):
+    championship_id:int
     match_id: int
     Game: str
     Team: str
