@@ -335,6 +335,15 @@ To run the application and its database dependencies using Docker Compose, follo
 
 ### Matches
 
+#### `GET /championships/{championship_id}/matches`
+
+*   **Description:** Retrieves a list of all matches associated with a specific championship.
+*   **Path Parameters:**
+    *   `championship_id` (integer): The unique identifier for the championship.
+*   **Responses:**
+    *   `200 OK` (`list[MatchBaseOut]`): An array of match objects. If the championship has no matches, this will be an empty array `[]`.
+    *   `404 Not Found`: The championship with the specified ID was not found.
+
 #### `GET /matches/{match_id}/score`
 
 *   **Description:** Retrieves the score for a specific match.
@@ -409,12 +418,11 @@ To run the application and its database dependencies using Docker Compose, follo
 
 ### Play-by-Play
 
-#### `GET /championships/{championship_id}/PlayByPlay/matches/{game_code}/page/{page_no}`
+#### `GET /matches/match_id/actions/page/{page_no}`
 
 *   **Description:** Retrieves a paginated list of play-by-play actions for a specific match.
 *   **Path Parameters:**
-    *   `championship_id` (integer): The ID of the championship.
-    *   `game_code` (string): The code for the game.
+    *   `match_id` (integer): The id for the game.
     *   `page_no` (integer): The page number for pagination.
 *   **Responses:**
     *   `200 OK` (List[`Action`]): A list of action objects.

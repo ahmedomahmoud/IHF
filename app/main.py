@@ -62,10 +62,13 @@ async def upload_cp_file(championship_id: int, file: UploadFile = File(...), cur
         file_content = await file.read()
         parsed_data = parser.parse(file_content,file.filename)
         
-        
         champ.process_data(parsed_data)
+        game_code = parsed_data["gameinfo"][0]["Game"]
+        match = db.query(Match).filter_by(game_code=game_code,championship_id =championship_id).first()
+        if not match:
+            raise HTTPException(status_code=404, detail=f"Match with game code '{game_code}' not found in championship '{championship_id}'.")
         
-        await insert_actions(parsed_data, championship_id)
+        await insert_actions(parsed_data, match.id)
         return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
     except HTTPException:
         raise
@@ -229,6 +232,18 @@ def delete_team(team_id: int ,current_user: schemas.UserOut = Depends(auth.get_c
 
 
 # --- Match Routes ---
+
+@app.get("/championships/{championship_id}/matches", response_model=list[schemas.MatchBaseOut])
+def get_matches_in_championship(championship_id: int, db: Session = Depends(get_db)):
+    # First, check if the championship exists to provide a clear error message
+    championship = db.query(Championship).filter(Championship.id == championship_id).first()
+    if not championship:
+        raise HTTPException(status_code=404, detail=f"Championship with id {championship_id} not found.")
+
+    # Query for all matches that have the given championship_id
+    matches = db.query(Match).filter(Match.championship_id == championship_id).all()
+    
+    return matches
 @app.get("/matches/{match_id}/score", response_model=schemas.MatchScoreOut)
 def get_match_score(match_id: int, db: Session = Depends(get_db)):
     match = db.query(Match).filter(Match.id == match_id).first()
@@ -294,8 +309,8 @@ def get_player_stats_in_match(match_id: int, team_id: int, player_id: int, db: S
         raise HTTPException(status_code=404, detail="Player stats not found for this player in this match")
     return player_stats
 
-@app.get("/championships/{championship_id}/PlayByPlay/matches/{game_code}/page/{page_no}", response_model= list[schemas.Action])
-async def get_actions (game_code:str, championship_id : int,page_no: int):
-    if not await checker(game_code,championship_id):
+@app.get("/matches/{match_id}/actions/page/{page_no}", response_model= list[schemas.Action])
+async def get_actions (match_id:int, page_no: int):
+    if not await checker(match_id):
         raise HTTPException(status_code=404, detail="Match not found")
-    return await action_page(game_code, page_no,championship_id)
+    return await action_page(match_id, page_no)
