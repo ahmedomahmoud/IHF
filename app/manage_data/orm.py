@@ -1,7 +1,8 @@
 from sqlalchemy import (
     create_engine, Column, Integer, String, Text, Date,
-    ForeignKey, JSON, UniqueConstraint
+    ForeignKey, JSON, UniqueConstraint, Index , cast
 )
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from dotenv import load_dotenv
@@ -112,6 +113,7 @@ class Match(Base):
 
     referees = relationship("RefereeInMatch", back_populates="match", cascade="all, delete-orphan")
     player_stats = relationship("PlayerStats", back_populates="match", cascade="all, delete-orphan")
+    actions = relationship("Action", back_populates="match", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Match(id={self.id}, code='{self.game_code}', status='{self.status}')>"
@@ -159,6 +161,33 @@ class PlayerStats(Base):
 
     def __repr__(self):
         return f"<PlayerStats(match_id={self.match_id}, player_id={self.player_id})>"
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    username = Column(String(50), nullable=False, unique=True)
+    password = Column(String(255), nullable=False)
+
+    def __repr__(self):
+        return f"<User(id={self.id}, username='{self.username}')>"
+
+class Action(Base):
+    __tablename__ = "actions"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    match_id = Column(Integer, ForeignKey("matches.id", ondelete="CASCADE"), nullable=False, index=True)
+    data = Column(JSONB, nullable=False)
+
+    match = relationship("Match", back_populates="actions")
+
+    __table_args__ = (Index("ix_actions_data_time",cast(data["Time"].astext, Integer)),)
+
+    def __repr__(self):
+        return f"<Action(id={self.id}, match_id={self.match_id})>"
+
 
 # --- Create all tables ---
 Base.metadata.create_all(bind=engine)

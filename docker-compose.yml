@@ -10,21 +10,7 @@ services:
     env_file:
       - ./.env.docker
     depends_on:
-      - mongo
       - postgres
-    networks:
-      - backend
-
-  mongo:
-    image: mongo:8.0.12
-    container_name: mongo_db
-    restart: always
-    ports:
-      - "27017:27017"
-    env_file:
-      - ./.env.docker
-    volumes:
-      - mongo_data:/data/db
     networks:
       - backend
 
@@ -46,7 +32,6 @@ services:
       - backend
 
 volumes:
-  mongo_data:
   postgres_data:
 
 networks:

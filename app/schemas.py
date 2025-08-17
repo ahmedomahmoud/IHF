@@ -21,7 +21,7 @@ class UserLogin(BaseModel):
 
 
 class UserOut(UserBase):
-    id: str
+    id: int
 
 
 # --- Token Models ---
@@ -134,9 +134,7 @@ class PlayerStatsOut(BaseModel):
     stats: Optional[Dict] = None
 
 
-class Action(BaseModel):
-    championship_id:int
-    match_id: int
+class ActionOut(BaseModel):
     Game: str
     Team: str
     Name: str

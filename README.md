@@ -1,6 +1,6 @@
 # IHF Championship Data Management System
 
-This project is a backend system designed to manage data for handball championships, including teams, players, matches, and detailed play-by-play actions. It utilizes a hybrid database approach to efficiently handle both structured relational data and high-volume, semi-structured event data.
+This project is a backend system designed to manage data for handball championships, including teams, players, matches, and detailed play-by-play actions. It leverages PostgreSQL as the single source of truth, combining structured relational data with flexible JSONB fields to store high-volume, semi-structured event data.
 
 ## Features
 
@@ -10,13 +10,12 @@ This project is a backend system designed to manage data for handball championsh
 *   **Match Management:** Store and retrieve match details, scores, and statistics.
 *   **Player Management:** Manage player information and their statistics within matches.
 *   **CP File Parsing:** Automated parsing of `.CP` files to extract championship, match, and detailed play-by-play action data.
-*   **Play-by-Play Actions:** Efficient storage and retrieval of granular match actions (e.g., goals, assists, fouls) in a NoSQL database.
+*   **Play-by-Play Actions:** Efficient storage and retrieval of granular match actions (e.g., goals, assists, fouls) 
 
 ## Technologies Used
 
 *   **Backend Framework:** FastAPI (Python)
 *   **Relational Database:** PostgreSQL
-*   **NoSQL Database:** MongoDB
 *   **ORM (Relational):** SQLAlchemy
 *   **Authentication:** JWT (JSON Web Tokens)
 *   **Environment Management:** `python-dotenv`
@@ -36,9 +35,6 @@ cd ihf
 Create a `.env` file in the root directory of the project based on the `.env.example` file. This file will contain your database connection strings and other sensitive information.
 
 ```ini
-MONGODB_URI=your_mongodb_uri
-MONGODB_DB=your_mongodb_db_name
-
 SECRET_KEY="your_secret_key"
 
 DB_HOST=your_db_host

@@ -2,12 +2,10 @@ from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 import schemas
 import utils
 import auth
-import manage_data.database
 from manage_data.parser import CpFileParser
 from manage_data.data_orm import Champ
-from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats , TeamInChamp
+from manage_data.orm import SessionLocal, Team, Championship, Match, Player, RefereeInMatch, PlayerStats , TeamInChamp, User, Action
 from sqlalchemy.orm import Session , joinedload
-from manage_data.PlayByPlay import action_page, checker, insert_actions 
 
 app = FastAPI()
 parser = CpFileParser()
@@ -20,34 +18,36 @@ def get_db():
         db.close()
 
 # --- REGISTER ---
-@app.post("/auth/register", status_code=201)
-async def register(user: schemas.UserCreate):
-    existing_user = await manage_data.database.user_collection.find_one({"username": user.username})
+@app.post("/auth/register", status_code=201, response_model=schemas.UserOut)
+def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    existing_user = db.query(User).filter(User.username == user.username).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already exists")
 
     hashed_pw = utils.hash_password(user.password)
 
-    new_user = {
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "username": user.username,
-        "password": hashed_pw
-    }
+    new_user = User(
+        first_name=user.first_name,
+        last_name=user.last_name,
+        username=user.username,
+        password=hashed_pw
+    )
 
-    result = await manage_data.database.user_collection.insert_one(new_user)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
 
-    return {"message": "User registered successfully", "user_id": str(result.inserted_id)}
+    return new_user
 
 
 # --- LOGIN ---
 @app.post("/auth/login", response_model=schemas.Token)
-async def login(login_data: schemas.UserLogin): # Changed from OAuth2PasswordRequestForm
-    user = await manage_data.database.user_collection.find_one({"username": login_data.username})
-    if not user or not utils.verify_password(login_data.password, user["password"]):
+def login(login_data: schemas.UserLogin, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == login_data.username).first()
+    if not user or not utils.verify_password(login_data.password, user.password):
         raise HTTPException(status_code=400, detail="Invalid username or password")
 
-    token = auth.create_access_token(data={"sub": user["username"]})
+    token = auth.create_access_token(data={"sub": user.username})
     return {"access_token": token, "token_type": "bearer"}
 
 
@@ -61,14 +61,8 @@ async def upload_cp_file(championship_id: int, file: UploadFile = File(...), cur
             raise HTTPException(status_code=404, detail=f"Championship '{championship_id}' not found.")
         file_content = await file.read()
         parsed_data = parser.parse(file_content,file.filename)
-        
         champ.process_data(parsed_data)
-        game_code = parsed_data["gameinfo"][0]["Game"]
-        match = db.query(Match).filter_by(game_code=game_code,championship_id =championship_id).first()
-        if not match:
-            raise HTTPException(status_code=404, detail=f"Match with game code '{game_code}' not found in championship '{championship_id}'.")
         
-        await insert_actions(parsed_data, match.id , championship_id)
         return {"message": f"File uploaded and processed for championship '{championship_id}' successfully. , new actions count: {len(parsed_data['actions'])}"}
     except HTTPException:
         raise
@@ -159,9 +153,6 @@ async def delete_championship(champ_id: int,current_user: schemas.UserOut = Depe
 
     db.delete(champ)
     db.commit()
-
-    # Delete associated actions from MongoDB
-    await manage_data.database.pbp_collection.delete_many({"championship_id": champ_id})
 
     return {"message": "Championship deleted successfully"}
 
@@ -309,8 +300,11 @@ def get_player_stats_in_match(match_id: int, team_id: int, player_id: int, db: S
         raise HTTPException(status_code=404, detail="Player stats not found for this player in this match")
     return player_stats
 
-@app.get("/matches/{match_id}/actions/page/{page_no}", response_model= list[schemas.Action])
-async def get_actions (match_id:int, page_no: int):
-    if not await checker(match_id):
+@app.get("/matches/{match_id}/actions/page/{page_no}", response_model= list[schemas.ActionOut])
+def get_actions (match_id:int, page_no: int,db: Session = Depends(get_db)):
+    match = db.query(Match).filter(Match.id == match_id).first()
+    if not match:
         raise HTTPException(status_code=404, detail="Match not found")
-    return await action_page(match_id, page_no)
+    skip_count = (page_no - 1) * 5
+    actions = db.query(Action).filter(Action.match_id == match_id).order_by(Action.data["Time"].desc()).offset(skip_count).limit(5).all()
+    return [schemas.ActionOut(**action.data) for action in actions]

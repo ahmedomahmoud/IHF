@@ -1,4 +1,4 @@
-from .orm import Team, Championship, TeamInChamp, Player, Match, Referee, RefereeInMatch, PlayerStats
+from .orm import Team, Championship, TeamInChamp, Player, Match, Referee, RefereeInMatch, PlayerStats, Action
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
@@ -442,7 +442,7 @@ class Champ:
         self._link_team_to_championship(team_b)
 
         # Add match
-        self._add_match(parsed_data)
+        match = self._add_match(parsed_data)
         
         # Insert referees
         self._insert_referees(parsed_data)
@@ -456,24 +456,62 @@ class Champ:
         # add match stats
         self._update_or_add_match_stats(parsed_data)
 
+        # Add actions
+        self.add_or_update_actions(parsed_data, match.id)
+    
 
     def _update_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Main method to update parsed data in the database."""
 
         # Update match score
-        self._update_match_score(parsed_data)
+        match=self._update_match_score(parsed_data)
 
         # Update match stats
         self._update_or_add_match_stats(parsed_data)
 
         # Update player stats
         self._update_player_stats(parsed_data)
-    
-    
+
+        # Add or update actions
+        self.add_or_update_actions(parsed_data, match.id)
+
     def process_data(self, parsed_data: dict[str,dict[str, str]]) -> None:
         """Process parsed data based on whether it has been processed before."""
         if self._parsed_before(parsed_data):
             self._update_data(parsed_data)
         else:
             self._add_data(parsed_data)
+
+    def add_or_update_actions(self, parsed_data: dict[str, dict[str, str]], match_id: int) -> None:
+   
+        actions_to_process = parsed_data["actions"]
+
+        # Define the list of fields to keep.
+        fields_to_store = [
+            'Game', 'Team', 'Name', 'Nr', 'Text', 'PLTime', 
+            'NoAct', 'Pos' ,'Time'                               
+        ]
+
+        for action_data in actions_to_process:
+            action_data["Time"] = self._pltime_to_sec(action_data["PLTime"])
+            filtered_data = {key: action_data.get(key, '') for key in fields_to_store}
+
+            existing = self.session.query(Action).filter(
+                Action.match_id == match_id,
+                Action.data['Pos'].astext == filtered_data['Pos']
+            ).first()
+
+            if existing:
+                existing.data = filtered_data
+            else:
+                self.session.add(Action(match_id=match_id, data=filtered_data))
+
+            self.session.commit()
+
+    def _pltime_to_sec(self, x: str) -> int:
+        s = str(x).strip()
+        if ":" not in s:
+            return 0
+        m, ss = s.split(":")
+        return int(m) * 60 + int(ss)
 
