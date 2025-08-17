@@ -1,6 +1,6 @@
 # IHF Championship Data Management System
 
-This project is a backend system designed to manage data for handball championships, including teams, players, matches, and detailed play-by-play actions. It leverages PostgreSQL as the single source of truth, combining structured relational data with flexible JSONB fields to store high-volume, semi-structured event data.
+This project is a backend system designed to manage data for handball championships, including teams, players, matches, and detailed play-by-play actions. It leverages PostgreSQL combining structured relational data with flexible JSONB fields to store high-volume, semi-structured event data.
 
 ## Features
 
@@ -81,7 +81,7 @@ To build and run the application using Docker, follow these steps:
 1.  **Build the Docker image:**
 
     ```bash
-    docker compose build .
+    docker compose build 
     ```
 
 ### Docker Compose
